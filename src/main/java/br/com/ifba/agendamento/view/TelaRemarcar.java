@@ -10,6 +10,7 @@ import br.com.ifba.agendamento.service.ServiceAgendamento;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,7 +24,7 @@ public class TelaRemarcar extends javax.swing.JFrame {
 
    
     private Calendar dataSelecionada;
-    private Calendar horaSelecionada;
+    private LocalTime horaSelecionada;
 
     private final IServiceAgendamento serviceAgendamento; // Certifique-se de injetar seu serviço aqui.
 
@@ -39,7 +40,7 @@ public class TelaRemarcar extends javax.swing.JFrame {
             int linhaSelecionada = jTable1.getSelectedRow();
             if (linhaSelecionada != -1) {
                 dataSelecionada = (Calendar) jTable1.getValueAt(linhaSelecionada, 0);
-                horaSelecionada = (Calendar) jTable1.getValueAt(linhaSelecionada, 1);
+                horaSelecionada = (LocalTime) jTable1.getValueAt(linhaSelecionada, 1);
             }
         }
     }
@@ -56,9 +57,9 @@ public class TelaRemarcar extends javax.swing.JFrame {
 
         for (Agendamento agendamento : agendamentos) {
             Calendar data = agendamento.getDataAgendamento();
-            Calendar hora = agendamento.getHoraAgendamento();
+            LocalTime hora = agendamento.getHoraAgendamento();
 
-            model.addRow(new Object[]{dateFormat.format(data.getTime()), timeFormat.format(hora.getTime())});
+            model.addRow(new Object[]{dateFormat.format(data.getTime()), timeFormat.format(hora.getHour())});
         }
     
     }

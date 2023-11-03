@@ -23,8 +23,7 @@ import lombok.Data;
 @Entity
 @Table(name="agendamento")
 @Data
-public class Agendamento extends PersistenceEntity implements Serializable{
-    
+public class Agendamento extends PersistenceEntity implements Serializable{ 
     @OneToOne(mappedBy = "agendamento")
     Paciente paciente;
     
@@ -34,5 +33,4 @@ public class Agendamento extends PersistenceEntity implements Serializable{
     
     @Column(name = "hora_agendamento")
     private LocalTime horaAgendamento;
-
 }
