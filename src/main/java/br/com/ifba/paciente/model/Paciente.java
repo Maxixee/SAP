@@ -21,9 +21,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Table(name = "paciente")
 @EqualsAndHashCode(callSuper = false)
-public class Paciente extends Aluno implements Serializable{
-    
+public class Paciente extends Aluno {
     @OneToOne
     private Agendamento agendamento;
-    
 }
