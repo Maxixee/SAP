@@ -4,15 +4,15 @@
  */
 package br.com.ifba.prontuario.model;
 
+import br.com.ifba.funcaoservidor.model.FuncaoServidor;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
+import br.com.ifba.paciente.model.Paciente;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Id;
 import java.io.Serializable;
-import org.springframework.beans.factory.annotation.Value;
+import javax.persistence.ManyToOne;
 /**
  *
  * @author Hiego
@@ -25,4 +25,9 @@ public class Prontuario extends PersistenceEntity implements Serializable{
     
     private Boolean ativo;
     private String descricao;
+    //Muitos prontuarios podem corresponder a um mesmo paciente
+    @ManyToOne
+    private Paciente paciente;
+    private FuncaoServidor psicologo;
+    //colocando as classes pacientes e psicologo para sincronizar com o resto do codigo
 }
