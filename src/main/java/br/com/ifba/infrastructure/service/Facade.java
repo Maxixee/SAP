@@ -79,6 +79,21 @@ public class Facade implements IFacade {
         servicePaciente.savePaciente(paciente);
     }
     
+    @Override
+    public List<Paciente> getAllPaciente() {
+        return servicePaciente.getAllPaciente();
+    }
+    
+    @Override
+    public Paciente findByIdPaciente(Long id){
+        return servicePaciente.findById(id);
+    }
+    
+    @Override
+    public Paciente updatePaciente(Paciente paciente){
+        return servicePaciente.updatePaciente(paciente);
+    }
+    
     //=====================AGENDAMENTO=====================
     @Override
     public void saveDataAgendamento(Agendamento agendamento){
