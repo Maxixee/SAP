@@ -4,6 +4,7 @@
  */
 package br.com.ifba.paciente.view;
 
+import br.com.ifba.TelaDeTestes;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.paciente.model.Paciente;
@@ -11,6 +12,7 @@ import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
 import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,6 +25,9 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     private IFacade facade;
     @Autowired
     private TelaExibirSolicitacoes telaExibirSolicitacoes;
+    @Autowired @Lazy
+    private TelaDeTestes telaTestes;
+    
     /**
      * Creates new form TelaPacienteSolicitacao
      */
@@ -53,8 +58,9 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtMatricula = new javax.swing.JTextField();
-        btnGerenciar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         btnSubmeter = new javax.swing.JButton();
+        btnGerenciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,10 +77,10 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             }
         });
 
-        btnGerenciar.setText("Gerenciar");
-        btnGerenciar.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerenciarActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -85,27 +91,35 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             }
         });
 
+        btnGerenciar.setText("Gerenciar");
+        btnGerenciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerenciarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtNome))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNome))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMatricula))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSubmeter, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -124,6 +138,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmeter, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
@@ -135,12 +150,11 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
         
     }//GEN-LAST:event_txtMatriculaActionPerformed
 
-    private void btnGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
-        this.telaExibirSolicitacoes.inserirDadosTela();
-        this.telaExibirSolicitacoes.setVisible(true);
+        this.telaTestes.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnGerenciarActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnSubmeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmeterActionPerformed
         // TODO add your handling code here:
@@ -169,6 +183,13 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSubmeterActionPerformed
+
+    private void btnGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarActionPerformed
+        // TODO add your handling code here:
+        this.telaExibirSolicitacoes.inserirDadosTela();
+        this.telaExibirSolicitacoes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnGerenciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,6 +229,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerenciar;
     private javax.swing.JButton btnSubmeter;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
