@@ -5,6 +5,7 @@ import br.com.ifba.paciente.view.TelaCadastroPaciente;
 
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.view.TelaExibirPacientes;
+import br.com.ifba.paciente.view.TelaPacienteSolicitacao;
 import br.com.ifba.prontuario.view.ListaProntuarios;
 import br.com.ifba.prontuario.view.ProntuarioView;
 
@@ -37,6 +38,10 @@ public class TelaDeTestes extends javax.swing.JFrame {
     
     @Autowired
     private TelaExibirPacientes telaExibirPacientes;
+
+    @Autowired
+    private TelaPacienteSolicitacao telaPacienteSolicitacao;
+
     
     public TelaDeTestes() {
         initComponents();
@@ -74,6 +79,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
         btn09.setBackground(new java.awt.Color(0, 0, 0));
         btn09.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn09.setForeground(new java.awt.Color(255, 255, 255));
+        btn09.setText("PACIENTE SOLICIT.");
         btn09.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn09ActionPerformed(evt);
@@ -225,7 +231,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn09ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn09ActionPerformed
-        
+        this.telaPacienteSolicitacao.setVisible(true);
     }//GEN-LAST:event_btn09ActionPerformed
 
     private void btn05ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn05ActionPerformed
