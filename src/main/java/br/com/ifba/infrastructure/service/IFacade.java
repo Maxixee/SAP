@@ -8,6 +8,7 @@ package br.com.ifba.infrastructure.service;
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.prontuario.model.Prontuario;
+import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.teste.model.Teste;
 import java.util.List;
 
@@ -17,6 +18,10 @@ import java.util.List;
  * @author clebinho
  */
 public interface IFacade {
+    //=====================SOLICITACAO=====================
+    public void saveSolicitacao(Solicitacao solicitacao); 
+    public List<Solicitacao> getAllSolicitacao(); 
+    public void removeSolicitacao(Long value);
     //=====================TESTE=====================
     public abstract void saveTeste(Teste teste);
     public List<Teste> findAll();

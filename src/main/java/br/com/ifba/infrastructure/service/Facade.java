@@ -10,6 +10,8 @@ import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.paciente.service.IServicePaciente;
 import br.com.ifba.prontuario.model.Prontuario;
 import br.com.ifba.prontuario.service.IServiceProntuario;
+import br.com.ifba.solicitacao.model.Solicitacao;
+import br.com.ifba.solicitacao.service.IServiceSolicitacao;
 import br.com.ifba.teste.model.Teste;
 import br.com.ifba.teste.service.IServiceTeste;
 import java.util.List;
@@ -22,19 +24,32 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class Facade implements IFacade {
-
     @Autowired
     private IServiceTeste serviceTeste;
     @Autowired
     private IServicePaciente servicePaciente;
     @Autowired
-    private IServiceProntuario serviceProntuario;
-    
+    private IServiceProntuario serviceProntuario;  
     @Autowired
     private IServiceAgendamento serviceAgendamento;
+    @Autowired
+    private IServiceSolicitacao serviceSolicitacao;
     
+    //=====================SOLICITACAO=====================
+    @Override
+    public void saveSolicitacao(Solicitacao solicitacao) {
+        serviceSolicitacao.saveSolicitacao(solicitacao);
+    }
     
-
+    @Override
+    public List<Solicitacao> getAllSolicitacao() {
+        return serviceSolicitacao.getAllSolicitacao();
+    }
+    
+    @Override
+    public void removeSolicitacao(Long value){
+        serviceSolicitacao.removeSolicitacao(value);
+    }
     //=====================TESTE=====================
     @Override
     public void saveTeste(Teste teste) {

@@ -6,6 +6,8 @@ package br.com.ifba.paciente.model;
 
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.aluno.model.Aluno;
+import br.com.ifba.pessoa.model.Pessoa;
+import br.com.ifba.solicitacao.model.Solicitacao;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -21,7 +23,18 @@ import lombok.EqualsAndHashCode;
 @Data
 @Table(name = "paciente")
 @EqualsAndHashCode(callSuper = false)
-public class Paciente extends Aluno {
+public class Paciente extends Aluno implements Serializable{
     @OneToOne
     private Agendamento agendamento;
+    
+    public Solicitacao solicitarAgendamento(String nome, String matricula) {
+        Solicitacao solicitacao = new Solicitacao();
+        solicitacao.setPaciente(this); // Define o paciente que está solicitando o agendamento
+        solicitacao.setNome(nome);
+        solicitacao.setMatricula(matricula);
+        
+        // Outras configurações da solicitação, se necessário
+        
+        return solicitacao;
+    }
 }
