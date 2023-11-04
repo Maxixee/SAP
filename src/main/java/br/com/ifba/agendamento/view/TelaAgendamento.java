@@ -21,6 +21,7 @@ import java.time.LocalTime;
 import com.github.lgooddatepicker.components.TimePicker;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import org.springframework.context.annotation.Lazy;
 
 
 /**
@@ -46,17 +47,19 @@ public class TelaAgendamento extends javax.swing.JFrame {
     }
     
     private void preencherTable() {
-      DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-      model.setRowCount(0); // Clear the existing rows
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Clear the existing rows
 
         List<Agendamento> agendamentoList = facade.getAllAgendamento();
-        
-        for (Agendamento agendamento : agendamentoList) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            String theDate = dateFormat.format(agendamento.getDataAgendamento().getTime());
-            String theTime = agendamento.getHoraAgendamento().toString();
 
-            model.addRow(new Object[]{theDate, theTime});
+        for(Agendamento agendamento : agendamentoList) {
+            if(agendamento.getDataAgendamento() != null) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String theDate = dateFormat.format(agendamento.getDataAgendamento().getTime());
+                String theTime = agendamento.getHoraAgendamento().toString();
+
+                model.addRow(new Object[]{theDate, theTime});
+            }
         }
     }
 
