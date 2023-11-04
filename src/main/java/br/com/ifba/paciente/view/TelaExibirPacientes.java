@@ -7,6 +7,7 @@ package br.com.ifba.paciente.view;
 import br.com.ifba.TelaDeTestes;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
+import br.com.ifba.prontuario.view.ProntuarioView;
 import java.awt.HeadlessException;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,17 +20,19 @@ import org.springframework.stereotype.Component;
  *
  * @author hcesa
  */
-
 @Component
 public class TelaExibirPacientes extends javax.swing.JFrame {
-    
+
     @Autowired
     private IFacade facade;
-    
+
     @Autowired
     private TelaEdicaoPaciente telaEdicao;
-    
+
     private List<Paciente> pacientes;
+
+    @Autowired
+    private ProntuarioView prontuarioView;
 
     /**
      * Creates new form TelaExibirPacientes
@@ -41,7 +44,7 @@ public class TelaExibirPacientes extends javax.swing.JFrame {
         // Fecha a tela sem encerrar todo o sistema
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-    
+
     // Método para atualizar a tabela na view
     @PostConstruct
     public void atualizarTabela() {
@@ -55,7 +58,7 @@ public class TelaExibirPacientes extends javax.swing.JFrame {
 
         DefaultTableModel tabelaDados = (DefaultTableModel) tblTabela.getModel();
         tabelaDados.setNumRows(0);
-        
+
         // Adiciona à tabela todos os pacientes
         for (Paciente paciente : pacientes) {
             tabelaDados.addRow(new Object[]{
@@ -83,6 +86,7 @@ public class TelaExibirPacientes extends javax.swing.JFrame {
         tblTabela = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
+        btnProntuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +117,13 @@ public class TelaExibirPacientes extends javax.swing.JFrame {
             }
         });
 
+        btnProntuario.setText("Criar Prontuario");
+        btnProntuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProntuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,6 +135,8 @@ public class TelaExibirPacientes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(223, 223, 223)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(btnProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -138,7 +151,9 @@ public class TelaExibirPacientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProntuario, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
@@ -180,6 +195,20 @@ public class TelaExibirPacientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProntuarioActionPerformed
+        int index = tblTabela.getSelectedRow();
+
+        if (index == - 1) {
+            JOptionPane.showMessageDialog(null, "Não há linha selecionada, tente novamente.",
+                    "Erro ao selecionar linha!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        long id = (long) tblTabela.getValueAt(index, 0);
+        Paciente selecionado = this.facade.findByIdPaciente(id);
+        this.prontuarioView.setPaciente(selecionado);
+        this.prontuarioView.setVisible(true);
+    }//GEN-LAST:event_btnProntuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -218,6 +247,7 @@ public class TelaExibirPacientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnProntuario;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTabela;
     // End of variables declaration//GEN-END:variables

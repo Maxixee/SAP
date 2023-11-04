@@ -138,6 +138,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
         btn02.setBackground(new java.awt.Color(0, 0, 0));
         btn02.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn02.setForeground(new java.awt.Color(255, 255, 255));
+        btn02.setText("LISTA PACIENTES");
         btn02.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn02ActionPerformed(evt);
@@ -256,7 +257,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn08ActionPerformed
 
     private void btn02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn02ActionPerformed
-
+        this.telaExibirPacientes.setVisible(true);
     }//GEN-LAST:event_btn02ActionPerformed
 
     private void btn04ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn04ActionPerformed

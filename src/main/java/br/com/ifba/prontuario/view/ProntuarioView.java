@@ -5,6 +5,7 @@
 package br.com.ifba.prontuario.view;
 
 import br.com.ifba.infrastructure.service.IFacade;
+import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.prontuario.model.Prontuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProntuarioView extends javax.swing.JFrame {
     //inicia as variaveis que vão ser utilizadas
+    Paciente pac;
     @Autowired
     private IFacade facade;
     Prontuario prontuario = new Prontuario();
@@ -26,6 +28,10 @@ public class ProntuarioView extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void setPaciente(Paciente paciente){
+        this.pac = paciente;
+        lblPacienteNome.setText(this.pac.getNome());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,15 +42,17 @@ public class ProntuarioView extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lbl2 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
         txtDescricao = new javax.swing.JTextField();
+        lbl1 = new javax.swing.JLabel();
+        lblPacienteNome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("TELA DE PRONTUÁRIO");
 
-        jLabel3.setText("Descrição:");
+        lbl2.setText("Descrição:");
 
         btnSubmit.setText("SUBMETER");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -53,6 +61,8 @@ public class ProntuarioView extends javax.swing.JFrame {
             }
         });
 
+        lbl1.setText("Prontuario do Paciente:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,35 +70,41 @@ public class ProntuarioView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel3)
-                        .addGap(22, 22, 22)
-                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addComponent(lbl2)
+                        .addGap(36, 36, 36)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(19, 19, 19)
+                            .addComponent(lbl1)
+                            .addGap(18, 18, 18)
+                            .addComponent(lblPacienteNome, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(128, 128, 128)
+                            .addComponent(jLabel1))))
+                .addContainerGap(94, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnSubmit)
-                .addGap(100, 100, 100))
+                .addGap(165, 165, 165))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSubmit)
-                        .addGap(42, 42, 42))))
+                    .addComponent(lbl1)
+                    .addComponent(lblPacienteNome, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .addComponent(lbl2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSubmit)
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -98,7 +114,7 @@ public class ProntuarioView extends javax.swing.JFrame {
         // TODO add your handling code here:
         //pega as informações da tela e joga no banco
         prontuario.setDescricao(txtDescricao.getText());
-        //prontuario.setId(txtId.getText());
+        prontuario.setPaciente(pac);
         this.facade.saveProntuario(prontuario);
         this.setVisible(false);
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -141,7 +157,9 @@ public class ProntuarioView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lbl1;
+    private javax.swing.JLabel lbl2;
+    private javax.swing.JLabel lblPacienteNome;
     private javax.swing.JTextField txtDescricao;
     // End of variables declaration//GEN-END:variables
 }
