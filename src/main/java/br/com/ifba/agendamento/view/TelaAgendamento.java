@@ -31,7 +31,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
     
-    @Autowired
+   // @Autowired
     private TimePicker timePicker2;
     
     
