@@ -14,7 +14,7 @@ import java.util.List;
 public interface IServiceAgendamento {
     public void saveDataAgendamento(Agendamento agendamento);
     public abstract List<Agendamento>getAllAgendamento();
-    public abstract void deleteAgendamento(Agendamento agendamento);
+    public abstract boolean deleteAgendamento(Agendamento agendamento);
     public void updateAgendamento(Agendamento agendamento);
     public Agendamento findById(Long id);
 }

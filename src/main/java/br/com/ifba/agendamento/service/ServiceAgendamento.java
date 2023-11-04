@@ -52,8 +52,9 @@ public class ServiceAgendamento implements IServiceAgendamento{
         }
     
     @Override
-    public void deleteAgendamento(Agendamento agendamento) {
+    public boolean deleteAgendamento(Agendamento agendamento) {
         this.daoAgendamento.delete(agendamento);
+        return true;
         }
     
     @Override
