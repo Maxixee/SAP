@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import com.github.lgooddatepicker.components.TimePicker;
-import com.github.lgooddatepicker.components.DatePicker;
 
 
 /**
@@ -31,6 +30,10 @@ import com.github.lgooddatepicker.components.DatePicker;
 public class TelaAgendamento extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
+    
+    @Autowired
+    private TimePicker timePicker2;
+    
     
     /**
      * Creates new form TelaAgendamento
@@ -57,7 +60,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        timePicker2 = new com.github.lgooddatepicker.components.TimePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,6 +72,8 @@ public class TelaAgendamento extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Data do atendimento : ");
+
+        txtData.setDateFormatString("dd/MM/yyyy");
 
         btnAdicionar.setText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,9 +118,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtData, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
-                            .addComponent(timePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -141,9 +143,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(timePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,7 +168,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
     
-         Date dataSelecionada = txtData.getDate();
+        Date dataSelecionada = txtData.getDate();
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String timePickerValue = timePicker2.getText();
@@ -240,14 +240,12 @@ public class TelaAgendamento extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         try {
-         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-         
-        int seectedRow = jTable1.getSelectedRow();   
-         Date date = new SimpleDateFormat("dd-MM-yyyy").parse((String)model.getValueAt(seectedRow, 0).toString());  
-         txtData.setDate(date);
+            DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+            int seectedRow = jTable1.getSelectedRow();   
+            Date date = new SimpleDateFormat("dd-MM-yyyy").parse((String)model.getValueAt(seectedRow, 0).toString());  
+            txtData.setDate(date);
         } catch (ParseException ex) {
-         Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
-        
+            Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -296,7 +294,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private com.github.lgooddatepicker.components.TimePicker timePicker2;
     private com.toedter.calendar.JDateChooser txtData;
     // End of variables declaration//GEN-END:variables
 }

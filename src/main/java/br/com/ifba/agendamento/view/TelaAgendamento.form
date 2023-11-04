@@ -50,10 +50,7 @@
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtData" pref="173" max="32767" attributes="0"/>
-                              <Component id="timePicker2" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txtData" min="-2" pref="173" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -87,10 +84,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="timePicker2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jLabel3" min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="btnSalvar" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="35" max="32767" attributes="0"/>
@@ -118,6 +112,9 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="txtData">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnAdicionar">
           <Properties>
@@ -178,8 +175,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Horario do atendimento : "/>
           </Properties>
-        </Component>
-        <Component class="com.github.lgooddatepicker.components.TimePicker" name="timePicker2">
         </Component>
       </SubComponents>
     </Container>
