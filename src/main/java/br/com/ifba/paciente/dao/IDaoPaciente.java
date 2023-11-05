@@ -7,6 +7,7 @@ package br.com.ifba.paciente.dao;
 import br.com.ifba.paciente.model.Paciente;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,5 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IDaoPaciente extends JpaRepository<Paciente, Long>{
     
+    @Query("SELECT p FROM Paciente p WHERE p.nome LIKE %:nome%")
     public List<Paciente> findByNomeLike(String nome);
 }
