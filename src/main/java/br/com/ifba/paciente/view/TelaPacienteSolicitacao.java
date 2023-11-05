@@ -11,6 +11,7 @@ import br.com.ifba.perfilusuario.model.PerfilUsuario;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -30,6 +31,12 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     
     private List<Paciente> pacientes;
     
+    @PostConstruct
+    public void init() {
+        preencheComboBoxNome();
+        preencheComboBoxMatricula();
+    }
+    
     public TelaPacienteSolicitacao() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -37,7 +44,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     }
     
     public void preencheComboBoxNome() {
-        List<Paciente> pacientes = facade.getAllPaciente();
+        pacientes = facade.getAllPaciente();
         DefaultComboBoxModel combo = (DefaultComboBoxModel) cbxNome.getModel();
         combo.removeAllElements();
         
@@ -47,7 +54,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     }
     
     public void preencheComboBoxMatricula() {
-        List<Paciente> pacientes = facade.getAllPaciente();
+        pacientes = facade.getAllPaciente();
         DefaultComboBoxModel combo = (DefaultComboBoxModel) cbxMatricula.getModel();
         combo.removeAllElements();
         
@@ -108,6 +115,16 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
         cbxMatricula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cbxNome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxNomeMouseClicked(evt);
+            }
+        });
+        cbxNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxNomeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,7 +137,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnSubmeter, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                             .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +147,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cbxMatricula, 0, 185, Short.MAX_VALUE)
                                 .addComponent(cbxNome, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +166,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmeter, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -189,6 +206,28 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSubmeterActionPerformed
+
+    private void cbxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeActionPerformed
+        Object selectedValue = cbxNome.getSelectedItem();
+        
+        DefaultComboBoxModel combo = (DefaultComboBoxModel) cbxMatricula.getModel();
+        combo.removeAllElements();
+
+        if (selectedValue != null) {
+            String selecionado = selectedValue.toString();
+            pacientes = facade.findByNome(selecionado);
+
+            if (!pacientes.isEmpty()) {
+                Paciente pacienteSelecionado = pacientes.get(0);
+                combo.addElement(pacienteSelecionado.getMatricula());
+            }
+        }
+        
+    }//GEN-LAST:event_cbxNomeActionPerformed
+
+    private void cbxNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxNomeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxNomeMouseClicked
 
     /**
      * @param args the command line arguments
