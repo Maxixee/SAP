@@ -7,9 +7,11 @@ package br.com.ifba.paciente.view;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.infrastructure.support.StringUtil;
 import br.com.ifba.paciente.model.Paciente;
+import br.com.ifba.perfilusuario.model.PerfilUsuario;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,30 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     
     private List<Paciente> pacientes;
     
-    
-    
     public TelaPacienteSolicitacao() {
         initComponents();
-        listaPacientes.setVisible(false);
+        this.setLocationRelativeTo(null);
 //        modeloLista = new DefaultListModel();
+    }
+    
+    public void preencheComboBoxNome() {
+        List<Paciente> pacientes = facade.getAllPaciente();
+        DefaultComboBoxModel combo = (DefaultComboBoxModel) cbxNome.getModel();
+        combo.removeAllElements();
+        
+        for (Paciente paciente: pacientes) {
+            combo.addElement(paciente.getNome());
+        }
+    }
+    
+    public void preencheComboBoxMatricula() {
+        List<Paciente> pacientes = facade.getAllPaciente();
+        DefaultComboBoxModel combo = (DefaultComboBoxModel) cbxMatricula.getModel();
+        combo.removeAllElements();
+        
+        for (Paciente paciente: pacientes) {
+            combo.addElement(paciente.getMatricula());
+        }
     }
 
     private boolean validarCampos(Solicitacao solicitacao) {
@@ -44,7 +64,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
          }
          
         return true;
-     }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,14 +74,13 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        listaPacientes = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
-        txtMatricula = new javax.swing.JTextField();
         btnGerenciar = new javax.swing.JButton();
         btnSubmeter = new javax.swing.JButton();
+        cbxMatricula = new javax.swing.JComboBox<>();
+        cbxNome = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,21 +90,6 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
         jLabel2.setText("Nome:");
 
         jLabel3.setText("Matricula:");
-
-        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtNomeKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNomeKeyReleased(evt);
-            }
-        });
-
-        txtMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMatriculaActionPerformed(evt);
-            }
-        });
 
         btnGerenciar.setText("Gerenciar");
         btnGerenciar.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +105,10 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             }
         });
 
+        cbxMatricula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbxNome.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,20 +117,20 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSubmeter, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
-                        .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listaPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(290, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnSubmeter, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                            .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cbxMatricula, 0, 185, Short.MAX_VALUE)
+                                .addComponent(cbxNome, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,26 +140,20 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listaPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(cbxNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                    .addComponent(cbxMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmeter, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatriculaActionPerformed
-        
-    }//GEN-LAST:event_txtMatriculaActionPerformed
 
     private void btnGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarActionPerformed
         // TODO add your handling code here:
@@ -162,16 +164,13 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
 
     private void btnSubmeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmeterActionPerformed
         // TODO add your handling code here:
-        String nome = txtNome.getText();
-        String matricula = txtMatricula.getText();
+        String nome = cbxNome.getSelectedItem().toString();
+        String matricula = cbxMatricula.getSelectedItem().toString();
 
         Paciente paciente = new Paciente();
         paciente.setNome(nome);
         paciente.setMatricula(matricula);
         
-        Solicitacao solicit = new Solicitacao();
-//        solicit.setPaciente();
-                
         Solicitacao solicitacao = paciente.solicitarAgendamento(nome, matricula);
 
         if (this.validarCampos(solicitacao) == false) {
@@ -180,7 +179,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 "Preencha os Campos!", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-
+      
         try {
             facade.saveSolicitacao(solicitacao);
             this.telaExibirSolicitacoes.setVisible(true);
@@ -190,71 +189,6 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSubmeterActionPerformed
-
-    private void txtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyReleased
-        String pesquisar = txtNome.getText();
-        
-        DefaultListModel modeloLista = new DefaultListModel();
-        
-        listaPacientes.setModel(modeloLista);
-        
-        try {
-            this.pacientes = this.facade.findByNome(pesquisar);
-        } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, error,
-                    "Erro ao buscar pacientes!", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        int cont = 0;
-        
-        for (Paciente paciente : pacientes) {
-            modeloLista.addElement(
-                paciente.getNome()
-            );
-            cont++;
-        } 
-        
-        if(cont > 0){
-            listaPacientes.setVisible(true);
-        }
-        else{
-            listaPacientes.setVisible(false);
-        }
-        
-    }//GEN-LAST:event_txtNomeKeyReleased
-
-    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-        String pesquisar = txtNome.getText();
-        
-        DefaultListModel modeloLista = new DefaultListModel();
-        
-        listaPacientes.setModel(modeloLista);
-        
-        try {
-            this.pacientes = this.facade.findByNome(pesquisar);
-        } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, error,
-                    "Erro ao buscar pacientes!", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        int cont = 0;
-        
-        for (Paciente paciente : pacientes) {
-            modeloLista.addElement(
-                paciente.getNome()
-            );
-            cont++;
-        }
-        
-        if(cont > 0){
-            listaPacientes.setVisible(true);
-        }
-        else{
-            listaPacientes.setVisible(false);
-        }
-    }//GEN-LAST:event_txtNomeKeyPressed
 
     /**
      * @param args the command line arguments
@@ -294,11 +228,10 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerenciar;
     private javax.swing.JButton btnSubmeter;
+    private javax.swing.JComboBox<String> cbxMatricula;
+    private javax.swing.JComboBox<String> cbxNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> listaPacientes;
-    private javax.swing.JTextField txtMatricula;
-    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
