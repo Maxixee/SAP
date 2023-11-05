@@ -15,4 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IDaoPaciente extends JpaRepository<Paciente, Long>{
+    
+    public List<Paciente> findByNomeLike(String nome);
 }

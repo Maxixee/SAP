@@ -31,6 +31,7 @@ public interface IFacade {
     public abstract List<Paciente> getAllPaciente();
     public Paciente findByIdPaciente(Long id);
     public abstract Paciente updatePaciente(Paciente paciente);
+    public List <Paciente> findByNome(String nome);
     
     //=====================PRONTUARIO=====================
     public void saveProntuario(Prontuario prontuario);

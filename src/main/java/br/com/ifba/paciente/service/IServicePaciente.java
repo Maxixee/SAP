@@ -18,6 +18,8 @@ public interface IServicePaciente {
     
     public Paciente findById(Long id);
     
+    List <Paciente> findByNome(String nome);
+    
     public abstract Paciente updatePaciente(Paciente paciente);
     
 }

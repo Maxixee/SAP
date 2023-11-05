@@ -60,5 +60,12 @@ public class ServicePaciente implements IServicePaciente {
         }
         return daoPaciente.save(paciente);
     }
+    
+    @Override
+    public List<Paciente> findByNome(String nome) {
+        return daoPaciente.findByNomeLike(nome);
+//        return daoPaciente.findBy(example, queryFunction)
+
+    }
 
 }

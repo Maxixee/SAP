@@ -50,6 +50,9 @@ public class Facade implements IFacade {
     public void removeSolicitacao(Long value){
         serviceSolicitacao.removeSolicitacao(value);
     }
+    
+    
+    
     //=====================TESTE=====================
     @Override
     public void saveTeste(Teste teste) {
@@ -109,6 +112,11 @@ public class Facade implements IFacade {
         return servicePaciente.updatePaciente(paciente);
     }
     
+    @Override
+    public List<Paciente> findByNome(String nome) {
+       return  servicePaciente.findByNome(nome);
+    }
+    
     //=====================AGENDAMENTO=====================
     @Override
     public void saveDataAgendamento(Agendamento agendamento){
@@ -134,6 +142,8 @@ public class Facade implements IFacade {
     public Agendamento findAgendamentoById(Long id) {
         return serviceAgendamento.findById(id);
     }
+
+    
    
 
 }
