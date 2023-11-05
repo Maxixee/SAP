@@ -250,7 +250,6 @@ public class TelaDeTestes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn06ActionPerformed
 
     private void btn03ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn03ActionPerformed
-
         this.telaCadastro.setVisible(true);
     }//GEN-LAST:event_btn03ActionPerformed
 

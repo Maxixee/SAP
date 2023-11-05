@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,8 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TelaExibirPacientes extends javax.swing.JFrame {
-
-    @Autowired
+    @Autowired 
     private IFacade facade;
 
     @Autowired
