@@ -6,7 +6,9 @@ package br.com.ifba.paciente.view;
 
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
+import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 /*import br.com.ifba.paciente.view.TelaConsultasPaciente;*/
 
@@ -21,6 +23,9 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     private IFacade facade;
     
     private Paciente paciente = new Paciente();
+    
+    @Autowired
+    private TelaExibirPacientes telaExibirPacientes;
     /**
      * Creates new form TelaCadastroPaciente
      */
@@ -190,17 +195,16 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         
         this.facade.savePaciente(paciente);
 
-        TelaConsultasPaciente telaConsultasPacientes = new TelaConsultasPaciente();
-        telaConsultasPacientes.adicionarPacienteATabela(nome, matricula);
+        telaExibirPacientes.setVisible(true);
+        telaExibirPacientes.atualizarTabela();
         
         this.dispose();
-
     }//GEN-LAST:event_btnCadActionPerformed
 
     private void btnGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarActionPerformed
-        //
-        TelaConsultasPaciente telaConsultasPacientes = new TelaConsultasPaciente();
-        telaConsultasPacientes.setVisible(true);
+        // TODO add your handling code here:
+        telaExibirPacientes.setVisible(true);
+        telaExibirPacientes.atualizarTabela();
         this.dispose(); // Fecha a tela atual   
 
     }//GEN-LAST:event_btnGerenciarActionPerformed
