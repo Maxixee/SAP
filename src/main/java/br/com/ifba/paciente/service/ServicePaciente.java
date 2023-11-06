@@ -62,9 +62,18 @@ public class ServicePaciente implements IServicePaciente {
     }
     
     @Override
-    public List<Paciente> findByNome(String nome) {
+    public List<Paciente> findByNomeLike(String nome) {
         return daoPaciente.findByNomeLike(nome);
-//        return daoPaciente.findBy(example, queryFunction)
+    }
+    
+    @Override
+    public List<Paciente> findByNome(String nome) {
+        return daoPaciente.findByNome(nome);
+    }
+    
+    @Override
+    public List<Paciente> findByMatricula(String nome) {
+        return daoPaciente.findByMatricula(nome);
 
     }
 

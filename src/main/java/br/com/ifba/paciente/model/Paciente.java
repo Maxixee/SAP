@@ -30,8 +30,8 @@ public class Paciente extends Aluno implements Serializable{
     public Solicitacao solicitarAgendamento(String nome, String matricula) {
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setPaciente(this); // Define o paciente que está solicitando o agendamento
-        solicitacao.setNome(nome);
-        solicitacao.setMatricula(matricula);
+        solicitacao.setNomePaciente(nome);
+        solicitacao.setMatriculaPaciente(matricula);
         
         // Outras configurações da solicitação, se necessário
         

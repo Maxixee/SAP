@@ -19,4 +19,8 @@ public interface IDaoPaciente extends JpaRepository<Paciente, Long>{
     
     @Query("SELECT p FROM Paciente p WHERE p.nome LIKE %:nome%")
     public List<Paciente> findByNomeLike(String nome);
+
+    public List<Paciente> findByNome(String nome);
+
+    public List<Paciente> findByMatricula(String nome);
 }

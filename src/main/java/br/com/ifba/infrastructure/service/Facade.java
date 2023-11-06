@@ -113,8 +113,18 @@ public class Facade implements IFacade {
     }
     
     @Override
+    public List<Paciente> findByNomeLike(String nome) {
+       return  servicePaciente.findByNomeLike(nome);
+    }
+    
+    @Override
     public List<Paciente> findByNome(String nome) {
        return  servicePaciente.findByNome(nome);
+    }
+    
+    @Override
+    public List<Paciente> findByMatricula(String nome) {
+       return  servicePaciente.findByMatricula(nome);
     }
     
     //=====================AGENDAMENTO=====================

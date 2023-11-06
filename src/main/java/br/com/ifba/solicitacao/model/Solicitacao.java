@@ -7,10 +7,15 @@ package br.com.ifba.solicitacao.model;
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.infrastructure.model.PersistenceEntity;
 import br.com.ifba.paciente.model.Paciente;
+import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -18,14 +23,16 @@ import lombok.Data;
  */
 @Entity
 @Table(name="solicitacao")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class Solicitacao extends PersistenceEntity {
+public class Solicitacao extends PersistenceEntity implements Serializable {
     @Transient
-    private Paciente paciente = new Paciente();
+    @JoinColumn
+    @OneToOne
+    private Paciente paciente;
     
-    private String nome;
-    private String matricula;
+    private String NomePaciente;
+    private String MatriculaPaciente;
     
-    public Solicitacao() {
-    }
 }

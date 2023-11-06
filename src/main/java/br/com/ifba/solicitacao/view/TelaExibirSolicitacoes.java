@@ -33,7 +33,7 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
     
     public void inserirDadosTela(){ // preenche a tabela com os dados do BD
         for(Solicitacao solicitacao : facade.getAllSolicitacao()){
-            Object[] solicitacoes = {solicitacao.getId(), solicitacao.getNome(), solicitacao.getMatricula()};
+            Object[] solicitacoes = {solicitacao.getId(), solicitacao.getNomePaciente(), solicitacao.getMatriculaPaciente()};
             DefaultTableModel dtmUsuarios = (DefaultTableModel) TelaExibirSolicitacoes.this.getTblSolicitacoes().getModel();
             dtmUsuarios.addRow(solicitacoes);
         }  

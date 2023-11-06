@@ -31,6 +31,8 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     
     private List<Paciente> pacientes;
     
+    Solicitacao solicitacao = new Solicitacao();
+    
     @PostConstruct
     public void init() {
         preencheComboBoxNome();
@@ -65,8 +67,8 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
 
     private boolean validarCampos(Solicitacao solicitacao) {
          StringUtil validacao = StringUtil.getInstance();
-         if(validacao.isEmpty(solicitacao.getNome()) ||
-            validacao.isEmpty(solicitacao.getMatricula())) {
+         if(validacao.isEmpty(solicitacao.getNomePaciente()) ||
+            validacao.isEmpty(solicitacao.getMatriculaPaciente())) {
             return false;
          }
          
@@ -181,6 +183,29 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
 
     private void btnSubmeterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmeterActionPerformed
         // TODO add your handling code here:
+        
+        Object selectedMatricula = cbxMatricula.getSelectedItem();
+        
+
+        if (selectedMatricula != null) {
+            String matricula = selectedMatricula.toString();
+            pacientes = facade.findByMatricula(matricula);
+            if (!pacientes.isEmpty()) {
+                Paciente pacienteSelecionado = pacientes.get(0);
+                try {
+                    solicitacao.setNomePaciente(pacienteSelecionado.getNome());
+                    solicitacao.setMatriculaPaciente(pacienteSelecionado.getMatricula());
+                    this.facade.saveSolicitacao(solicitacao);
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(null, error, "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+
+        this.dispose();
+        
+        
+        /*
         String nome = cbxNome.getSelectedItem().toString();
         String matricula = cbxMatricula.getSelectedItem().toString();
 
@@ -205,6 +230,8 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, error,
                 "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
         }
+        
+        */
     }//GEN-LAST:event_btnSubmeterActionPerformed
 
     private void cbxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeActionPerformed
