@@ -5,6 +5,7 @@
 package br.com.ifba.prontuario.view;
 
 import br.com.ifba.infrastructure.service.IFacade;
+import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.prontuario.model.Prontuario;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -38,7 +39,10 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
         tabelaDados.setNumRows(0);
 
         for (Prontuario prontuario : prontuarios) {
-            tabelaDados.addRow(new Object[]{prontuario.getId(), prontuario.getAtivo(),
+            Paciente paciente = prontuario.getPaciente();
+            tabelaDados.addRow(new Object[]{prontuario.getId(), 
+                prontuario.getAtivo(),
+                paciente.getNome(),
                 prontuario.getDescricao()});
         }
 
@@ -57,22 +61,24 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         btnDesarq = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Ativo", "Descrição"
+                "ID", "Ativo", "Nome", "Descrição"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -95,6 +101,16 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
             }
         });
 
+        btnAtualizar.setText("ATUALIZAR");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        jLabel1.setText("PRONTUARIOS ARQUIVADOS:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,27 +118,35 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDesarq)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAtualizar)
+                        .addGap(12, 12, 12))
+                    .addComponent(btnDesarq, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnExit)
-                        .addGap(28, 28, 28)))
+                        .addGap(27, 27, 27)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(btnDesarq)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnExit)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(124, 124, 124)
+                .addComponent(btnAtualizar)
+                .addGap(18, 18, 18)
+                .addComponent(btnDesarq)
+                .addGap(18, 18, 18)
+                .addComponent(btnExit)
+                .addContainerGap(128, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -139,6 +163,10 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        updateTable();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
     public void updateTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -181,8 +209,10 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnDesarq;
     private javax.swing.JButton btnExit;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
