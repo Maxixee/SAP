@@ -14,7 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -23,6 +25,8 @@ import lombok.Data;
 @Entity
 @Table(name="agendamento")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Agendamento extends PersistenceEntity implements Serializable{ 
     @OneToOne(mappedBy = "agendamento")
     Paciente paciente;

@@ -34,15 +34,25 @@ public class ServiceAgendamento implements IServiceAgendamento{
     @Autowired
     private IDaoAgendamento daoAgendamento;
     
-    
     @Override
-    public void saveDataAgendamento(Agendamento agendamento) {
+    public Agendamento saveSolicitacaoAgendamento(Agendamento agendamento) {
         /*if(agendamento == null){
             throw new BusinessException(AGENDAMENTO_NULL);
         } else if(daoAgendamento.existsById(agendamento.getId()) == true){
             throw new BusinessException(AGENDAMENTO_EXISTE);
         } else {*/
-            daoAgendamento.save(agendamento);
+            return daoAgendamento.save(agendamento);
+        //}
+    }
+    
+    @Override
+    public Agendamento saveDataAgendamento(Agendamento agendamento) {
+        /*if(agendamento == null){
+            throw new BusinessException(AGENDAMENTO_NULL);
+        } else if(daoAgendamento.existsById(agendamento.getId()) == true){
+            throw new BusinessException(AGENDAMENTO_EXISTE);
+        } else {*/
+            return daoAgendamento.save(agendamento);
         //}
     }
     

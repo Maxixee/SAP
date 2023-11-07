@@ -46,7 +46,8 @@ public interface IFacade {
     public void arquivarProntuario(Prontuario prontuario);
     
     //=====================AGENDAMENTO=====================
-    public void saveDataAgendamento(Agendamento agendamento);
+    public Agendamento saveSolicitacaoAgendamento(Agendamento agendamento);
+    public Agendamento saveDataAgendamento(Agendamento agendamento);
     public List<Agendamento>getAllAgendamento();
     public void updateAgendamento(Agendamento agendamento);
     public abstract void deleteAgendamento(Agendamento agendamento);

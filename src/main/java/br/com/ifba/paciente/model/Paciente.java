@@ -10,10 +10,13 @@ import br.com.ifba.pessoa.model.Pessoa;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -22,9 +25,12 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @Table(name = "paciente")
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Paciente extends Aluno implements Serializable{
     @OneToOne
+    @JoinColumn(name = "agendamento_id", referencedColumnName = "id")
     private Agendamento agendamento;
     
     public Solicitacao solicitarAgendamento(String nome, String matricula) {

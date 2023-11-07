@@ -128,9 +128,15 @@ public class Facade implements IFacade {
     }
     
     //=====================AGENDAMENTO=====================
+    
     @Override
-    public void saveDataAgendamento(Agendamento agendamento){
-        serviceAgendamento.saveDataAgendamento(agendamento);
+    public Agendamento saveSolicitacaoAgendamento(Agendamento agendamento){
+        return serviceAgendamento.saveDataAgendamento(agendamento);
+    }
+    
+    @Override
+    public Agendamento saveDataAgendamento(Agendamento agendamento){
+        return serviceAgendamento.saveDataAgendamento(agendamento);
     }
 
     @Override

@@ -12,7 +12,9 @@ import java.util.List;
  * @author davia
  */
 public interface IServiceAgendamento {
-    public void saveDataAgendamento(Agendamento agendamento);
+    
+    public Agendamento saveSolicitacaoAgendamento(Agendamento agendamento);
+    public Agendamento saveDataAgendamento(Agendamento agendamento);
     public abstract List<Agendamento>getAllAgendamento();
     public abstract boolean deleteAgendamento(Agendamento agendamento);
     public void updateAgendamento(Agendamento agendamento);
