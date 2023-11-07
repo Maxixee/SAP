@@ -4,6 +4,7 @@
  */
 package br.com.ifba.paciente.view;
 
+import br.com.ifba.TelaDeTestes;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
@@ -22,7 +23,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
     
-    private Paciente paciente = new Paciente();
+    private Paciente paciente;
     
     @Autowired
     private TelaExibirPacientes telaExibirPacientes;
@@ -179,6 +180,8 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
 
     private void btnCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadActionPerformed
         // TODO add your handling code here:
+        paciente = new Paciente(); // sempre cria uma nova instancia de paciente 
+        
         String nome = txtNome.getText();
         String matricula = txtMatricula.getText();
         String nomeResp = txtNomeResp.getText();
@@ -198,6 +201,14 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         telaExibirPacientes.setVisible(true);
         telaExibirPacientes.atualizarTabela();
         
+        // limpando os campos dos text fields
+        txtNome.setText("");
+        txtMatricula.setText("");
+        txtNomeResp.setText("");
+        txtTelefone.setText("");
+        txtEmail.setText("");
+        txtCPF.setText("");
+        
         this.dispose();
     }//GEN-LAST:event_btnCadActionPerformed
 
@@ -206,7 +217,6 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         telaExibirPacientes.setVisible(true);
         telaExibirPacientes.atualizarTabela();
         this.dispose(); // Fecha a tela atual   
-
     }//GEN-LAST:event_btnGerenciarActionPerformed
 
     /**
