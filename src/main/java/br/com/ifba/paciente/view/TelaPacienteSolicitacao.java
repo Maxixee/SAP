@@ -29,7 +29,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     
     private List<Paciente> pacientes;
     
-    Agendamento agendamento = new Agendamento();
+    Agendamento agendamento;
     
     @PostConstruct
     public void init() {
@@ -164,6 +164,8 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGerenciarActionPerformed
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
+        
+        agendamento = new Agendamento();
         
         Object selectedNome = cbxNome.getSelectedItem();
         

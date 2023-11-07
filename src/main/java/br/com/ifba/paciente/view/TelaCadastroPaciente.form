@@ -38,7 +38,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace pref="34" max="32767" attributes="0"/>
                       <Component id="txtEmail" min="-2" pref="194" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
