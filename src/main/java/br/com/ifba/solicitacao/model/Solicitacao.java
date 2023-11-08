@@ -29,8 +29,9 @@ import lombok.NoArgsConstructor;
 public class Solicitacao extends PersistenceEntity implements Serializable {
     @Transient
     @JoinColumn
-    @OneToOne
-    private Paciente paciente;
+    @OneToOne 
+    Paciente paciente;
+    
     
     private String NomePaciente;
     private String MatriculaPaciente;

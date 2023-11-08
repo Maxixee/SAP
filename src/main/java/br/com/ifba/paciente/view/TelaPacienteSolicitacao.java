@@ -7,6 +7,7 @@ package br.com.ifba.paciente.view;
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
+import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -165,7 +166,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         
-        agendamento = new Agendamento();
+       /* Solicitacao solicitacao = new Solicitacao();
         
         Object selectedNome = cbxNome.getSelectedItem();
         
@@ -175,13 +176,24 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             pacientes = facade.findByMatricula(matricula);
             if (!pacientes.isEmpty()) {
                 Paciente pacienteSelecionado = pacientes.get(0);
-                pacienteSelecionado.setAgendamento(agendamento);
+                pacienteSelecionado.set(solicitacao);
                 agendamento.setPaciente(pacienteSelecionado);
                 agendamento = facade.saveSolicitacaoAgendamento(agendamento);
                 facade.updatePaciente(pacienteSelecionado);
             }
-        }
+        }*/
+       
+       Solicitacao solicitacao = new Solicitacao();
+       
+       Paciente paciente = new Paciente();
+       
+       String selectedNome = cbxNome.getSelectedItem().toString();
         
+       String matricula = txtMatricula.getText();
+        
+      solicitacao =  paciente.solicitarAgendamento(selectedNome, matricula);
+       
+        facade.saveSolicitacao(solicitacao);
         this.dispose();
     }//GEN-LAST:event_btnSolicitarActionPerformed
 

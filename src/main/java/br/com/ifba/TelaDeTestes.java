@@ -9,6 +9,7 @@ import br.com.ifba.paciente.view.TelaExibirPacientes;
 import br.com.ifba.paciente.view.TelaPacienteSolicitacao;
 import br.com.ifba.prontuario.view.ListaProntuarios;
 import br.com.ifba.prontuario.view.ProntuarioView;
+import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
 
 
 import br.com.ifba.teste.view.TesteView;
@@ -45,6 +46,10 @@ public class TelaDeTestes extends javax.swing.JFrame {
     
     @Autowired
     private TelaExibirAgendamento telaExibirAgendamento;
+    
+    @Autowired
+    private TelaExibirSolicitacoes telaExibirSolicitacoes;
+
 
     
     public TelaDeTestes() {
@@ -153,6 +158,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
         btn04.setBackground(new java.awt.Color(0, 0, 0));
         btn04.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn04.setForeground(new java.awt.Color(255, 255, 255));
+        btn04.setText("ACEITAR/RECUSAR SOLIC.");
         btn04.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn04ActionPerformed(evt);
@@ -266,7 +272,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn02ActionPerformed
 
     private void btn04ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn04ActionPerformed
-       
+       this.telaExibirSolicitacoes.setVisible(true);
     }//GEN-LAST:event_btn04ActionPerformed
 
     private void btn01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn01ActionPerformed
