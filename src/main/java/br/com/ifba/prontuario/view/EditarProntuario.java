@@ -42,6 +42,12 @@ public class EditarProntuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtProntuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProntuarioActionPerformed(evt);
+            }
+        });
+
         btnUpdate.setText("SALVAR");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +84,10 @@ public class EditarProntuario extends javax.swing.JFrame {
         this.facade.saveProntuario(prontuarioUpdate);
         this.setVisible(false);
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void txtProntuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProntuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProntuarioActionPerformed
 
     public void SetProntuario(Prontuario pront) {//seta o item q foi selecionado cmo os valores defalt(muda apenas oq o usuario mudar
         this.prontuarioUpdate = pront;

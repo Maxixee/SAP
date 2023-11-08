@@ -47,6 +47,9 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtProntuario">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProntuarioActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnUpdate">
       <Properties>

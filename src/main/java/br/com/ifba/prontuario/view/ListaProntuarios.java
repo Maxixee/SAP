@@ -12,9 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import br.com.ifba.prontuario.view.ListaProntuariosArquivados;
-import br.com.ifba.prontuario.view.ProntuarioView;
-import br.com.ifba.prontuario.view.EditarProntuario;
 
 /**
  *
@@ -32,6 +29,9 @@ public class ListaProntuarios extends javax.swing.JFrame {
     private ProntuarioView prontuarioView;
     @Autowired
     private EditarProntuario editarPront;
+    
+    //@Autowired
+   // private TelaDetalheProntuario detalhaProntuario;
     
     public ListaProntuarios() {
         initComponents();
@@ -54,7 +54,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
 
         for (Prontuario prontuario : prontuarios) {
             tabelaDados.addRow(new Object[]{prontuario.getId(), prontuario.getAtivo(),
-                prontuario.getDescricao()});
+                prontuario.getPaciente().getNome(),prontuario.getDescricao()});
         }
 
     }
@@ -80,14 +80,14 @@ public class ListaProntuarios extends javax.swing.JFrame {
         btnAreuivados = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        btnNovo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Todos os Prontuarios:");
 
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +95,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
             }
         });
 
+        btnArquivar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnArquivar.setText("Arquivar");
         btnArquivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +103,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
             }
         });
 
+        btnAreuivados.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAreuivados.setText("Arquivados");
         btnAreuivados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,25 +111,29 @@ public class ListaProntuarios extends javax.swing.JFrame {
             }
         });
 
+        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Ativo", "Descrição"
+                "ID", "Ativo", "Nome", "Descrição"
             }
         ));
+        jTable2.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTable2AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
         jTable2.getAccessibleContext().setAccessibleParent(jTable2);
 
-        btnNovo.setText("NOVO");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("ATUALIZAR");
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setText("Atualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -139,42 +145,38 @@ public class ListaProntuarios extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnEditar)
-                    .addComponent(btnArquivar)
-                    .addComponent(btnAreuivados)
-                    .addComponent(btnNovo)
-                    .addComponent(jButton1))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))))
+                .addGap(28, 28, 28)
+                .addComponent(jButton1)
+                .addGap(35, 35, 35)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(btnArquivar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(btnAreuivados)
+                .addGap(21, 21, 21))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(133, 133, 133))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNovo)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnEditar)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnArquivar)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnAreuivados)
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnArquivar)
+                    .addComponent(btnAreuivados)
+                    .addComponent(btnEditar))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -198,9 +200,6 @@ public class ListaProntuarios extends javax.swing.JFrame {
     private void btnAreuivadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreuivadosActionPerformed
         this.listaArquiv.setVisible(true);    }//GEN-LAST:event_btnAreuivadosActionPerformed
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        this.prontuarioView.setVisible(true);    }//GEN-LAST:event_btnNovoActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         updateTable();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -212,6 +211,10 @@ public class ListaProntuarios extends javax.swing.JFrame {
         this.editarPront.SetProntuario(selecionado);
         this.editarPront.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void jTable2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable2AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable2AncestorAdded
 
     /**
      * @param args the command line arguments
@@ -252,7 +255,6 @@ public class ListaProntuarios extends javax.swing.JFrame {
     private javax.swing.JButton btnAreuivados;
     private javax.swing.JButton btnArquivar;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnNovo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
