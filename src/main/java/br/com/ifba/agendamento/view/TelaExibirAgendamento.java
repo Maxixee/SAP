@@ -7,6 +7,10 @@ package br.com.ifba.agendamento.view;
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.infrastructure.service.Facade;
 import br.com.ifba.infrastructure.service.IFacade;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +52,7 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
 
         jTAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Data", "Hora"
@@ -116,7 +117,7 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        cancelarDados();
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
@@ -168,43 +169,30 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void listarDados(){      
-      DefaultTableModel dtmTarefa =(DefaultTableModel) jTAgenda.getModel();
+      DefaultTableModel dtmAgendamento =(DefaultTableModel) jTAgenda.getModel();
+      //verificar se banco está vazio 
       if(facade.getAllAgendamento().isEmpty()){
           Object[] dados = {String.valueOf("sem informacoes"), String.valueOf("sem informacoes")};
-          dtmTarefa.addRow(dados);
+          dtmAgendamento.addRow(dados);
           
       }
       else{
          
-         for(Agendamento a: facade.getAllAgendamento()){
-             dtmTarefa.addRow(new String[]{String.valueOf(agendamento.getDataAgendamento()),
-                 String.valueOf(agendamento.getHoraAgendamento())});          
-         
-         }
-      }
-      jTAgenda.setModel(dtmTarefa);
-    }
+         List<Agendamento> agendamentos = facade.getAllAgendamento();
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
+       //mostrar todos os agendamentos 
+        for(Agendamento agendamento : agendamentos) {
+            Calendar data = agendamento.getDataAgendamento();
+            LocalTime hora = agendamento.getHoraAgendamento();
+            String Time = agendamento.getHoraAgendamento().toString();
 
-    //metodo para excluir os dados da tela e excluir da base de dados
-    private void cancelarDados(){
-        if(jTAgenda.getSelectedRow() != -1){
-            
-       
-           DefaultTableModel dtmTarefa =(DefaultTableModel) jTAgenda.getModel();
-            int i = jTAgenda.getSelectedRow();            
-            agendamento = facade.findAgendamentoById(Long.parseLong((String) dtmTarefa.getValueAt(i, 0)));
-            facade.deleteAgendamento(agendamento);   
-            dtmTarefa.removeRow(jTAgenda.getSelectedRow());
-            agendamento = null;
-         
-       }
-       else{
-          JOptionPane.showMessageDialog(null,"Selecione uma tarefa para excluir");
-       }
-    }
-    
-
+            // Adiciona as datas e horas à tabela
+            dtmAgendamento.addRow(new Object[]{dateFormat.format(data.getTime()), Time});
+        }
+     }
+  }
 
 }
 
