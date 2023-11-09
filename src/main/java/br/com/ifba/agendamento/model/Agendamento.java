@@ -31,9 +31,6 @@ public class Agendamento extends PersistenceEntity implements Serializable{
     @OneToOne(mappedBy = "agendamento")
     Paciente paciente;
     
-    @Column(name = "nome_paciente")
-    private String nome;
-    
     @Column(name = "data_agendamento")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dataAgendamento;
