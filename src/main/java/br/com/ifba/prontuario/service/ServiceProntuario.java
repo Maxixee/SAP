@@ -28,7 +28,7 @@ public class ServiceProntuario implements IServiceProntuario{
     
     @Override
     public List<Prontuario> getAllProntuarios() {
-        return this.dao.findAll();
+        return this.dao.findAllByAtivoIsTrue();
     }
 
     @Override

@@ -53,8 +53,10 @@ public class ListaProntuarios extends javax.swing.JFrame {
         tabelaDados.setNumRows(0);
 
         for (Prontuario prontuario : prontuarios) {
-            tabelaDados.addRow(new Object[]{prontuario.getId(), prontuario.getAtivo(),
-                prontuario.getPaciente().getNome(),prontuario.getDescricao()});
+            tabelaDados.addRow(new Object[]{prontuario.getId(),
+                prontuario.getAtivo(),
+                prontuario.getPaciente().getNome(),
+                prontuario.getDescricao()});
         }
 
     }
@@ -88,6 +90,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Todos os Prontuarios:");
 
+        btnEditar.setBackground(new java.awt.Color(121, 173, 227));
         btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +99,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
             }
         });
 
+        btnArquivar.setBackground(new java.awt.Color(121, 173, 227));
         btnArquivar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnArquivar.setText("Arquivar");
         btnArquivar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +108,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
             }
         });
 
+        btnAreuivados.setBackground(new java.awt.Color(121, 173, 227));
         btnAreuivados.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAreuivados.setText("Arquivados");
         btnAreuivados.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +117,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
             }
         });
 
+        jTable2.setBackground(new java.awt.Color(222, 246, 246));
         jTable2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -133,6 +139,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
         jTable2.getAccessibleContext().setAccessibleParent(jTable2);
 
+        jButton1.setBackground(new java.awt.Color(121, 173, 227));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("Atualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +148,8 @@ public class ListaProntuarios extends javax.swing.JFrame {
             }
         });
 
+        btnDetalhar.setBackground(new java.awt.Color(121, 173, 227));
+        btnDetalhar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDetalhar.setText("Detalhar");
         btnDetalhar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,28 +162,28 @@ public class ListaProntuarios extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jButton1)
-                .addGap(35, 35, 35)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(btnArquivar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(btnAreuivados)
-                .addGap(21, 21, 21))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
-                        .addComponent(btnDetalhar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(129, 129, 129)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDetalhar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnArquivar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAreuivados)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,15 +192,14 @@ public class ListaProntuarios extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(btnDetalhar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnArquivar)
-                    .addComponent(btnAreuivados)
-                    .addComponent(btnEditar))
-                .addGap(16, 16, 16))
+                    .addComponent(btnAreuivados, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnArquivar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDetalhar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
