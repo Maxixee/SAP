@@ -245,6 +245,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
     private void btn09ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn09ActionPerformed
         this.telaPacienteSolicitacao.setVisible(true);
         this.telaPacienteSolicitacao.preencheComboBoxNome();
+        this.telaPacienteSolicitacao.preencheComboBoxData();
     }//GEN-LAST:event_btn09ActionPerformed
 
     private void btn05ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn05ActionPerformed
@@ -272,7 +273,8 @@ public class TelaDeTestes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn02ActionPerformed
 
     private void btn04ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn04ActionPerformed
-       this.telaExibirSolicitacoes.setVisible(true);
+        this.telaExibirSolicitacoes.inserirDadosTela();
+        this.telaExibirSolicitacoes.setVisible(true);
     }//GEN-LAST:event_btn04ActionPerformed
 
     private void btn01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn01ActionPerformed

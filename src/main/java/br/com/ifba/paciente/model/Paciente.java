@@ -33,11 +33,12 @@ public class Paciente extends Aluno implements Serializable{
     @JoinColumn(name = "agendamento_id", referencedColumnName = "id")
     private Agendamento agendamento;
     
-    public Solicitacao solicitarAgendamento(String nome, String matricula) {
+    public Solicitacao solicitarAgendamento(String nome, String matricula, String dataHorario) {
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setPaciente(this); // Define o paciente que está solicitando o agendamento
         solicitacao.setNomePaciente(nome);
         solicitacao.setMatriculaPaciente(matricula);
+        solicitacao.setDataHorario(dataHorario);
         
         // Outras configurações da solicitação, se necessário
         

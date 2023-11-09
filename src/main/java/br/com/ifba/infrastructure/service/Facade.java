@@ -157,9 +157,7 @@ public class Facade implements IFacade {
     @Override
     public Agendamento findAgendamentoById(Long id) {
         return serviceAgendamento.findById(id);
-    }
-
-    
+    }   
    
 
 }

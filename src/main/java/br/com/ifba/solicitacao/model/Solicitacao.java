@@ -32,8 +32,7 @@ public class Solicitacao extends PersistenceEntity implements Serializable {
     @OneToOne 
     Paciente paciente;
     
-    
     private String NomePaciente;
     private String MatriculaPaciente;
-    
+    private String dataHorario;
 }

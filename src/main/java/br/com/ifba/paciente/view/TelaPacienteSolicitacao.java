@@ -9,6 +9,8 @@ import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +31,9 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     private TelaExibirSolicitacoes telaExibirSolicitacoes;
     
     private List<Paciente> pacientes;
+    private List<Agendamento> agendamentos;
+    
+    Solicitacao solicitacao;
     
     Agendamento agendamento;
     
@@ -51,7 +56,23 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             combo.addElement(p.getNome());
         }
     }
-   
+    
+    public void preencheComboBoxData() {
+        agendamentos = facade.getAllAgendamento();
+        DefaultComboBoxModel<String> comboModel = (DefaultComboBoxModel<String>) cbxData.getModel();
+        comboModel.removeAllElements();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm"); // Formato desejado para a hora
+
+        for(Agendamento agendamento : agendamentos) {
+            String dataAgendamentoString = dateFormat.format(agendamento.getDataAgendamento().getTime());
+            String horaAgendamentoString = agendamento.getHoraAgendamento().format(timeFormat);
+
+            String displayText = dataAgendamentoString + " - " + horaAgendamentoString;
+            comboModel.addElement(displayText);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,10 +90,13 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
         btnSolicitar = new javax.swing.JButton();
         cbxNome = new javax.swing.JComboBox<>();
         txtMatricula = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
+        cbxData = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("SOLICITAR AGENDAMENTO DE CONSULTA");
 
         jLabel2.setText("Nome:");
@@ -112,28 +136,47 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             }
         });
 
+        lblData.setText("Data/Hora:");
+
+        cbxData.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDataActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbxNome, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(62, 62, 62))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbxData, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbxNome, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtMatricula)))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblData)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(45, 45, 45))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,15 +187,21 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbxNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblData)
+                    .addComponent(cbxData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -183,18 +232,18 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             }
         }*/
        
-       Solicitacao solicitacao = new Solicitacao();
+       solicitacao = new Solicitacao();
        
        Paciente paciente = new Paciente();
        
-       String selectedNome = cbxNome.getSelectedItem().toString();
-        
+       String selectedNome = cbxNome.getSelectedItem().toString();   
        String matricula = txtMatricula.getText();
+       String selectedDataHorario = cbxData.getSelectedItem().toString();
         
-      solicitacao =  paciente.solicitarAgendamento(selectedNome, matricula);
+       solicitacao = paciente.solicitarAgendamento(selectedNome, matricula, selectedDataHorario);
        
-        facade.saveSolicitacao(solicitacao);
-        this.dispose();
+       facade.saveSolicitacao(solicitacao);
+       this.dispose();
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void cbxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeActionPerformed
@@ -208,8 +257,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
                 Paciente pacienteSelecionado = pacientes.get(0);
                 txtMatricula.setText(pacienteSelecionado.getMatricula());
             }
-        }
-        
+        }    
     }//GEN-LAST:event_cbxNomeActionPerformed
 
     private void cbxNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxNomeMouseClicked
@@ -219,6 +267,10 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     private void txtMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatriculaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMatriculaActionPerformed
+
+    private void cbxDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,10 +310,13 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGerenciar;
     private javax.swing.JButton btnSolicitar;
+    private javax.swing.JComboBox<String> cbxData;
     private javax.swing.JComboBox<String> cbxNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblData;
     private javax.swing.JTextField txtMatricula;
     // End of variables declaration//GEN-END:variables
 }
