@@ -37,4 +37,5 @@ public class Agendamento extends PersistenceEntity implements Serializable{
     
     @Column(name = "hora_agendamento")
     private LocalTime horaAgendamento;
+    
 }

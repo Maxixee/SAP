@@ -4,7 +4,9 @@
  */
 package br.com.ifba.solicitacao.view;
 
+import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.infrastructure.service.IFacade;
+import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -24,11 +26,37 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
     private IFacade facade;
     
     private List<Solicitacao> solicitacoes;
+
     /**
      * Creates new form TelaExibirSolicitacoes
      */
     public TelaExibirSolicitacoes() {
         initComponents();
+        
+    }
+    
+     // Método para atualizar a tabela na view
+    @PostConstruct
+    public void atualizarTabela() {
+        try {
+            this.solicitacoes = this.facade.getAllSolicitacao();
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(null, error,
+                    "Erro ao buscar pacientes!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel tabelaDados = (DefaultTableModel) tblSolicitacoes.getModel();
+        tabelaDados.setNumRows(0);
+
+        // Adiciona à tabela todos os pacientes
+        for (Solicitacao solicitacao : solicitacoes) {
+            tabelaDados.addRow(new Object[]{
+                solicitacao.getId(),
+                solicitacao.getNomePaciente(),
+                solicitacao.getMatriculaPaciente()
+            });
+        }
     }
     
     public void inserirDadosTela(){ // preenche a tabela com os dados do BD
@@ -67,6 +95,11 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
                 "ID", "Nome", "Matricula"
             }
         ));
+        tblSolicitacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSolicitacoesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSolicitacoes);
 
         btnRecusar.setText("Recusar Solicitações");
@@ -123,7 +156,19 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceitarActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tblSolicitacoes.getSelectedRow();
+
+    // Verifica se alguma linha está selecionada
+    if (selectedRow != -1) {
+        // Obtém o Agendamento correspondente à linha selecionada
+        Solicitacao solicitacao = facade.getAllSolicitacao().get(selectedRow);
+        
+        Agendamento agendamento = new Agendamento();
+        
+        agendamento.setPaciente(solicitacao.getPaciente());
+        facade.saveDataAgendamento(agendamento);
+        
+    }
     }//GEN-LAST:event_btnAceitarActionPerformed
 
     private void btnRecusarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecusarActionPerformed
@@ -141,6 +186,11 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
         } else 
             JOptionPane.showMessageDialog(this, "Selecione uma linha antes de remover.", "Erro", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnRecusarActionPerformed
+
+    private void tblSolicitacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSolicitacoesMouseClicked
+           DefaultTableModel model = (DefaultTableModel)tblSolicitacoes.getModel();
+            int seectedRow = tblSolicitacoes.getSelectedRow();   
+    }//GEN-LAST:event_tblSolicitacoesMouseClicked
 
     /**
      * @param args the command line arguments
