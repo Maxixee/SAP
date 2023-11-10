@@ -43,7 +43,9 @@ public class TelaAgendamento extends javax.swing.JFrame {
      * Creates new form TelaAgendamento
      */
     public TelaAgendamento() {
-        initComponents();
+        initComponents();    
+        // Fecha a tela sem encerrar todo o sistema
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
     private void preencherTable() {

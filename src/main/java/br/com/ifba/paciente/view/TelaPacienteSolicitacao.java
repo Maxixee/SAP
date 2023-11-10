@@ -44,7 +44,9 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     
     public TelaPacienteSolicitacao() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);   
+        // Fecha a tela sem encerrar todo o sistema
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
     public void preencheComboBoxNome() {

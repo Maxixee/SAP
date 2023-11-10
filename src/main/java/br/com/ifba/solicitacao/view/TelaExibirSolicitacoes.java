@@ -31,8 +31,9 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
      * Creates new form TelaExibirSolicitacoes
      */
     public TelaExibirSolicitacoes() {
-        initComponents();
-        
+        initComponents();   
+        // Fecha a tela sem encerrar todo o sistema
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
      // Método para atualizar a tabela na view

@@ -30,7 +30,9 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
      */
     public TelaExibirAgendamento() {
         initComponents();
-        //listarDados();
+        //listarDados();     
+        // Fecha a tela sem encerrar todo o sistema
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**

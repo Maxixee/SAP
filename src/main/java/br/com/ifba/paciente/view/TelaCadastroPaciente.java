@@ -32,7 +32,9 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
      */
     public TelaCadastroPaciente() {
         initComponents();
-        super.setLocationRelativeTo(null);
+        super.setLocationRelativeTo(null); 
+        // Fecha a tela sem encerrar todo o sistema
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**

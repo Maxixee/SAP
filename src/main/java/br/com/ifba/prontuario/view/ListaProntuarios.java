@@ -35,7 +35,9 @@ public class ListaProntuarios extends javax.swing.JFrame {
     
     public ListaProntuarios() {
         initComponents();
-        super.setLocationRelativeTo(null);
+        super.setLocationRelativeTo(null); 
+        // Fecha a tela sem encerrar todo o sistema
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     // Método que realiza a atualização dos dados na tabela.
