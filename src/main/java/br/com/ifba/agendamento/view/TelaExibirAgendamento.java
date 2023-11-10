@@ -7,11 +7,15 @@ package br.com.ifba.agendamento.view;
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.infrastructure.service.Facade;
 import br.com.ifba.infrastructure.service.IFacade;
+import br.com.ifba.solicitacao.model.Solicitacao;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +29,8 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
     Agendamento agendamento = new Agendamento();
+    
+    
     /**
      * Creates new form TelaExibirAgendamento
      */
@@ -34,7 +40,15 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
         // Fecha a tela sem encerrar todo o sistema
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-
+    
+    public void inserirDadosTela(){ // preenche a tabela com os dados do BD
+        for(Solicitacao agendamento : facade.getAllSolicitacao()){
+            Object[] solicitacoes = {agendamento.getId(), agendamento.getNomePaciente(), agendamento.getMatriculaPaciente(),
+            agendamento.getDataHorario()};
+            DefaultTableModel dtmAgendamentos = (DefaultTableModel) TelaExibirAgendamento.this.getjTAgenda().getModel();
+            dtmAgendamentos.addRow(solicitacoes);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +71,7 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Hora"
+                "ID", "Nome", "Matricula", "Data/Horario"
             }
         ));
         jScrollPane1.setViewportView(jTAgenda);
@@ -83,32 +97,31 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(btnListar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRemarcar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnRemarcar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(btnRemarcar)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(47, Short.MAX_VALUE)
                         .addComponent(btnListar)
                         .addGap(41, 41, 41)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,7 +136,8 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-        listarDados();
+       // listarDados();
+       inserirDadosTela();
     }//GEN-LAST:event_btnListarActionPerformed
 
     /**
@@ -170,6 +184,14 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     private javax.swing.JTable jTAgenda;
     // End of variables declaration//GEN-END:variables
 
+    public JTable getjTAgenda() {
+        return jTAgenda;
+    }
+
+    public void setTblSolicitacoes(JTable jTAgenda) {
+        this.jTAgenda = jTAgenda;
+    }
+    
     private void listarDados(){      
       DefaultTableModel dtmAgendamento =(DefaultTableModel) jTAgenda.getModel();
       //verificar se banco está vazio 
