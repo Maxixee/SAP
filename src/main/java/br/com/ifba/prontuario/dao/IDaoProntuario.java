@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Hiego
  */
 public interface IDaoProntuario extends JpaRepository<Prontuario, String> {
-    List<Prontuario> findAllByAtivoIsTrue();
-    List<Prontuario> findAllByAtivoIsFalse();
-    Prontuario findById(Long Id);
+    List<Prontuario> findAllByAtivoIsTrue(); //para status de ativo 
+    List<Prontuario> findAllByAtivoIsFalse(); //para status de não ativo
+    Prontuario findById(Long Id); //para o ID
 }

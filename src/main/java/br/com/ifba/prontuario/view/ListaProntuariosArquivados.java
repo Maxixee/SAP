@@ -14,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+//Rafael que fez
+
 @Component
 public class ListaProntuariosArquivados extends javax.swing.JFrame {
 
@@ -28,6 +30,7 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
 
     @PostConstruct
     public void atualizaTabela() {
+        //esse metodo faz o preenchimento da tabela, apenas com os prontuarios aqruivados, ativo = falso
         try {
             this.prontuarios = this.facade.getAllProntuariosArquivados();
         } catch (Exception error) {
@@ -175,6 +178,7 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDesarqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesarqActionPerformed
+        //desarquiva o item selecionado
         int index = jTable1.getSelectedRow();
         long id = (long) jTable1.getValueAt(index, 0);
         Prontuario selecionado = facade.findProntuarioById(id);
@@ -184,14 +188,17 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.setVisible(false);
+        //fela a tela
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         updateTable();
+        //atualiza a tela
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalharActionPerformed
-         int index = jTable1.getSelectedRow();
+         //chama a tela de detalhe para o item selecionado
+        int index = jTable1.getSelectedRow();
         if (index != -1) {
             long id = (long) jTable1.getValueAt(index, 0);
             Prontuario selecionado = facade.findProntuarioById(id);
@@ -202,7 +209,7 @@ public class ListaProntuariosArquivados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Nehum prontuario selecionada", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDetalharActionPerformed
-    public void updateTable() {
+    public void updateTable() { //atualiza a tabela
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         atualizaTabela();

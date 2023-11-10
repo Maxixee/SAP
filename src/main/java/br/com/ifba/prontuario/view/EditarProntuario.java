@@ -104,7 +104,8 @@ public class EditarProntuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        this.prontuarioUpdate.setDescricao( "<html>"+txtProntuario.getText()+"</html>");
+        //pega as informações e salva no prontuario, modificando o que tinha antes
+        this.prontuarioUpdate.setDescricao(txtProntuario.getText());
         this.facade.saveProntuario(prontuarioUpdate);
         this.setVisible(false);
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -113,7 +114,7 @@ public class EditarProntuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProntuarioActionPerformed
 
-    public void SetProntuario(Prontuario pront) {//seta o item q foi selecionado cmo os valores defalt(muda apenas oq o usuario mudar
+    public void SetProntuario(Prontuario pront) {//seta o item q foi selecionado com os valores defalt(muda apenas oq o usuario mudar
         this.prontuarioUpdate = pront;
         txtProntuario.setText(pront.getDescricao());
     }

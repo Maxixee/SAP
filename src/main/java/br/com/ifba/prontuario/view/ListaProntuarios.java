@@ -40,7 +40,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
 
     // Método que realiza a atualização dos dados na tabela.
     @PostConstruct
-    public void atualizaTabela() {
+    public void atualizaTabela() {//esa metodo preenche a tela
         try {
             this.prontuarios = this.facade.getAllProntuarios();
         } catch (Exception error) {
@@ -61,7 +61,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
 
     }
 
-    public void updateTable() {
+    public void updateTable() {//esa metodo atualiza os dados modificados enquanto a tela está em execução
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         atualizaTabela();
@@ -206,7 +206,7 @@ public class ListaProntuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnArquivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArquivarActionPerformed
-
+        //faz a seleção do prontuario que sera arquivado, fazendo o arquivamento
         int index = jTable2.getSelectedRow();
         if (index != -1) {
             long id = (long) jTable2.getValueAt(index, 0);
@@ -222,16 +222,20 @@ public class ListaProntuarios extends javax.swing.JFrame {
 
     private void btnAreuivadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreuivadosActionPerformed
         this.listaArquiv.setVisible(true);    }//GEN-LAST:event_btnAreuivadosActionPerformed
-
+        //mosta a tela de prontuarios arquivados
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //botão de atualização
         updateTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        //seleciona e manda para a tela de editar o item a ser editado
         int index = jTable2.getSelectedRow();
         long id = (long) jTable2.getValueAt(index, 0);
         Prontuario selecionado = facade.findProntuarioById(id);
         this.editarPront.SetProntuario(selecionado);
+        
+        //chama a tela de editar
         this.editarPront.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -240,12 +244,13 @@ public class ListaProntuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable2AncestorAdded
 
     private void btnDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalharActionPerformed
-         int index = jTable2.getSelectedRow();
+         //seleciona e manda para a tela de detalhe o item a ser detalhado
+        int index = jTable2.getSelectedRow();
         if (index != -1) {
             long id = (long) jTable2.getValueAt(index, 0);
             Prontuario selecionado = facade.findProntuarioById(id);
             this.detalhaProntuario.setProntuarioDetalhar(selecionado);
-            this.detalhaProntuario.setVisible(true);
+            this.detalhaProntuario.setVisible(true); //chama a tela de detalhe
             updateTable();
         } else {
             JOptionPane.showMessageDialog(this, "Nehum prontuario selecionada", "Erro", JOptionPane.ERROR_MESSAGE);

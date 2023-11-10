@@ -27,11 +27,12 @@ public class DetalharProntuario extends javax.swing.JFrame {
         initComponents();
     }
     public void setProntuarioDetalhar(Prontuario pront){
+        //mosta na tela as informações do prontuario
         this.prontuario = pront;
-        lblNome.setText(prontuario.getPaciente().getNome());
-        lblResponsavel.setText(prontuario.getPaciente().getNomeResponsavel());
-        lblMatricula.setText(prontuario.getPaciente().getMatricula());
-        lblDescrição.setText(prontuario.getDescricao());
+        lblNome.setText(prontuario.getPaciente().getNome()); //nome
+        lblResponsavel.setText(prontuario.getPaciente().getNomeResponsavel()); //nome do responsavel
+        lblMatricula.setText(prontuario.getPaciente().getMatricula()); //número de matricula
+        lblDescrição.setText(prontuario.getDescricao()); //descrição
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -190,12 +191,15 @@ public class DetalharProntuario extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.setVisible(false);
+        //fechar a tela 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        //selecina e manda para a tela de editar a informação detalhada, para que seja editada
         Prontuario selecionado = facade.findProntuarioById(this.prontuario.getId());
         this.editarPront.SetProntuario(selecionado);
+        //chama a tela de editar
         this.editarPront.setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
