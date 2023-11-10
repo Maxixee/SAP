@@ -50,11 +50,12 @@ public class ServiceAgendamento implements IServiceAgendamento{
     public Agendamento saveDataAgendamento(Agendamento agendamento) {
         if(agendamento == null){
             throw new BusinessException(AGENDAMENTO_NULL);
-        } else if(daoAgendamento.existsById(agendamento.getId()) == true ||
-                !daoAgendamento.findByDataAgendamentoAndHoraAgendamento(agendamento.getDataAgendamento(), agendamento.getHoraAgendamento()).isEmpty()){
+        } else if(daoAgendamento.existsById(agendamento.getId()) == true){
             throw new BusinessException(AGENDAMENTO_EXISTE);
-        } else {
+        } else if(daoAgendamento.findByDataAgendamentoAndHoraAgendamento(agendamento.getDataAgendamento(), agendamento.getHoraAgendamento()).isEmpty()){
             return daoAgendamento.save(agendamento);  
+        }else{
+            return null;
         }
     }
     

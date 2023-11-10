@@ -94,7 +94,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtData = new com.toedter.calendar.JDateChooser();
-        btnAdicionar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -117,13 +116,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
         txtData.setDateFormatString("dd/MM/yyyy");
         txtData.setMaxSelectableDate(new java.util.Date(253370779269000L));
         txtData.setMinSelectableDate(new java.util.Date(-62135755131000L));
-
-        btnAdicionar.setText("Atualizar");
-        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarActionPerformed(evt);
-            }
-        });
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -172,12 +164,10 @@ public class TelaAgendamento extends javax.swing.JFrame {
                             .addComponent(txtData, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                             .addComponent(timePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(63, 63, 63)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAdicionar)
-                                .addGap(18, 18, 18)
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnCancel))
                             .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -192,9 +182,8 @@ public class TelaAgendamento extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCancel))
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,28 +246,21 @@ public class TelaAgendamento extends javax.swing.JFrame {
         // Comparar os calendários usando o método compareTo()
         int resultadoComparacao = ag.getDataAgendamento().compareTo(this.verificaDataAtual());
 
-        // Imprimir o resultado
+        // Informa que a data é invalida pois ja se passou
         if (resultadoComparacao < 0) {
-            //System.out.println("calendar1 é anterior a calendar2");
-            JOptionPane.showMessageDialog(null, "Selecione uma nova data", "DATA INVALIDA", JOptionPane.INFORMATION_MESSAGE);
-        } else if(resultadoComparacao > 0){
             
-            facade.saveDataAgendamento(ag);
+            JOptionPane.showMessageDialog(null, "Selecione uma nova data", "DATA INVALIDA", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        
+        // Salva a nova data e horario
+        else if(resultadoComparacao > 0){  
+            if(facade.saveDataAgendamento(ag) == null){
+                JOptionPane.showMessageDialog(null, "Esta data e horario ja existe no banco de dados", "DATA INVALIDA", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso", "CONFIRMADO", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
         preencherTable();
-        /*SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String theDate = dateFormat.format(txtData.getDate());
-
-        String theTime = timePicker1.getTime().toString();
-
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.addRow(new Object[]{theDate, theTime});*/
-       
-    }//GEN-LAST:event_btnAdicionarActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
@@ -298,14 +280,15 @@ public class TelaAgendamento extends javax.swing.JFrame {
         LocalTime newTime = LocalTime.parse(timePicker1.getTime().toString());
         agendamento.setHoraAgendamento(newTime);
 
-        // Salva o Agendamento atualizado no banco de dados
+         // Salva o Agendamento atualizado no banco de dados
         facade.updateAgendamento(agendamento);
-
-        // Atualiza a tabela com os novos valores da data e do horário
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        
+        
+        preencherTable();
+        /*SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String formattedDate = dateFormat.format(newDate);
         jTable1.setValueAt(formattedDate, selectedRow, 0);
-        jTable1.setValueAt(timePicker1.getTime().toString(), selectedRow, 1);
+        jTable1.setValueAt(timePicker1.getTime().toString(), selectedRow, 1);*/
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -374,7 +357,6 @@ public class TelaAgendamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSalvar;
