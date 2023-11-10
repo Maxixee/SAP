@@ -21,6 +21,9 @@ import java.time.LocalTime;
 import com.github.lgooddatepicker.components.TimePicker;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.swing.JOptionPane;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Lazy;
 
 
@@ -34,6 +37,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
     
+    
     @PostConstruct
     public void init() {
         preencherTable();
@@ -46,6 +50,18 @@ public class TelaAgendamento extends javax.swing.JFrame {
         initComponents();    
         // Fecha a tela sem encerrar todo o sistema
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    }
+    
+    private Calendar verificaDataAtual(){
+        
+        Date dataHoje = new Date();
+        dataHoje.getTime();
+        
+        Calendar dataAtual = Calendar.getInstance();
+        dataAtual.setTime(dataHoje);
+        
+        return dataAtual;
+        
     }
     
     private void preencherTable() {
@@ -99,8 +115,10 @@ public class TelaAgendamento extends javax.swing.JFrame {
         jLabel2.setText("Data do atendimento : ");
 
         txtData.setDateFormatString("dd/MM/yyyy");
+        txtData.setMaxSelectableDate(new java.util.Date(253370779269000L));
+        txtData.setMinSelectableDate(new java.util.Date(-62135755131000L));
 
-        btnAdicionar.setText("Adicionar");
+        btnAdicionar.setText("Atualizar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarActionPerformed(evt);
@@ -235,20 +253,29 @@ public class TelaAgendamento extends javax.swing.JFrame {
         LocalTime horaAgendamento = LocalTime.of(hora, minuto);
 
         ag.setHoraAgendamento(horaAgendamento);
+        
+        // Comparar os calendários usando o método compareTo()
+        int resultadoComparacao = ag.getDataAgendamento().compareTo(this.verificaDataAtual());
 
-        facade.saveDataAgendamento(ag);
-    
+        // Imprimir o resultado
+        if (resultadoComparacao < 0) {
+            //System.out.println("calendar1 é anterior a calendar2");
+            JOptionPane.showMessageDialog(null, "Selecione uma nova data", "DATA INVALIDA", JOptionPane.INFORMATION_MESSAGE);
+        } else if(resultadoComparacao >= 0){
+            facade.saveDataAgendamento(ag);
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-    
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        
+        preencherTable();
+        /*SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String theDate = dateFormat.format(txtData.getDate());
 
         String theTime = timePicker1.getTime().toString();
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.addRow(new Object[]{theDate, theTime});
+        model.addRow(new Object[]{theDate, theTime});*/
        
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
