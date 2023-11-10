@@ -5,6 +5,9 @@
 package br.com.ifba.agendamento.dao;
 
 import br.com.ifba.agendamento.model.Agendamento;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IDaoAgendamento extends JpaRepository<Agendamento, Long>{
-    
+    public List<Agendamento> findByDataAgendamentoAndHoraAgendamento(Calendar dataAgendamento, LocalTime horaAgendamento);
+    //public boolean existsByDataAgendamentoAndLocalTimeHoraAgendamento(Calendar dataAgendamento, LocalTime horaAgendamento);
 }

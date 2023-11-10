@@ -7,6 +7,7 @@ package br.com.ifba.agendamento.service;
 import br.com.ifba.agendamento.dao.IDaoAgendamento;
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import java.time.LocalTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,13 +48,14 @@ public class ServiceAgendamento implements IServiceAgendamento{
     
     @Override
     public Agendamento saveDataAgendamento(Agendamento agendamento) {
-        /*if(agendamento == null){
+        if(agendamento == null){
             throw new BusinessException(AGENDAMENTO_NULL);
-        } else if(daoAgendamento.existsById(agendamento.getId()) == true){
+        } else if(daoAgendamento.existsById(agendamento.getId()) == true ||
+                !daoAgendamento.findByDataAgendamentoAndHoraAgendamento(agendamento.getDataAgendamento(), agendamento.getHoraAgendamento()).isEmpty()){
             throw new BusinessException(AGENDAMENTO_EXISTE);
-        } else {*/
-            return daoAgendamento.save(agendamento);
-        //}
+        } else {
+            return daoAgendamento.save(agendamento);  
+        }
     }
     
     @Override

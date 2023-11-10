@@ -261,7 +261,8 @@ public class TelaAgendamento extends javax.swing.JFrame {
         if (resultadoComparacao < 0) {
             //System.out.println("calendar1 é anterior a calendar2");
             JOptionPane.showMessageDialog(null, "Selecione uma nova data", "DATA INVALIDA", JOptionPane.INFORMATION_MESSAGE);
-        } else if(resultadoComparacao >= 0){
+        } else if(resultadoComparacao > 0){
+            
             facade.saveDataAgendamento(ag);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
