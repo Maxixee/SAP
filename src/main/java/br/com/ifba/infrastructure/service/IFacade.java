@@ -49,7 +49,7 @@ public interface IFacade {
     public Agendamento saveSolicitacaoAgendamento(Agendamento agendamento);
     public Agendamento saveDataAgendamento(Agendamento agendamento);
     public List<Agendamento>getAllAgendamento();
-    public void updateAgendamento(Agendamento agendamento);
+    public Agendamento updateAgendamento(Agendamento agendamento);
     public abstract void deleteAgendamento(Agendamento agendamento);
     public Agendamento findAgendamentoById(Long id);
 }

@@ -66,14 +66,27 @@ public class ServiceAgendamento implements IServiceAgendamento{
     
     @Override
     public boolean deleteAgendamento(Agendamento agendamento) {
-        this.daoAgendamento.delete(agendamento);
-        return true;
+        if(agendamento == null){
+            throw new BusinessException(AGENDAMENTO_NULL);
+        }else if(this.daoAgendamento.existsById(agendamento.getId()) == false){
+            throw new BusinessException(AGENDAMENTO_NAO_EXISTE);
+        }else{
+           this.daoAgendamento.delete(agendamento);
+            return true;
         }
+    }
     
     @Override
-    public  void updateAgendamento(Agendamento agendamento) {
-        daoAgendamento.save(agendamento);
-       }
+    public  Agendamento updateAgendamento(Agendamento agendamento) {
+        if(agendamento == null){
+            throw new BusinessException(AGENDAMENTO_NULL);
+        }else if(this.daoAgendamento.existsById(agendamento.getId()) == false){  
+            throw new BusinessException(AGENDAMENTO_NAO_EXISTE);
+        }else{
+            return daoAgendamento.save(agendamento);
+        
+        }
+    }
     
     @Override
      public Agendamento findById(Long id) {

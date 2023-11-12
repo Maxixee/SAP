@@ -7,62 +7,83 @@ package br.com.ifba.agendamento.view;
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.agendamento.service.IServiceAgendamento;
 import br.com.ifba.agendamento.service.ServiceAgendamento;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import br.com.ifba.infrastructure.service.IFacade;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Henrique
  */
+@Component
 public class TelaRemarcar extends javax.swing.JFrame {
-
-   
-    private Calendar dataSelecionada;
-    private LocalTime horaSelecionada;
-
-    private final IServiceAgendamento serviceAgendamento; // Certifique-se de injetar seu serviço aqui.
-
-    public TelaRemarcar(IServiceAgendamento serviceAgendamento) {
+    @Autowired
+    private IFacade facade;
+    int i;
+    Agendamento ag = new Agendamento();
+    
+    
+    public TelaRemarcar() {
         initComponents();
-        this.serviceAgendamento = serviceAgendamento;
-
-        jTable1.addMouseListener(new MouseAdapter() {
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        System.out.println("Clique detectado!");
-        if (e.getClickCount() == 1) {
-            int linhaSelecionada = jTable1.getSelectedRow();
-            if (linhaSelecionada != -1) {
-                dataSelecionada = (Calendar) jTable1.getValueAt(linhaSelecionada, 0);
-                horaSelecionada = (LocalTime) jTable1.getValueAt(linhaSelecionada, 1);
-            }
-        }
-    }
-});
-    }
-
-    private void preencherTabela() {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
         
-    List<Agendamento> agendamentos = serviceAgendamento.getAllAgendamento();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        // Fecha a tela sem encerrar todo o sistema
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+ 
+    }
 
-        for (Agendamento agendamento : agendamentos) {
-            Calendar data = agendamento.getDataAgendamento();
-            LocalTime hora = agendamento.getHoraAgendamento();
-
-            model.addRow(new Object[]{dateFormat.format(data.getTime()), timeFormat.format(hora.getHour())});
+    private TelaRemarcar(ServiceAgendamento service) {
         }
     
-    }
+    private void listarData(){      
+      DefaultComboBoxModel<String> comboModel = (DefaultComboBoxModel<String>) cbxData.getModel();
+      comboModel.removeAllElements();
+         
+         //lista todos os agendamentos do banco de dados
+         List<Agendamento> agendamentos = facade.getAllAgendamento();
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+       //mostrar todos os agendamentos disponiveis
+        for(Agendamento agendamento : agendamentos) {
+              Calendar data = agendamento.getDataAgendamento();
+            
+
+              // Adiciona as datas e horas ao combo box
+              String displayText = ""+data.getTime();
+              comboModel.addElement(displayText);
+              
+       }
+     }
+    
+    private void listarHora(){      
+      DefaultComboBoxModel<String> comboModel = (DefaultComboBoxModel<String>) cbxHora.getModel();
+      comboModel.removeAllElements();
+         
+         //lista todos os agendamentos do banco de dados
+         List<Agendamento> agendamentos = facade.getAllAgendamento();
+         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+       //mostrar todos os agendamentos disponiveis
+        for(Agendamento agendamento : agendamentos) {
+              LocalTime hora = agendamento.getHoraAgendamento();
+              String Time = agendamento.getHoraAgendamento().toString();
+            
+
+              // Adiciona as datas e horas ao combo box
+              String displayText = "" + Time;
+              comboModel.addElement(displayText);
+              
+       }
+     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,124 +93,133 @@ public class TelaRemarcar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        btnSup = new javax.swing.JButton();
+        cbxData = new javax.swing.JComboBox<>();
+        cbxHora = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        bntConfirma = new javax.swing.JButton();
-        bntSuporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("REMARCAÇAO");
+        jLabel3.setText("Data do atendimento : ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Data", "Horario"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jLabel2.setText("selecione a data e hoarario disponivel");
-
-        bntConfirma.setText("OK");
-        bntConfirma.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntConfirmaActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
-        bntSuporte.setText("SUPORTE");
-        bntSuporte.addActionListener(new java.awt.event.ActionListener() {
+        btnSup.setText("Suporte");
+        btnSup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntSuporteActionPerformed(evt);
+                btnSupActionPerformed(evt);
             }
         });
+
+        cbxData.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxDataActionPerformed(evt);
+            }
+        });
+
+        cbxHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel1.setText("Hora do atendimento:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(btnSalvar)
+                        .addGap(147, 147, 147)
+                        .addComponent(btnSup))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(jLabel2)
-                .addContainerGap(112, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(bntSuporte)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bntConfirma)
-                .addGap(26, 26, 26))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxHora, 0, 158, Short.MAX_VALUE)
+                            .addComponent(cbxData, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(2, 2, 2)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bntConfirma)
-                    .addComponent(bntSuporte))
-                .addContainerGap())
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSup)
+                    .addComponent(btnSalvar))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bntConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntConfirmaActionPerformed
-       if (dataSelecionada != null && horaSelecionada != null) {
-            Agendamento novoAgendamento = new Agendamento();
-            novoAgendamento.setDataAgendamento(dataSelecionada);
-            novoAgendamento.setHoraAgendamento(horaSelecionada);
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        /*Date dataSelecionada = txtData.getDate();
 
-            serviceAgendamento.updateAgendamento(novoAgendamento);
-             ServiceAgendamento service = new ServiceAgendamento(); // ou qualquer outra forma de criar um objeto ServiceAgendamento
-                TelaRemarcar tela = new TelaRemarcar(service);
-                tela.setVisible(true);
-            preencherTabela();
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String timePickerValue = timePicker1.getText();
+        Date horaSelecionada;
 
-            JOptionPane.showMessageDialog(this, "Solicitação de remarcação confirmada. Um e-mail será enviado quando o(a) psicólogo(a) confirmar, juntamente com a chave de acesso.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione uma data e hora para remarcar a consulta.");
-        }
-    }//GEN-LAST:event_bntConfirmaActionPerformed
-
-    private void bntSuporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSuporteActionPerformed
         try {
-     //nao implementaro enviarParaListaDeEspera(); // Chame o método ao clicar no botão "Suporte"
-             TelaEspera tela = new TelaEspera();
-                tela.setVisible(true);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(TelaRemarcar.this, "Erro ao enviar para lista de espera: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            horaSelecionada = timeFormat.parse(timePickerValue);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            return;
         }
-       
-    }//GEN-LAST:event_bntSuporteActionPerformed
+
+        Calendar dataCalendar = Calendar.getInstance();
+        dataCalendar.setTime(dataSelecionada);
+
+        Calendar horaCalendar = Calendar.getInstance();
+        horaCalendar.setTime(horaSelecionada);
+
+        
+        ag.setDataAgendamento(dataCalendar);
+
+        // Obtenha a hora em formato LocalTime
+        int hora = horaCalendar.get(Calendar.HOUR_OF_DAY);
+        int minuto = horaCalendar.get(Calendar.MINUTE);
+        LocalTime horaAgendamento = LocalTime.of(hora, minuto);
+
+        ag.setHoraAgendamento(horaAgendamento);
+        
+        //recebendo o id do paciente que fez o agendamento
+        //ag.setId_paciente(i);
+        System.out.println("valor de  i = "+i);*/
+        ag.setDataAgendamento((Calendar) cbxData.getSelectedItem());
+        ag.setHoraAgendamento((LocalTime) cbxHora.getSelectedItem());
+        
+        facade.updateAgendamento(ag);
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnSupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSupActionPerformed
+        TelaEspera t = new TelaEspera();
+        t.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSupActionPerformed
+
+    private void cbxDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDataActionPerformed
+
+    }//GEN-LAST:event_cbxDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +248,8 @@ public class TelaRemarcar extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -230,11 +262,21 @@ public class TelaRemarcar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bntConfirma;
-    private javax.swing.JButton bntSuporte;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnSup;
+    private javax.swing.JComboBox<String> cbxData;
+    private javax.swing.JComboBox<String> cbxHora;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
+
+//metodo para linkar o id paciente ao seu agendamento 
+    public Agendamento exportarDados(Agendamento agendamento){
+       ag = agendamento;
+       
+       return ag;
+       
+   }    
+
+    
 }

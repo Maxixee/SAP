@@ -5,17 +5,13 @@
 package br.com.ifba.agendamento.view;
 
 import br.com.ifba.agendamento.model.Agendamento;
-import br.com.ifba.infrastructure.service.Facade;
 import br.com.ifba.infrastructure.service.IFacade;
-import br.com.ifba.solicitacao.model.Solicitacao;
+import br.com.ifba.paciente.model.Paciente;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
+import javax.annotation.PostConstruct;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,26 +25,33 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
     Agendamento agendamento = new Agendamento();
+    Paciente paci = new Paciente();
     
+    @Autowired
+    private TelaRemarcar telaRemarcar;
+
+    private TelaExibirAgendamento(Object object) {
+      
+    }
+    
+
+     
+    @PostConstruct
+    public void init() {
+        //listarDados();
+        //nomeTela(paciente);
+    }
     
     /**
      * Creates new form TelaExibirAgendamento
      */
     public TelaExibirAgendamento() {
         initComponents();
-        //listarDados();     
-        // Fecha a tela sem encerrar todo o sistema
+     
+         // Fecha a tela sem encerrar todo o sistema
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-    
-    public void inserirDadosTela(){ // preenche a tabela com os dados do BD
-        for(Solicitacao agendamento : facade.getAllSolicitacao()){
-            Object[] solicitacoes = {agendamento.getId(), agendamento.getNomePaciente(), agendamento.getMatriculaPaciente(),
-            agendamento.getDataHorario()};
-            DefaultTableModel dtmAgendamentos = (DefaultTableModel) TelaExibirAgendamento.this.getjTAgenda().getModel();
-            dtmAgendamentos.addRow(solicitacoes);
-        }
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +66,8 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
         btnRemarcar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnListar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtNome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,12 +76,22 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Matricula", "Data/Horario"
+                "Data", "Hora"
             }
         ));
+        jTAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTAgendaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTAgenda);
 
         btnRemarcar.setText("Remarcar");
+        btnRemarcar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemarcarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -92,38 +107,51 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("BEM VINDO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnListar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRemarcar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnRemarcar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnRemarcar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(47, Short.MAX_VALUE)
-                        .addComponent(btnListar)
-                        .addGap(41, 41, 41)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnListar)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRemarcar)
+                    .addComponent(txtNome))
+                .addGap(12, 12, 12)
+                .addComponent(btnCancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
@@ -132,13 +160,42 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+         //cancelar();
+         int selectedRow = jTAgenda.getSelectedRow();
 
+       // Verifica se alguma linha está selecionada
+       if (selectedRow != -1) {
+           
+          selectedRow = (int) agendamento.getId();
+          DefaultTableModel dtmTarefa =(DefaultTableModel) jTAgenda.getModel();
+          // Obtém o Agendamento correspondente à linha selecionada
+          Agendamento agendamento = facade.getAllAgendamento().get(jTAgenda.getSelectedRow());      
+          facade.deleteAgendamento(agendamento);
+          dtmTarefa.removeRow(jTAgenda.getSelectedRow());
+        
+    }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
-       // listarDados();
-       inserirDadosTela();
+        listarDados();
     }//GEN-LAST:event_btnListarActionPerformed
+
+    private void jTAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTAgendaMouseClicked
+     }//GEN-LAST:event_jTAgendaMouseClicked
+
+    private void btnRemarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemarcarActionPerformed
+        int selectedRow = jTAgenda.getSelectedRow();
+
+       // Verifica se alguma linha está selecionada
+       if (selectedRow != -1) {
+          DefaultTableModel dtmTarefa =(DefaultTableModel) jTAgenda.getModel();
+          // Obtém o Agendamento correspondente à linha selecionada
+          Agendamento agendamento = facade.getAllAgendamento().get(selectedRow); 
+          telaRemarcar.exportarDados(agendamento);
+          this.telaRemarcar.setVisible(true);
+          this.dispose();
+       }
+    }//GEN-LAST:event_btnRemarcarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,11 +224,13 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaExibirAgendamento().setVisible(true);
+                new TelaExibirAgendamento(null).setVisible(true);
             }
         });
     }
@@ -180,18 +239,13 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnRemarcar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTAgenda;
+    private javax.swing.JLabel txtNome;
     // End of variables declaration//GEN-END:variables
-
-    public JTable getjTAgenda() {
-        return jTAgenda;
-    }
-
-    public void setTblSolicitacoes(JTable jTAgenda) {
-        this.jTAgenda = jTAgenda;
-    }
-    
+  
+    //metodo para listar todos os agendamentos do paciente
     private void listarDados(){      
       DefaultTableModel dtmAgendamento =(DefaultTableModel) jTAgenda.getModel();
       //verificar se banco está vazio 
@@ -201,22 +255,63 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
           
       }
       else{
-         
+         //lista todos os agendamentos do banco de dados
+         List<Paciente> Paciente = facade.getAllPaciente();
          List<Agendamento> agendamentos = facade.getAllAgendamento();
          SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
          SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
+         
+         //System.out.println("ID do paciente que logou:"+ paci.getId()+ "\nID do agendamento do paciente logado: "+ agendamento.getPaciente().getId());
        //mostrar todos os agendamentos 
         for(Agendamento agendamento : agendamentos) {
-            Calendar data = agendamento.getDataAgendamento();
-            LocalTime hora = agendamento.getHoraAgendamento();
-            String Time = agendamento.getHoraAgendamento().toString();
+            //verifica se o agendamento mostrado é o do paciente logado
+            if(paci.getId() == agendamento.getPaciente().getId()){
+              Calendar data = agendamento.getDataAgendamento();
+              LocalTime hora = agendamento.getHoraAgendamento();
+              String Time = agendamento.getHoraAgendamento().toString();
+            
 
-            // Adiciona as datas e horas à tabela
-            dtmAgendamento.addRow(new Object[]{dateFormat.format(data.getTime()), Time});
-        }
+              // Adiciona as datas e horas à tabela
+              dtmAgendamento.addRow(new Object[]{dateFormat.format(data.getTime()), Time});
+            }
+       }
      }
   }
 
+    
+    //metodo para linkar o id paciente ao seu agendamento 
+    public Paciente exportarDados(Paciente paciente){
+       
+       paci =  paciente;
+       return paci;
+       
+   }
+   /* colocar nome de usuario na tela 
+   public void nomeTela(Paciente paciente){
+
+       List<Paciente> pacientes = facade.getAllPaciente();
+       for(Paciente p: pacientes){
+         if(i == paciente.getId()){    
+            txtNome.setText(p.getNome());
+         }
+       }
+       
+   }*/ 
+   
+   /*// metodo cancela o agendamento selecionado pelo paciente
+   public void cancelar(){
+       int selectedRow = jTAgenda.getSelectedRow();
+
+       // Verifica se alguma linha está selecionada
+       if (selectedRow != -1) {
+          DefaultTableModel dtmTarefa =(DefaultTableModel) jTAgenda.getModel();
+          // Obtém o Agendamento correspondente à linha selecionada
+          Agendamento agendamento = facade.getAllAgendamento().get(selectedRow);      
+          facade.deleteAgendamento(agendamento);
+          dtmTarefa.removeRow(jTAgenda.getSelectedRow());
+        
+    }
+       
+   }*/
 }
 

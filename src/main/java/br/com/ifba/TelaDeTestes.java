@@ -1,7 +1,7 @@
 package br.com.ifba;
 
 import br.com.ifba.agendamento.view.TelaAgendamento;
-import br.com.ifba.agendamento.view.TelaExibirAgendamento;
+import br.com.ifba.agendamento.view.TelaMinhaConsulta;
 import br.com.ifba.paciente.view.TelaCadastroPaciente;
 
 import br.com.ifba.infrastructure.service.IFacade;
@@ -45,7 +45,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
     private TelaPacienteSolicitacao telaPacienteSolicitacao;
     
     @Autowired
-    private TelaExibirAgendamento telaExibirAgendamento;
+    private TelaMinhaConsulta telaMinnhaConsulta;
     
     @Autowired
     private TelaExibirSolicitacoes telaExibirSolicitacoes;
@@ -138,7 +138,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
         btn08.setBackground(new java.awt.Color(0, 0, 0));
         btn08.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn08.setForeground(new java.awt.Color(255, 255, 255));
-        btn08.setText("LISTA AGENDAMENTO");
+        btn08.setText("MINHA CONSULTA");
         btn08.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn08ActionPerformed(evt);
@@ -265,7 +265,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn03ActionPerformed
 
     private void btn08ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn08ActionPerformed
-        this.telaExibirAgendamento.setVisible(true);
+        this.telaMinnhaConsulta.setVisible(true);
     }//GEN-LAST:event_btn08ActionPerformed
 
     private void btn02ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn02ActionPerformed

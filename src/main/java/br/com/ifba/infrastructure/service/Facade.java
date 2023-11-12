@@ -145,8 +145,8 @@ public class Facade implements IFacade {
     }
     
     @Override
-    public void updateAgendamento(Agendamento agendamento) {
-        this.serviceAgendamento.updateAgendamento(agendamento);
+    public Agendamento updateAgendamento(Agendamento agendamento) {
+        return this.serviceAgendamento.updateAgendamento(agendamento);
         }
 
     @Override
