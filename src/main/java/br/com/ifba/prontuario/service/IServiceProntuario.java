@@ -4,6 +4,7 @@
  */
 package br.com.ifba.prontuario.service;
 
+import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.prontuario.model.Prontuario;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public interface IServiceProntuario {
     public abstract void desarquivarProntuario(Prontuario prontuario);
     //metodo que muda ativo para falso:
     public abstract void arquivarProntuario(Prontuario prontuario);
+    
+    //metodo que recebe um paciente e uma descrção e cria um prontuario:
+    public abstract void novoProntuario(String Desc, Paciente paciente);
 }
 
 

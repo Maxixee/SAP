@@ -122,10 +122,8 @@ public class ProntuarioView extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        //pega as informações da tela e joga no banco
-        prontuario.setDescricao(txtDescricao.getText());
-        prontuario.setPaciente(pac);
-        this.facade.saveProntuario(prontuario);
+        //cria um novo prontuario com as innformações fornecidas e salva no banco:
+        this.facade.newProntuario(txtDescricao.getText(), pac);
         this.setVisible(false);
     }//GEN-LAST:event_btnSubmitActionPerformed
 

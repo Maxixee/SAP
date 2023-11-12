@@ -91,6 +91,10 @@ public class Facade implements IFacade {
     public Prontuario findProntuarioById(Long id) {
         return serviceProntuario.findById(id);
     }
+    public void newProntuario(String desc, Paciente paciente){
+        serviceProntuario.novoProntuario(desc, paciente);
+    }
+    
     //=====================PACIENTE=====================
     @Override
     public void savePaciente(Paciente paciente) {

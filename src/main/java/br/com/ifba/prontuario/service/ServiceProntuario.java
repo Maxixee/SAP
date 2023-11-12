@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.paciente.model.Paciente;
 
 /**
  *
@@ -107,5 +108,21 @@ public class ServiceProntuario implements IServiceProntuario {
             throw new BusinessException("Erro ao arquivar prontuário.", e);
         }
     }
-
+//Cria paciente:
+    @Override
+    public void novoProntuario(String Desc, Paciente paciente){
+        try{
+            if(paciente != null){
+                Prontuario prontuario = new Prontuario();
+                prontuario.setDescricao(Desc);
+                prontuario.setPaciente(paciente);
+                prontuario.setAtivo(true);
+                this.dao.save(prontuario);
+            } else{
+                throw new BusinessException("Paciente Nulo");
+            }
+        } catch(Exception e){
+            throw new BusinessException("Erro ao criar prontuario", e);
+        }
+    }
 }

@@ -44,7 +44,7 @@ public interface IFacade {
     public void desarquivarProntuario(Prontuario prontuario);
     public Prontuario findProntuarioById(Long id);
     public void arquivarProntuario(Prontuario prontuario);
-    
+    public void newProntuario(String desc, Paciente paciente);
     //=====================AGENDAMENTO=====================
     public Agendamento saveSolicitacaoAgendamento(Agendamento agendamento);
     public Agendamento saveDataAgendamento(Agendamento agendamento);
