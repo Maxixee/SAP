@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -217,7 +218,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         
-       /* Solicitacao solicitacao = new Solicitacao();
+        solicitacao = new Solicitacao();
         
         Object selectedNome = cbxNome.getSelectedItem();
         
@@ -227,24 +228,22 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             pacientes = facade.findByMatricula(matricula);
             if (!pacientes.isEmpty()) {
                 Paciente pacienteSelecionado = pacientes.get(0);
-                pacienteSelecionado.set(solicitacao);
-                agendamento.setPaciente(pacienteSelecionado);
-                agendamento = facade.saveSolicitacaoAgendamento(agendamento);
-                facade.updatePaciente(pacienteSelecionado);
+                try {
+                    solicitacao.setNomePaciente(pacienteSelecionado.getNome());
+                    solicitacao.setMatriculaPaciente(pacienteSelecionado.getMatricula());
+                    solicitacao.setDataHorario(cbxData.getSelectedItem().toString());
+                    this.facade.saveSolicitacao(solicitacao);
+                    pacienteSelecionado.setSolicitacao(solicitacao);
+                    facade.updatePaciente(pacienteSelecionado);
+                } catch (Exception error) {
+                    JOptionPane.showMessageDialog(null, error, "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        }*/
-       
-       solicitacao = new Solicitacao();
-       
-       Paciente paciente = new Paciente();
-       
-       String selectedNome = cbxNome.getSelectedItem().toString();   
-       String matricula = txtMatricula.getText();
-       String selectedDataHorario = cbxData.getSelectedItem().toString();
+        } else {
+            Exception error = null;
+            JOptionPane.showMessageDialog(null, error, "O campo nome está vazio!", JOptionPane.ERROR_MESSAGE);
+        }
         
-       solicitacao = paciente.solicitarAgendamento(selectedNome, matricula, selectedDataHorario);
-       
-       facade.saveSolicitacao(solicitacao);
        this.dispose();
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
