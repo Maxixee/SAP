@@ -91,14 +91,25 @@ public class Facade implements IFacade {
     public Prontuario findProntuarioById(Long id) {
         return serviceProntuario.findById(id);
     }
+    @Override
     public void newProntuario(String desc, Paciente paciente){
         serviceProntuario.novoProntuario(desc, paciente);
     }
     
     //=====================PACIENTE=====================
     @Override
-    public void savePaciente(Paciente paciente) {
-        servicePaciente.savePaciente(paciente);
+    public Paciente savePaciente(Paciente paciente) {
+        return servicePaciente.savePaciente(paciente);
+    }
+    
+    @Override
+    public Paciente updatePaciente(Paciente paciente){
+        return servicePaciente.updatePaciente(paciente);
+    }
+    
+    @Override
+    public void deletePaciente(Paciente paciente){
+        servicePaciente.deletePaciente(paciente);
     }
     
     @Override
@@ -112,11 +123,6 @@ public class Facade implements IFacade {
     }
     
     @Override
-    public Paciente updatePaciente(Paciente paciente){
-        return servicePaciente.updatePaciente(paciente);
-    }
-    
-    @Override
     public List<Paciente> findByNomeLike(String nome) {
        return  servicePaciente.findByNomeLike(nome);
     }
@@ -127,8 +133,8 @@ public class Facade implements IFacade {
     }
     
     @Override
-    public List<Paciente> findByMatricula(String nome) {
-       return  servicePaciente.findByMatricula(nome);
+    public List<Paciente> findByMatricula(String matricula) {
+       return  servicePaciente.findByMatricula(matricula);
     }
     
     //=====================AGENDAMENTO=====================

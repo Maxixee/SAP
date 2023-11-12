@@ -23,6 +23,9 @@ public class ServicePaciente implements IServicePaciente {
    // Mensagem de erro se o Paciente for null.
     public final static String PACIENTE_NULL = "Dados do Paciente nao preenchidos";
     
+    // Mensagem de erro se o Paciente ja existir no banco.
+    public final static String PACIENTE_EXISTE = "Paciente ja existente no Banco de dados";
+   
     // Mensagem de erro se o Paciente não existir no banco.
     public final static String PACIENTE_NAO_EXISTE = "Paciente nao existente no Banco de dados";
     
@@ -32,12 +35,56 @@ public class ServicePaciente implements IServicePaciente {
     // Mensagem de erro caso o nome seja null.
     private final static String NOME_NULL = "Dados do nome nao preenchidos";
     
+    // Mensagem de erro caso o campo matricula esteja vazio.
+    private final static String MATRICULA_VAZIA = "O Campo matricula esta vazio";
+    
+    // Mensagem de erro caso o campo matricula esteja vazio.
+    private final static String MATRICULA_EXISTE = "Essa matricula ja existe";
+    
+    // Mensagem de erro caso o matricula seja null.
+    private final static String MATRICULA_NULL = "Dados de matricula nao preenchidos";
+    
+    // Mensagem de erro caso o campo matricula esteja vazio.
+    private final static String CPF_CADASTRADO = "Esse CPF ja esta cadastrado";
+    
     @Autowired
     private IDaoPaciente daoPaciente;
     
     @Override
-    public void savePaciente(Paciente paciente) {
-        daoPaciente.save(paciente);
+    public Paciente savePaciente(Paciente paciente) {
+        if(paciente == null){
+            throw new BusinessException(PACIENTE_NULL);
+        } else if(daoPaciente.existsById(paciente.getId()) == true){
+            throw new BusinessException(PACIENTE_EXISTE);
+        } else if(daoPaciente.existsByMatricula(paciente.getMatricula()) == true){
+            throw new BusinessException(MATRICULA_EXISTE);
+        } else if(daoPaciente.existsByCpf(paciente.getCpf()) == true) {
+            throw new BusinessException(CPF_CADASTRADO);
+        } else {
+            return daoPaciente.save(paciente);
+        }
+    }
+    
+    @Override
+    public Paciente updatePaciente(Paciente paciente) {
+        if(paciente == null) {
+            throw new BusinessException(PACIENTE_NULL);
+        } else if(daoPaciente.existsById(paciente.getId()) == false) {
+            throw new BusinessException(PACIENTE_NAO_EXISTE);
+        } else {
+            return daoPaciente.save(paciente);
+        }
+    }
+    
+    @Override
+    public void deletePaciente(Paciente paciente){
+        if(paciente == null) {
+            throw new BusinessException(PACIENTE_NULL);
+        } else if(daoPaciente.existsById(paciente.getId()) == false) {
+            throw new BusinessException(PACIENTE_NAO_EXISTE);
+        } else{
+            daoPaciente.delete(paciente);
+        }
     }
     
     @Override
@@ -49,17 +96,6 @@ public class ServicePaciente implements IServicePaciente {
     public Paciente findById(Long id) {
         return daoPaciente.getReferenceById(id);
     }
-
-    @Override
-    public Paciente updatePaciente(Paciente paciente) {
-        if(paciente == null) {
-            throw new BusinessException(PACIENTE_NULL);
-        } 
-        if(daoPaciente.existsById(paciente.getId()) == false) {
-            throw new BusinessException(PACIENTE_NAO_EXISTE);
-        }
-        return daoPaciente.save(paciente);
-    }
     
     @Override
     public List<Paciente> findByNomeLike(String nome) {
@@ -68,12 +104,24 @@ public class ServicePaciente implements IServicePaciente {
     
     @Override
     public List<Paciente> findByNome(String nome) {
-        return daoPaciente.findByNome(nome);
+        if(nome == null) {
+            throw new BusinessException(NOME_NULL);
+        } if(nome.isEmpty()) {
+            throw new BusinessException(NOME_VAZIO);
+        } else{
+            return daoPaciente.findByNome(nome);
+        }
     }
     
     @Override
-    public List<Paciente> findByMatricula(String nome) {
-        return daoPaciente.findByMatricula(nome);
+    public List<Paciente> findByMatricula(String matricula) {
+        if(matricula == null) {
+            throw new BusinessException(MATRICULA_NULL);
+        } if(matricula.isEmpty()) {
+            throw new BusinessException(MATRICULA_VAZIA);
+        } else{
+            return daoPaciente.findByMatricula(matricula);
+        }
 
     }
 

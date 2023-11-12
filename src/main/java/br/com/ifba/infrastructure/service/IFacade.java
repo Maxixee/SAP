@@ -27,13 +27,14 @@ public interface IFacade {
     public List<Teste> findAll();
     
     //=====================PACIENTES=====================
-    public abstract void savePaciente(Paciente paciente);  
-    public abstract List<Paciente> getAllPaciente();
+    public Paciente savePaciente(Paciente paciente);  
+    public Paciente updatePaciente(Paciente paciente);
+    public void deletePaciente(Paciente paciente);
+    public List<Paciente> getAllPaciente();
     public Paciente findByIdPaciente(Long id);
-    public abstract Paciente updatePaciente(Paciente paciente);
     public List <Paciente> findByNomeLike(String nome);
     public List <Paciente> findByNome(String nome);
-    public List <Paciente> findByMatricula(String nome);
+    public List <Paciente> findByMatricula(String matricula);
 
     
     
