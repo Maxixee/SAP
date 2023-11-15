@@ -21,6 +21,7 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -90,8 +91,9 @@ public class TelaLogin extends javax.swing.JFrame {
        String credencial = txtCredential.getText();
        String user = facade.findUser(credencial);
        if(user.equals("paciente")){
-           lblFlag.setText("LOGIN PACIENTE");
+           lblFlag.setText("LOGIN PACIENTE"); //temporario(subistituir por acesso aos metodos de paciente)
        }
+       //falta implementar a ação caso seja tecnico e caso seja nulo
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
