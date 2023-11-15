@@ -8,7 +8,9 @@ import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.pessoa.model.Pessoa;
 import br.com.ifba.solicitacao.model.Solicitacao;
+import com.sun.istack.NotNull;
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -29,19 +31,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Paciente extends Aluno implements Serializable{
+    
     @OneToOne
     @JoinColumn(name = "agendamento_id", referencedColumnName = "id")
     private Agendamento agendamento;
     
-    public Solicitacao solicitarAgendamento(String nome, String matricula, String dataHorario) {
-        Solicitacao solicitacao = new Solicitacao();
-        solicitacao.setPaciente(this); // Define o paciente que está solicitando o agendamento
-        solicitacao.setNomePaciente(nome);
-        solicitacao.setMatriculaPaciente(matricula);
-        solicitacao.setDataHorario(dataHorario);
-        
-        // Outras configurações da solicitação, se necessário
-        
-        return solicitacao;
-    }
+    @OneToOne
+    @JoinColumn(name = "solicitacao_id", referencedColumnName = "id")
+    private Solicitacao solicitacao;
+    
 }

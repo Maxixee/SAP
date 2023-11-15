@@ -22,5 +22,9 @@ public interface IDaoPaciente extends JpaRepository<Paciente, Long>{
 
     public List<Paciente> findByNome(String nome);
 
-    public List<Paciente> findByMatricula(String nome);
+    public List<Paciente> findByMatricula(String matricula);
+    
+    public boolean existsByMatricula(String matricula);
+    
+    public boolean existsByCpf(String cpf);
 }
