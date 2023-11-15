@@ -6,6 +6,7 @@ package br.com.ifba.infrastructure.service;
 
 
 import br.com.ifba.agendamento.model.Agendamento;
+import br.com.ifba.listadeespera.model.ListaDeEspera;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.prontuario.model.Prontuario;
 import br.com.ifba.solicitacao.model.Solicitacao;
@@ -57,4 +58,8 @@ public interface IFacade {
     
     //==========================LOGIN================================
     public String findUser(String Credential);
+    
+        
+    //=====================LISTA DE ESPERA=====================
+    public ListaDeEspera salvarNaListaEspera(Agendamento agendamento);
 }

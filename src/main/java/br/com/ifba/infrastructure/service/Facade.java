@@ -4,8 +4,11 @@
  */
 package br.com.ifba.infrastructure.service;
 
+
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.agendamento.service.IServiceAgendamento;
+import br.com.ifba.listadeespera.model.ListaDeEspera;
+import br.com.ifba.listadeespera.service.IServiceListaDeEspera;
 import br.com.ifba.login.service.IServiceLogin;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.paciente.service.IServicePaciente;
@@ -37,6 +40,8 @@ public class Facade implements IFacade {
     private IServiceSolicitacao serviceSolicitacao;
     @Autowired
     private IServiceLogin serviceLogin;
+    @Autowired
+    private IServiceListaDeEspera serviceListaDeEspera;
     //=====================SOLICITACAO=====================
     @Override
     public void saveSolicitacao(Solicitacao solicitacao) {
@@ -174,5 +179,12 @@ public class Facade implements IFacade {
 //=====================LOGIN============================
     public String findUser(String Credential){
         return serviceLogin.findUser(Credential);
+    }
+         //=====================LISTA DE ESPERA=====================
+    @Override
+    public ListaDeEspera salvarNaListaEspera(Agendamento agendamento) {
+         // metodo save sem retorno
+        serviceListaDeEspera.salvarNaListaEspera(agendamento);
+        return null;
     }
 }
