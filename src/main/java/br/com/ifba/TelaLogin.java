@@ -16,6 +16,10 @@ import org.springframework.stereotype.Component;
 public class TelaLogin extends javax.swing.JFrame {
     @Autowired
     IFacade facade;
+    @Autowired
+    TelaMenuPaciente menuPaciente;
+    @Autowired 
+    TelaMenuPsicologo menuPsicologo;
     /**
      * Creates new form TelaLogin
      */
@@ -50,6 +54,7 @@ public class TelaLogin extends javax.swing.JFrame {
         });
 
         lblFlag.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
+        lblFlag.setForeground(new java.awt.Color(204, 0, 51));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,17 +63,20 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(btnLogar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFlag, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(140, 140, 140)
+                                .addComponent(btnLogar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCredential, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(136, Short.MAX_VALUE))
+                                .addComponent(txtCredential, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 142, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblFlag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,9 +99,9 @@ public class TelaLogin extends javax.swing.JFrame {
        String credencial = txtCredential.getText();
        String user = facade.findUser(credencial);
        if(user.equals("paciente")){
-           lblFlag.setText("LOGIN PACIENTE"); //temporario(subistituir por acesso aos metodos de paciente)
+           this.menuPaciente.setVisible(true); //temporario(subistituir por acesso aos metodos de paciente)
        }else if(user.equals("tecnico")){
-           lblFlag.setText("LOGIN TECNICO ADMINISTRATIVO");
+          this.menuPsicologo.setVisible(true);
        }else{
            lblFlag.setText("LOGIN INVALIDO");
        }
