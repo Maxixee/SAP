@@ -92,6 +92,10 @@ public class TelaLogin extends javax.swing.JFrame {
        String user = facade.findUser(credencial);
        if(user.equals("paciente")){
            lblFlag.setText("LOGIN PACIENTE"); //temporario(subistituir por acesso aos metodos de paciente)
+       }else if(user.equals("tecnico")){
+           lblFlag.setText("LOGIN TECNICO ADMINISTRATIVO");
+       }else{
+           lblFlag.setText("LOGIN INVALIDO");
        }
        //falta implementar a ação caso seja tecnico e caso seja nulo
     }//GEN-LAST:event_btnLogarActionPerformed

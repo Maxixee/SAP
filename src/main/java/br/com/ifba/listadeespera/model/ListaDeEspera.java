@@ -24,7 +24,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
  */
 @Entity
 @Data
-@Table(name = "lista de espera")
+@Table(name = "lista_de_espera")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
