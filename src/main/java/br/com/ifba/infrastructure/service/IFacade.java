@@ -52,4 +52,8 @@ public interface IFacade {
     public Agendamento updateAgendamento(Agendamento agendamento);
     public abstract void deleteAgendamento(Agendamento agendamento);
     public Agendamento findAgendamentoById(Long id);
+    
+    
+    //==========================LOGIN================================
+    public String findUser(String Credential);
 }

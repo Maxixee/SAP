@@ -6,6 +6,7 @@ package br.com.ifba.infrastructure.service;
 
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.agendamento.service.IServiceAgendamento;
+import br.com.ifba.login.service.IServiceLogin;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.paciente.service.IServicePaciente;
 import br.com.ifba.prontuario.model.Prontuario;
@@ -34,7 +35,8 @@ public class Facade implements IFacade {
     private IServiceAgendamento serviceAgendamento;
     @Autowired
     private IServiceSolicitacao serviceSolicitacao;
-    
+    @Autowired
+    private IServiceLogin serviceLogin;
     //=====================SOLICITACAO=====================
     @Override
     public void saveSolicitacao(Solicitacao solicitacao) {
@@ -163,5 +165,8 @@ public class Facade implements IFacade {
         return serviceAgendamento.findById(id);
     }   
    
-
+//=====================LOGIN============================
+    public String findUser(String Credential){
+        return serviceLogin.findUser(Credential);
+    }
 }
