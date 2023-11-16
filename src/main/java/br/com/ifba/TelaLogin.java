@@ -5,7 +5,6 @@
 package br.com.ifba;
 
 import br.com.ifba.infrastructure.service.IFacade;
-import br.com.ifba.usuario.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,8 +41,6 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnLogar = new javax.swing.JButton();
         lblFlag = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
-        lblSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,30 +56,26 @@ public class TelaLogin extends javax.swing.JFrame {
         lblFlag.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         lblFlag.setForeground(new java.awt.Color(204, 0, 51));
 
-        lblSenha.setText("Senha:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLogar)
-                        .addGap(57, 57, 57)
-                        .addComponent(lblFlag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblSenha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(140, 140, 140)
+                                .addComponent(btnLogar))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCredential)))
-                        .addGap(0, 140, Short.MAX_VALUE)))
+                                .addComponent(txtCredential, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 142, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblFlag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -92,17 +85,10 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCredential, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSenha))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(lblFlag, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLogar)))
+                .addGap(18, 18, 18)
+                .addComponent(btnLogar)
+                .addGap(29, 29, 29)
+                .addComponent(lblFlag, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -111,21 +97,15 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
        String credencial = txtCredential.getText();
-       String senha = txtSenha.getText();
-       String user = facade.findUser2(credencial, senha);
-       
-       
+       String user = facade.findUser(credencial);
        if(user.equals("paciente")){
            this.menuPaciente.setVisible(true); //temporario(subistituir por acesso aos metodos de paciente)
-           this.dispose();
        }else if(user.equals("tecnico")){
-           this.menuPsicologo.setVisible(true);
-           this.menuPsicologo.atualizarLabel(credencial);
-           this.dispose();
+          this.menuPsicologo.setVisible(true);
        }else{
            lblFlag.setText("LOGIN INVALIDO");
        }
-        //falta implementar a ação caso seja tecnico e caso seja nulo
+       //falta implementar a ação caso seja tecnico e caso seja nulo
     }//GEN-LAST:event_btnLogarActionPerformed
 
     /**
@@ -167,8 +147,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnLogar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblFlag;
-    private javax.swing.JLabel lblSenha;
     private javax.swing.JTextField txtCredential;
-    private javax.swing.JTextField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,6 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = "br.com.ifba")
+@EntityScan(basePackages = {"br.com.ifba"})
+@EnableJpaRepositories(basePackages = {"br.com.ifba"})
 public class SapApplication {
     public static void main(String[] args) {     
         ConfigurableApplicationContext context = 

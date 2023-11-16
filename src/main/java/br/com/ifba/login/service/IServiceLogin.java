@@ -10,5 +10,4 @@ package br.com.ifba.login.service;
  */
 public interface IServiceLogin {
     public abstract String findUser(String Credential);
-    public abstract String findUser2(String Credential, String senha);
 }

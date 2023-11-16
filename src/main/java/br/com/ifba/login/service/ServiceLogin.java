@@ -7,8 +7,6 @@ import br.com.ifba.paciente.service.IServicePaciente;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
 import br.com.ifba.tecnicoadministrativo.service.IServiceTecnicoAdministrativo;
-import br.com.ifba.usuario.model.Usuario;
-import br.com.ifba.usuario.service.IServiceUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +20,6 @@ public class ServiceLogin implements IServiceLogin{
     IServicePaciente servicePaciente;
     @Autowired
     IServiceTecnicoAdministrativo serviceTecnico;
-    @Autowired
-    IServiceUsuario serviceUsuario;
     
     @Override
     public String findUser(String Credential) {
@@ -43,24 +39,4 @@ public class ServiceLogin implements IServiceLogin{
         return "";
     }
     
-    //
-    @Override
-    public String findUser2(String credential, String senha) {
-        List<Usuario> usuarios;
-
-        usuarios = serviceUsuario.findByLoginUsuario(credential);
-
-        if(!usuarios.isEmpty()) {
-            Usuario usuario = usuarios.get(0);
-            if(usuario.getSenha().equals(senha)) {
-                if (credential.equals("paciente")) {
-                    return "paciente";
-                } else if (credential.equals("tecnico")) {
-                    return "tecnico";
-                }
-            }
-        }
-
-        return "";
-    }  
 }
