@@ -5,6 +5,7 @@
 package br.com.ifba.usuario.service;
 
 import br.com.ifba.usuario.model.Usuario;
+import java.util.List;
 
 /**
  *
@@ -17,4 +18,10 @@ public interface IServiceUsuario {
     public abstract Usuario updateUsuario(Usuario usuario);
     
     public abstract void deleteUsuario(Usuario usuario);
+    
+    public List<Usuario> getAllUsuario();
+    
+    public List<Usuario> findByLoginUsuario(String login);
+    
+    public Usuario findByLogin(String login);
 }
