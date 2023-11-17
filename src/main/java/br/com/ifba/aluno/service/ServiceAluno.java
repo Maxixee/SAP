@@ -125,9 +125,9 @@ public class ServiceAluno implements IServiceAluno {
         return daoAluno.findAll();
     } 
     
-    @Override
-    public List<Aluno> getAllAlunoNaoPaciente() {
-        return daoAluno.findAllAluno();
-    }
+//    @Override
+//    public List<Aluno> getAllAlunoNaoPaciente() {
+//        return daoAluno.findAllAluno();
+//    }
     
 }

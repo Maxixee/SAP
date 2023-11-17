@@ -5,6 +5,7 @@
 package br.com.ifba.paciente.view;
 
 import br.com.ifba.TelaDeTestes;
+import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
@@ -19,18 +20,20 @@ import org.springframework.stereotype.Component;
  * @author andre
  */
 @Component
-public class TelaCadastroPaciente extends javax.swing.JFrame {
+public class TelaCadastrarAluno extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
     
     private Paciente paciente;
+    
+    private Aluno aluno;
     
     @Autowired
     private TelaExibirPacientes telaExibirPacientes;
     /**
      * Creates new form TelaCadastroPaciente
      */
-    public TelaCadastroPaciente() {
+    public TelaCadastrarAluno() {
         initComponents();
         super.setLocationRelativeTo(null); 
         // Fecha a tela sem encerrar todo o sistema
@@ -77,7 +80,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
             }
         });
 
-        btnCad.setText("CADASTRO");
+        btnCad.setText("CADASTRAR");
         btnCad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadActionPerformed(evt);
@@ -116,7 +119,7 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                         .addComponent(txtCPF))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -182,7 +185,9 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
 
     private void btnCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadActionPerformed
         // TODO add your handling code here:
-        paciente = new Paciente(); // sempre cria uma nova instancia de paciente 
+        paciente = new Paciente(); // sempre cria uma nova instancia de paciente
+        
+        aluno = new Aluno();
         
         String nome = txtNome.getText();
         String matricula = txtMatricula.getText();
@@ -191,17 +196,26 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String cpf = txtCPF.getText();
         
-        paciente.setNome(nome);
-        paciente.setMatricula(matricula);
-        paciente.setNomeResponsavel(nomeResp);
-        paciente.setTelefone(telefone);
-        paciente.setEmail(email);
-        paciente.setCpf(cpf); 
+//        paciente.setNome(nome);
+//        paciente.setMatricula(matricula);
+//        paciente.setNomeResponsavel(nomeResp);
+//        paciente.setTelefone(telefone);
+//        paciente.setEmail(email);
+//        paciente.setCpf(cpf); 
         
-        this.facade.savePaciente(paciente);
-
-        telaExibirPacientes.setVisible(true);
-        telaExibirPacientes.atualizarTabela();
+        aluno.setNome(nome);
+        aluno.setMatricula(matricula);
+        aluno.setNomeResponsavel(nomeResp);
+        aluno.setTelefone(telefone);
+        aluno.setEmail(email);
+        aluno.setCpf(cpf);
+        
+        this.facade.saveAluno(aluno);
+        
+//        this.facade.savePaciente(paciente);
+//
+//        telaExibirPacientes.setVisible(true);
+//        telaExibirPacientes.atualizarTabela();
         
         // limpando os campos dos text fields
         txtNome.setText("");
@@ -238,20 +252,27 @@ public class TelaCadastroPaciente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastrarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroPaciente().setVisible(true);
+                new TelaCadastrarAluno().setVisible(true);
             }
         });
     }

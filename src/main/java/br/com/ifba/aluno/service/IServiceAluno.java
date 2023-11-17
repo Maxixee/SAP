@@ -15,7 +15,7 @@ public interface IServiceAluno {
     
     public List<Aluno> getAllAluno();
     
-    public List<Aluno> getAllAlunoNaoPaciente();
+//    public List<Aluno> getAllAlunoNaoPaciente();
     
     public Aluno saveAluno(Aluno aluno);
     

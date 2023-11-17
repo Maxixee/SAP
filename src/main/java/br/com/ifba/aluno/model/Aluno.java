@@ -1,10 +1,14 @@
 package br.com.ifba.aluno.model;
 
+import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.pessoa.model.Pessoa;
 import com.sun.istack.NotNull;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +29,11 @@ public class Aluno extends Pessoa{
 //    @NotNull // faz a validação na service
 //    @Column( nullable = false ) // cria esse campo no banco de dados como not null
     private String nomeResponsavel;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id", referencedColumnName = "id")
+    private Paciente paciente;
+    
     
     /* @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "turma_id", referencedColumnName = "ID")

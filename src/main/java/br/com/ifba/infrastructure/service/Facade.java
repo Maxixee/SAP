@@ -73,10 +73,10 @@ public class Facade implements IFacade {
         return serviceAluno.getAllAluno();
     }
     
-    @Override
-    public List<Aluno> getAllAlunoNaoPaciente(){
-         return serviceAluno.getAllAlunoNaoPaciente();
-    }
+//    @Override
+//    public List<Aluno> getAllAlunoNaoPaciente(){
+//         return serviceAluno.getAllAlunoNaoPaciente();
+//    }
     
     @Override
     public Aluno findById(Long id){

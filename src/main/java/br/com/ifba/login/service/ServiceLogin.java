@@ -27,7 +27,7 @@ public class ServiceLogin implements IServiceLogin{
         TecnicoAdministrativo tecnico;
         
         tecnico = serviceTecnico.findBySiape(Credential);
-        paciente = servicePaciente.findByMatricula(Credential);
+        paciente = servicePaciente.findByMatriculaPaciente(Credential);
         
         if(paciente.isEmpty() == false){
             return "paciente";

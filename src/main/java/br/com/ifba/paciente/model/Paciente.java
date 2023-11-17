@@ -10,8 +10,10 @@ import br.com.ifba.pessoa.model.Pessoa;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import com.sun.istack.NotNull;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -39,5 +41,8 @@ public class Paciente extends Aluno implements Serializable{
     @OneToOne
     @JoinColumn(name = "solicitacao_id", referencedColumnName = "id")
     private Solicitacao solicitacao;
+    
+    @OneToOne(mappedBy = "paciente", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    private Aluno aluno;
     
 }
