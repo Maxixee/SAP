@@ -15,7 +15,8 @@ public interface IServiceAluno {
     
     public List<Aluno> getAllAluno();
     
-//    public List<Aluno> getAllAlunoNaoPaciente();
+    // seleciona todos os alunos que nao foram cadastrados como pacientes
+    public List<Aluno> getAllAlunoNaoPaciente(); 
     
     public Aluno saveAluno(Aluno aluno);
     

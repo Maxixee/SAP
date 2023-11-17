@@ -54,7 +54,7 @@ public class TelaCadastrarPaciente extends javax.swing.JFrame {
     }
     
     public void preencheComboBoxNome() {
-        alunos = facade.getAllAluno();
+        alunos = facade.getAllAlunoNaoPaciente();
         DefaultComboBoxModel combo = (DefaultComboBoxModel) cbxNome.getModel();
         combo.removeAllElements();
         
@@ -188,38 +188,39 @@ public class TelaCadastrarPaciente extends javax.swing.JFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         
-//        solicitacao = new Solicitacao();
-        paciente = new Paciente();
-        
         Object selectedNome = cbxNome.getSelectedItem();
         
         String matricula = txtMatricula.getText();
         
-        if (selectedNome != null) {
-            alunos = facade.findByMatricula(matricula);
-            if (!alunos.isEmpty()) {
-                Aluno alunoSelecionado = alunos.get(0);
-                try {
-                    paciente.setNome(alunoSelecionado.getNome());
-                    paciente.setMatricula(alunoSelecionado.getMatricula());
-                    paciente.setAluno(alunoSelecionado);
-                    paciente.setCpf(alunoSelecionado.getCpf());
-                    paciente.setEmail(alunoSelecionado.getEmail());
-                    paciente.setTelefone(alunoSelecionado.getTelefone());
-                    paciente.setNomeResponsavel(alunoSelecionado.getNomeResponsavel());
-                    this.facade.savePaciente(paciente);
-                    alunoSelecionado.setPaciente(paciente);
-                    facade.updateAluno(alunoSelecionado);
-                } catch (Exception error) {
-                    JOptionPane.showMessageDialog(null, error, "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        } else {
+        if (selectedNome == null){
             Exception error = null;
             JOptionPane.showMessageDialog(null, error, "O campo nome está vazio!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        alunos = facade.findByMatricula(matricula);
+        if (!alunos.isEmpty()) {
+            Aluno alunoSelecionado = alunos.get(0);
+            try {
+                paciente = new Paciente();
+                paciente.setNome(alunoSelecionado.getNome());
+                paciente.setMatricula(alunoSelecionado.getMatricula());
+                paciente.setAluno(alunoSelecionado);
+                paciente.setCpf(alunoSelecionado.getCpf());
+                paciente.setEmail(alunoSelecionado.getEmail());
+                paciente.setTelefone(alunoSelecionado.getTelefone());
+                paciente.setNomeResponsavel(alunoSelecionado.getNomeResponsavel());
+                this.facade.savePaciente(paciente);
+                alunoSelecionado.setPaciente(paciente);
+                facade.updateAluno(alunoSelecionado);
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, error, "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
+            }
         }
         
-        this.dispose();
+        preencheComboBoxNome();
+        
+//        this.dispose();
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void cbxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeActionPerformed

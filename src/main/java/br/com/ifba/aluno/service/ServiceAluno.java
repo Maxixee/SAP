@@ -39,28 +39,46 @@ public class ServiceAluno implements IServiceAluno {
     private final static String MATRICULA_VAZIA = "O Campo matricula esta vazio";
     
     // Mensagem de erro caso o campo matricula esteja vazio.
-    private final static String MATRICULA_EXISTE = "Essa matricula ja existe";
+    private final static String MATRICULA_EXISTE = "Ja existe um aluno cadastrado com essa matricula";
     
     // Mensagem de erro caso o matricula seja null.
     private final static String MATRICULA_NULL = "Dados de matricula nao preenchidos";
     
-    // Mensagem de erro caso o campo matricula esteja vazio.
+    // Mensagem de erro caso o campo cpf esteja vazio.
+    private final static String CPF_VAZIO = "O Campo CPF esta vazio";
+    
+    // Mensagem de erro caso ja exista um aluno cadastrado com esse CPF
     private final static String CPF_CADASTRADO = "Esse CPF ja esta cadastrado";
     
+    // Mensagem de erro caso a exista um aluno cadastrado com esse numero de telefone
+    private final static String TELEFONE_CADASTRADO = "Ja existe um aluno cadastrado com esse numero";
+   
+    // Mensagem de erro caso o campo cpf esteja vazio.
+    private final static String EMAIL_VAZIO = "O Campo e-mail esta vazio";
     
     @Autowired
     private IDaoAluno daoAluno;
     
     @Override
     public Aluno saveAluno(Aluno aluno) {
-        if(aluno == null){
+        if(aluno == null) {
             throw new BusinessException(ALUNO_NULL);
-        } else if(daoAluno.existsById(aluno.getId()) == true){
+        } else if(daoAluno.existsById(aluno.getId()) == true) {
             throw new BusinessException(ALUNO_EXISTE);
-        } else if(daoAluno.existsByMatricula(aluno.getMatricula()) == true){
+        } else if(daoAluno.existsByMatricula(aluno.getMatricula()) == true) {
             throw new BusinessException(MATRICULA_EXISTE);
         } else if(daoAluno.existsByCpf(aluno.getCpf()) == true) {
             throw new BusinessException(CPF_CADASTRADO);
+        } else if(daoAluno.existsByTelefone(aluno.getTelefone()) == true) {
+            throw new BusinessException(TELEFONE_CADASTRADO);
+        } else if(aluno.getNome().isEmpty()) {
+            throw new BusinessException(NOME_VAZIO);
+        } else if(aluno.getMatricula().isEmpty()) {
+            throw new BusinessException(MATRICULA_VAZIA);
+        } else if(aluno.getCpf().isEmpty()) {
+            throw new BusinessException(CPF_VAZIO);
+        }  else if(aluno.getEmail().isEmpty()) {
+            throw new BusinessException(EMAIL_VAZIO);
         } else {
             return daoAluno.save(aluno);
         }
@@ -83,7 +101,7 @@ public class ServiceAluno implements IServiceAluno {
             throw new BusinessException(ALUNO_NULL);
         } else if(daoAluno.existsById(aluno.getId()) == false) {
             throw new BusinessException(ALUNO_NAO_EXISTE);
-        } else{
+        } else {
             daoAluno.delete(aluno);
         }
     }
@@ -104,7 +122,7 @@ public class ServiceAluno implements IServiceAluno {
             throw new BusinessException(NOME_NULL);
         } if(nome.isEmpty()) {
             throw new BusinessException(NOME_VAZIO);
-        } else{
+        } else {
             return daoAluno.findByNome(nome);
         }
     }
@@ -115,7 +133,7 @@ public class ServiceAluno implements IServiceAluno {
             throw new BusinessException(MATRICULA_NULL);
         } if(matricula.isEmpty()) {
             throw new BusinessException(MATRICULA_VAZIA);
-        } else{
+        } else {
             return daoAluno.findByMatricula(matricula);
         }
 
@@ -125,9 +143,10 @@ public class ServiceAluno implements IServiceAluno {
         return daoAluno.findAll();
     } 
     
-//    @Override
-//    public List<Aluno> getAllAlunoNaoPaciente() {
-//        return daoAluno.findAllAluno();
-//    }
+    @Override
+    public List<Aluno> getAllAlunoNaoPaciente() {
+        // seleciona todos os alunos que nao foram cadastrados como pacientes
+        return daoAluno.findAllAluno();
+    }
     
 }

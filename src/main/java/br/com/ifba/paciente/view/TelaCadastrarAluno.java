@@ -4,13 +4,11 @@
  */
 package br.com.ifba.paciente.view;
 
-import br.com.ifba.TelaDeTestes;
 import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
-import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
+import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 /*import br.com.ifba.paciente.view.TelaConsultasPaciente;*/
 
@@ -129,7 +127,6 @@ public class TelaCadastrarAluno extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNomeResp))
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -137,15 +134,18 @@ public class TelaCadastrarAluno extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(txtMatricula))))
+                            .addComponent(txtMatricula)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,10 +184,7 @@ public class TelaCadastrarAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadActionPerformed
-        // TODO add your handling code here:
-        paciente = new Paciente(); // sempre cria uma nova instancia de paciente
         
-        aluno = new Aluno();
         
         String nome = txtNome.getText();
         String matricula = txtMatricula.getText();
@@ -196,28 +193,21 @@ public class TelaCadastrarAluno extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String cpf = txtCPF.getText();
         
-//        paciente.setNome(nome);
-//        paciente.setMatricula(matricula);
-//        paciente.setNomeResponsavel(nomeResp);
-//        paciente.setTelefone(telefone);
-//        paciente.setEmail(email);
-//        paciente.setCpf(cpf); 
+        aluno = new Aluno();
         
-        aluno.setNome(nome);
-        aluno.setMatricula(matricula);
-        aluno.setNomeResponsavel(nomeResp);
-        aluno.setTelefone(telefone);
-        aluno.setEmail(email);
-        aluno.setCpf(cpf);
+        try{
+            aluno.setNome(nome);
+            aluno.setMatricula(matricula);
+            aluno.setNomeResponsavel(nomeResp);
+            aluno.setTelefone(telefone);
+            aluno.setEmail(email);
+            aluno.setCpf(cpf);
+            this.facade.saveAluno(aluno);
+        } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, error, "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
+        }
         
-        this.facade.saveAluno(aluno);
         
-//        this.facade.savePaciente(paciente);
-//
-//        telaExibirPacientes.setVisible(true);
-//        telaExibirPacientes.atualizarTabela();
-        
-        // limpando os campos dos text fields
         txtNome.setText("");
         txtMatricula.setText("");
         txtNomeResp.setText("");

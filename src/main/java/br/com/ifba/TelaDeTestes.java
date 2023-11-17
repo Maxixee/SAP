@@ -301,6 +301,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
 
     private void btn03ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn03ActionPerformed
         this.telaCadastrarPaciente.setVisible(true);
+        this.telaCadastrarPaciente.preencheComboBoxNome();
     }//GEN-LAST:event_btn03ActionPerformed
 
     private void btn08ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn08ActionPerformed

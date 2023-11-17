@@ -24,10 +24,12 @@ public interface IDaoAluno extends JpaRepository<Aluno, Long>{
     public List <Aluno> findByMatricula(String matricula);
     
     // seleciona apenas os alunos que nao foram cadastrados como pacientes
-//    @Query("SELECT a FROM Aluno a WHERE TYPE(a) = Aluno AND a.paciente_id IS NULL")
-//    public List <Aluno> findAllAluno();
+    @Query("SELECT a FROM Aluno a WHERE TYPE(a) = Aluno AND a.paciente IS NULL")
+    public List <Aluno> findAllAluno();
     
     public boolean existsByMatricula(String matricula);
+    
+    public boolean existsByTelefone(String telefone);
     
     public boolean existsByCpf(String cpf);
 }

@@ -26,7 +26,7 @@ public interface IFacade {
     //==============================================//
     
     public List<Aluno> getAllAluno();
-//    public List<Aluno> getAllAlunoNaoPaciente();
+    public List<Aluno> getAllAlunoNaoPaciente(); // seleciona todos os alunos que nao foram cadastrados como pacientes
     public Aluno saveAluno(Aluno aluno);
     public Aluno updateAluno(Aluno aluno);
     public void deleteAluno(Aluno aluno);
