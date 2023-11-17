@@ -23,12 +23,11 @@ public interface IServicePaciente {
     
     public Paciente findById(Long id);
     
-    public List <Paciente> findByNomeLike(String nome);
+    public List <Paciente> findByNomePacienteLike(String nome);
     
-    public List <Paciente> findByNome(String nome);
+    public List <Paciente> findByNomePaciente(String nome);
     
-    public List <Paciente> findByMatricula(String nome);
-    
+    public List <Paciente> findByMatriculaPaciente(String nome);
     
     
 }

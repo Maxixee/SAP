@@ -98,12 +98,12 @@ public class ServicePaciente implements IServicePaciente {
     }
     
     @Override
-    public List<Paciente> findByNomeLike(String nome) {
+    public List<Paciente> findByNomePacienteLike(String nome) {
         return daoPaciente.findByNomeLike(nome);
     }
     
     @Override
-    public List<Paciente> findByNome(String nome) {
+    public List<Paciente> findByNomePaciente(String nome) {
         if(nome == null) {
             throw new BusinessException(NOME_NULL);
         } if(nome.isEmpty()) {
@@ -114,7 +114,7 @@ public class ServicePaciente implements IServicePaciente {
     }
     
     @Override
-    public List<Paciente> findByMatricula(String matricula) {
+    public List<Paciente> findByMatriculaPaciente(String matricula) {
         if(matricula == null) {
             throw new BusinessException(MATRICULA_NULL);
         } if(matricula.isEmpty()) {

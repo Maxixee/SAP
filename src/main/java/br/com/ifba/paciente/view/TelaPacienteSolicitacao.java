@@ -225,7 +225,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
         String matricula = txtMatricula.getText();
         
         if (selectedNome != null) {
-            pacientes = facade.findByMatricula(matricula);
+            pacientes = facade.findByMatriculaPaciente(matricula);
             if (!pacientes.isEmpty()) {
                 Paciente pacienteSelecionado = pacientes.get(0);
                 try {
@@ -252,7 +252,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
         
         if (selectedValue != null) {
             String selecionado = selectedValue.toString();
-            pacientes = facade.findByNome(selecionado);
+            pacientes = facade.findByNomePaciente(selecionado);
 
             if (!pacientes.isEmpty()) {
                 Paciente pacienteSelecionado = pacientes.get(0);

@@ -7,6 +7,8 @@ package br.com.ifba.infrastructure.service;
 
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.agendamento.service.IServiceAgendamento;
+import br.com.ifba.aluno.model.Aluno;
+import br.com.ifba.aluno.service.IServiceAluno;
 import br.com.ifba.listadeespera.model.ListaDeEspera;
 import br.com.ifba.listadeespera.service.IServiceListaDeEspera;
 import br.com.ifba.login.service.IServiceLogin;
@@ -42,6 +44,61 @@ public class Facade implements IFacade {
     private IServiceLogin serviceLogin;
     @Autowired
     private IServiceListaDeEspera serviceListaDeEspera;
+    
+    
+    //=====================================================//
+    //=========================ALUNO=======================//
+    //=====================================================//
+    
+    @Autowired
+    private IServiceAluno serviceAluno;
+    
+    @Override
+    public Aluno saveAluno(Aluno aluno) {
+        return serviceAluno.saveAluno(aluno);
+    }
+    
+    @Override
+    public Aluno updateAluno(Aluno aluno){
+        return serviceAluno.updateAluno(aluno);
+    }
+    
+    @Override
+    public void deleteAluno(Aluno aluno){
+        serviceAluno.deleteAluno(aluno);
+    }
+    
+    @Override
+    public List<Aluno> getAllAluno() {
+        return serviceAluno.getAllAluno();
+    }
+    
+    @Override
+    public List<Aluno> getAllAlunoNaoPaciente(){
+         return serviceAluno.getAllAlunoNaoPaciente();
+    }
+    
+    @Override
+    public Aluno findById(Long id){
+        return serviceAluno.findById(id);
+    }
+    
+    @Override
+    public List<Aluno> findByNomeLike(String nome) {
+       return  serviceAluno.findByNomeLike(nome);
+    }
+    
+    @Override
+    public List<Aluno> findByNome(String nome) {
+       return  serviceAluno.findByNome(nome);
+    }
+    
+    @Override
+    public List <Aluno> findByMatricula(String matricula) {
+       return  serviceAluno.findByMatricula(matricula);
+    }
+    
+    
     //=====================SOLICITACAO=====================
     @Override
     public void saveSolicitacao(Solicitacao solicitacao) {
@@ -130,18 +187,18 @@ public class Facade implements IFacade {
     }
     
     @Override
-    public List<Paciente> findByNomeLike(String nome) {
-       return  servicePaciente.findByNomeLike(nome);
+    public List<Paciente> findByNomePacienteLike(String nome) {
+       return  servicePaciente.findByNomePacienteLike(nome);
     }
     
     @Override
-    public List<Paciente> findByNome(String nome) {
-       return  servicePaciente.findByNome(nome);
+    public List<Paciente> findByNomePaciente(String nome) {
+       return  servicePaciente.findByNomePaciente(nome);
     }
     
     @Override
-    public List<Paciente> findByMatricula(String matricula) {
-       return  servicePaciente.findByMatricula(matricula);
+    public List<Paciente> findByMatriculaPaciente(String matricula) {
+       return  servicePaciente.findByMatriculaPaciente(matricula);
     }
     
     //=====================AGENDAMENTO=====================
