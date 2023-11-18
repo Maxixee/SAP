@@ -39,7 +39,7 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     @PostConstruct
     public void init() {
         //listarDados();
-        //nomeTela(paciente);
+        nomeTela(paci);
     }
     
     /**
@@ -76,9 +76,17 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Hora"
+                "ID", "Data", "Hora"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTAgendaMouseClicked(evt);
@@ -160,20 +168,9 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-         //cancelar();
-         int selectedRow = jTAgenda.getSelectedRow();
-
-       // Verifica se alguma linha está selecionada
-       if (selectedRow != -1) {
-           
-          selectedRow = (int) agendamento.getId();
-          DefaultTableModel dtmTarefa =(DefaultTableModel) jTAgenda.getModel();
-          // Obtém o Agendamento correspondente à linha selecionada
-          Agendamento agendamento = facade.getAllAgendamento().get(jTAgenda.getSelectedRow());      
-          facade.deleteAgendamento(agendamento);
-          dtmTarefa.removeRow(jTAgenda.getSelectedRow());
+        cancelar();
+         
         
-    }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
@@ -184,17 +181,7 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
      }//GEN-LAST:event_jTAgendaMouseClicked
 
     private void btnRemarcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemarcarActionPerformed
-        int selectedRow = jTAgenda.getSelectedRow();
-
-       // Verifica se alguma linha está selecionada
-       if (selectedRow != -1) {
-          DefaultTableModel dtmTarefa =(DefaultTableModel) jTAgenda.getModel();
-          // Obtém o Agendamento correspondente à linha selecionada
-          Agendamento agendamento = facade.getAllAgendamento().get(selectedRow); 
-          telaRemarcar.exportarDados(agendamento);
-          this.telaRemarcar.setVisible(true);
-          this.dispose();
-       }
+        remarcar();
     }//GEN-LAST:event_btnRemarcarActionPerformed
 
     /**
@@ -272,7 +259,7 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
             
 
               // Adiciona as datas e horas à tabela
-              dtmAgendamento.addRow(new Object[]{dateFormat.format(data.getTime()), Time});
+              dtmAgendamento.addRow(new Object[]{String.valueOf(agendamento.getId()),dateFormat.format(data.getTime()), Time});
             }
        }
      }
@@ -286,32 +273,54 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
        return paci;
        
    }
-   /* colocar nome de usuario na tela 
-   public void nomeTela(Paciente paciente){
-
+   //metodo para colocar nome de usuario na tela 
+   public void nomeTela(Paciente paciente){ 
        List<Paciente> pacientes = facade.getAllPaciente();
        for(Paciente p: pacientes){
-         if(i == paciente.getId()){    
+         if(p.getId() == paci.getId()){    
             txtNome.setText(p.getNome());
          }
        }
        
-   }*/ 
+   } 
    
-   /*// metodo cancela o agendamento selecionado pelo paciente
+   // metodo cancela o agendamento selecionado pelo paciente
    public void cancelar(){
        int selectedRow = jTAgenda.getSelectedRow();
 
        // Verifica se alguma linha está selecionada
        if (selectedRow != -1) {
-          DefaultTableModel dtmTarefa =(DefaultTableModel) jTAgenda.getModel();
+           
+           //jTAgenda.getSelectedRow(); 
+          DefaultTableModel dtmAgendamento =(DefaultTableModel) jTAgenda.getModel();
           // Obtém o Agendamento correspondente à linha selecionada
-          Agendamento agendamento = facade.getAllAgendamento().get(selectedRow);      
+          agendamento = facade.findAgendamentoById(Long.parseLong((String) dtmAgendamento.getValueAt(jTAgenda.getSelectedRow(), 0))); 
+          //deletaa o agendamento
           facade.deleteAgendamento(agendamento);
-          dtmTarefa.removeRow(jTAgenda.getSelectedRow());
-        
+          //remove da tabela
+          dtmAgendamento.removeRow(jTAgenda.getSelectedRow());
     }
        
-   }*/
+   }
+
+   //metodo que remarca um agendamento selecionado pelo paciente
+   public void remarcar(){
+      int selectedRow = jTAgenda.getSelectedRow();
+
+       // Verifica se alguma linha está selecionada
+       if (selectedRow != -1) {
+          DefaultTableModel dtmAgendamento =(DefaultTableModel) jTAgenda.getModel();
+          // Obtém o Agendamento correspondente à linha selecionada        
+          //Agendamento agendamento = facade.getAllAgendamento().get(selectedRow);   
+          agendamento = facade.findAgendamentoById(Long.parseLong((String) dtmAgendamento.getValueAt(jTAgenda.getSelectedRow(), 0)));
+          telaRemarcar.exportarDados(agendamento);
+          this.telaRemarcar.setVisible(true);
+          this.dispose();   
+       }
+    
+ }
+
 }
+
+
 
