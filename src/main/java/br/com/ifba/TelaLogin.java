@@ -102,6 +102,7 @@ public class TelaLogin extends javax.swing.JFrame {
            this.menuPaciente.setVisible(true); //temporario(subistituir por acesso aos metodos de paciente)
        }else if(user.equals("tecnico")){
           this.menuPsicologo.setVisible(true);
+          this.menuPsicologo.atualizarLabel(user);
        }else{
            lblFlag.setText("LOGIN INVALIDO");
        }
