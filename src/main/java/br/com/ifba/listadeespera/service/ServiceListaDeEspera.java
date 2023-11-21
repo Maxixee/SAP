@@ -7,6 +7,9 @@ package br.com.ifba.listadeespera.service;
 import br.com.ifba.listadeespera.dao.IDaoListaDeEspera;
 import br.com.ifba.listadeespera.model.ListaDeEspera;
 import br.com.ifba.agendamento.model.Agendamento;
+import br.com.ifba.infrastructure.exception.BusinessException;
+import static br.com.ifba.perfilusuario.service.ServicePerfilUsuario.PERFIL_USUARIO_EXISTE;
+import static br.com.ifba.perfilusuario.service.ServicePerfilUsuario.PERFIL_USUARIO_NULL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,16 @@ import org.springframework.stereotype.Service;
  *
  * @author riaan
  */
+
 @Service
 public class ServiceListaDeEspera implements IServiceListaDeEspera {
+    
+         //================= CONSTANTES =============================================
+    
+     // Mensagem de erro caso a fila de espera esteja vazia.
+
+    // Mensagem de erro caso o nome seja null.
+    private final static String FILA_ESPERA__NULL = "FILA_ESPERA__NULL";
 
     @Autowired
     private IDaoListaDeEspera daoListaDeEspera;
@@ -23,9 +34,11 @@ public class ServiceListaDeEspera implements IServiceListaDeEspera {
     @Override
     public ListaDeEspera salvarNaListaEspera(Agendamento agendamento) {
         // metodo save sem retorno
-         ListaDeEspera.add(agendamento);
-        return null;
-      
-              
+               if(daoListaDeEspera == null) {
+            throw new BusinessException(PERFIL_USUARIO_NULL);
+        }else{
+                  this.daoListaDeEspera.save(agendamento); 
+               } 
+        return null;       
     }
 }
