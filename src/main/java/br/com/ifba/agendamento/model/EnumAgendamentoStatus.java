@@ -12,6 +12,6 @@ public enum EnumAgendamentoStatus {
     //Define três opções para o status do agendamento
     AGENDAMENTO_DISPONIVEL,
     AGENDAMENTO_SOLICITADO,
-    AGENDAMENTO_CONFIRMADO
-
+    AGENDAMENTO_CONFIRMADOw
+    
 }

@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Calendar;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -35,15 +36,18 @@ public class Agendamento extends PersistenceEntity implements Serializable{
     @Column(name = "status_agendamento")
     private EnumAgendamentoStatus statusAgendamento; // armazena o status do agendamento como um Enum
     
-    @OneToOne(mappedBy = "agendamento")
-    Paciente paciente;
-    
     @Column(name = "data_agendamento")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dataAgendamento;
     
     @Column(name = "hora_agendamento")
     private LocalTime horaAgendamento;
+    
+    @OneToOne(mappedBy = "agendamento")
+    Paciente paciente;
+    
+    private String NomePaciente;
+    private String MatriculaPaciente;
     
     // Método estático para criar um novo agendamento com um status específico
     public static Agendamento criarAgendamento(EnumAgendamentoStatus status) {

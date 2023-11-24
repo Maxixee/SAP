@@ -219,6 +219,11 @@ public class Facade implements IFacade {
     }
     
     @Override
+    public List<Agendamento> getAllAgendamentoDisponivel() {
+         return serviceAgendamento.getAllAgendamentoDisponivel();
+    }
+    
+    @Override
     public Agendamento updateAgendamento(Agendamento agendamento) {
         return this.serviceAgendamento.updateAgendamento(agendamento);
         }

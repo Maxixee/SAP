@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,4 +20,9 @@ import org.springframework.stereotype.Repository;
 public interface IDaoAgendamento extends JpaRepository<Agendamento, Long>{
     public List<Agendamento> findByDataAgendamentoAndHoraAgendamento(Calendar dataAgendamento, LocalTime horaAgendamento);
     //public boolean existsByDataAgendamentoAndLocalTimeHoraAgendamento(Calendar dataAgendamento, LocalTime horaAgendamento);
+    
+    // Seleciona apenas os agendamentos disponiveis
+    @Query("SELECT a FROM Agendamento a WHERE a.statusAgendamento IS 'AGENDAMENTO_DISPONIVEL'")
+    public List<Agendamento> getAllAgendamentoDisponivel();
+
 }

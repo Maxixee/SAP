@@ -36,10 +36,13 @@ public interface IFacade {
     public List <Aluno> findByMatricula(String nome);
     
     //=====================SOLICITACAO=====================
+    
     public void saveSolicitacao(Solicitacao solicitacao); 
     public List<Solicitacao> getAllSolicitacao(); 
     public void removeSolicitacao(Long value);
-    //=====================TESTE=====================
+    
+    //=====================TESTE===========================
+    
     public abstract void saveTeste(Teste teste);
     public List<Teste> findAll();
     
@@ -56,6 +59,7 @@ public interface IFacade {
     
     
     //=====================PRONTUARIO=====================
+    
     public void saveProntuario(Prontuario prontuario);
     public List<Prontuario> getAllProntuarios();
     public List<Prontuario> getAllProntuariosArquivados();
@@ -63,13 +67,17 @@ public interface IFacade {
     public Prontuario findProntuarioById(Long id);
     public void arquivarProntuario(Prontuario prontuario);
     public void newProntuario(String desc, Paciente paciente);
+    
+    
     //=====================AGENDAMENTO=====================
+    
     public Agendamento saveSolicitacaoAgendamento(Agendamento agendamento);
     public Agendamento saveDataAgendamento(Agendamento agendamento);
     public List<Agendamento>getAllAgendamento();
     public Agendamento updateAgendamento(Agendamento agendamento);
     public abstract void deleteAgendamento(Agendamento agendamento);
     public Agendamento findAgendamentoById(Long id);
+    public List<Agendamento>getAllAgendamentoDisponivel();
     
     
     //==========================LOGIN================================
