@@ -24,6 +24,7 @@ import lombok.Data;
 @Data
 public class Servidor extends Pessoa implements Serializable {
     private String siape;
+    private boolean ativo;
     
     @OneToMany(mappedBy = "servidor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<FuncaoServidor> funcaoServidor;
