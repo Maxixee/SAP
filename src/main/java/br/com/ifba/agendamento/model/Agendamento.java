@@ -11,6 +11,8 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,6 +30,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agendamento extends PersistenceEntity implements Serializable{ 
+    
+    @Enumerated(EnumType.STRING) // Indica que será salvo como String
+    @Column(name = "status_agendamento")
+    private EnumAgendamentoStatus statusAgendamento; // armazena o status do agendamento como um Enum
+    
     @OneToOne(mappedBy = "agendamento")
     Paciente paciente;
     
@@ -37,5 +44,12 @@ public class Agendamento extends PersistenceEntity implements Serializable{
     
     @Column(name = "hora_agendamento")
     private LocalTime horaAgendamento;
+    
+    // Método estático para criar um novo agendamento com um status específico
+    public static Agendamento criarAgendamento(EnumAgendamentoStatus status) {
+        Agendamento agendamento = new Agendamento();
+        agendamento.setStatusAgendamento(status);
+        return agendamento;
+    }
     
 }

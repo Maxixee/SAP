@@ -5,6 +5,7 @@
 package br.com.ifba.agendamento.view;
 
 import br.com.ifba.agendamento.model.Agendamento;
+import br.com.ifba.agendamento.model.EnumAgendamentoStatus;
 import br.com.ifba.infrastructure.service.IFacade;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +34,7 @@ import org.springframework.context.annotation.Lazy;
  */
 
 @Component
-public class TelaAgendamento extends javax.swing.JFrame {
+public class TelaDisponibilidadePsicologo extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
     
@@ -46,7 +47,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
     /**
      * Creates new form TelaAgendamento
      */
-    public TelaAgendamento() {
+    public TelaDisponibilidadePsicologo() {
         initComponents();    
         // Fecha a tela sem encerrar todo o sistema
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -223,7 +224,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
         try {
             horaSelecionada = timeFormat.parse(timePickerValue);
         } catch (ParseException ex) {
-            Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaDisponibilidadePsicologo.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
 
@@ -232,8 +233,12 @@ public class TelaAgendamento extends javax.swing.JFrame {
 
         Calendar horaCalendar = Calendar.getInstance();
         horaCalendar.setTime(horaSelecionada);
+        
+        // cria um novo objeto Agendamento usando o método estático 
+        // criarAgendamento da classe Agendamento
+        // configurado com o status AGENDAMENTO_DISPONIVEL
+        Agendamento ag = Agendamento.criarAgendamento(EnumAgendamentoStatus.AGENDAMENTO_DISPONIVEL);
 
-        Agendamento ag = new Agendamento();
         ag.setDataAgendamento(dataCalendar);
 
         // Obtenha a hora em formato LocalTime
@@ -301,7 +306,7 @@ public class TelaAgendamento extends javax.swing.JFrame {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse((String)model.getValueAt(seectedRow, 0).toString());  
             txtData.setDate(date);
         } catch (ParseException ex) {
-            Logger.getLogger(TelaAgendamento.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaDisponibilidadePsicologo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -337,21 +342,23 @@ public class TelaAgendamento extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDisponibilidadePsicologo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDisponibilidadePsicologo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDisponibilidadePsicologo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAgendamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaDisponibilidadePsicologo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaAgendamento().setVisible(true);
+                new TelaDisponibilidadePsicologo().setVisible(true);
             }
         });
     }
