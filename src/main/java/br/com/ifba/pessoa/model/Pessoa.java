@@ -12,6 +12,8 @@ import br.com.ifba.usuario.model.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import lombok.Data;
@@ -26,7 +28,8 @@ import lombok.EqualsAndHashCode;
 @Table(name = "pessoa")
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Pessoa extends PersistenceEntity implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Pessoa extends PersistenceEntity implements Serializable {
     private String nome;
     private String telefone;
     private String email;

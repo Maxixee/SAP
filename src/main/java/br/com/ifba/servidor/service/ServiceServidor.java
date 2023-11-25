@@ -11,11 +11,14 @@ import br.com.ifba.servidor.dao.IDaoServidor;
 import br.com.ifba.servidor.model.Servidor;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author davia
  */
+
+@Service
 public class ServiceServidor implements IServiceServidor{
     
     //================= CONSTANTES =============================================
@@ -78,7 +81,7 @@ public class ServiceServidor implements IServiceServidor{
     }
 
     @Override
-    public List<Servidor> getAllservidor() {
+    public List<Servidor> getAllServidor() {
         return this.daoServidor.findAll();
     }
     
@@ -98,14 +101,18 @@ public class ServiceServidor implements IServiceServidor{
           return daoServidor.findBySiape(siape);
      }
      
+     public Servidor findByIdServidor(Long id) {
+          return daoServidor.getReferenceById(id);
+     }
+     
      @Override
      public List<Servidor> findByDescricao(String descricao){
-         if(descricao == null) {
+        if(descricao == null) {
             throw new BusinessException(DESCRICAO_NULL);
         } 
         if(descricao.isEmpty()) {
             throw new BusinessException(DESCRICAO_VAZIO);
         }
-        return daoServidor.findByNome(descricao); 
+        return daoServidor.findByDescricao(descricao); 
      }
 }

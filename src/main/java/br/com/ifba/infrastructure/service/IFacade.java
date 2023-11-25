@@ -10,6 +10,7 @@ import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.listadeespera.model.ListaDeEspera;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.prontuario.model.Prontuario;
+import br.com.ifba.servidor.model.Servidor;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.teste.model.Teste;
 import java.util.List;
@@ -86,4 +87,14 @@ public interface IFacade {
         
     //=====================LISTA DE ESPERA=====================
     public ListaDeEspera salvarNaListaEspera(Agendamento agendamento);
+    
+    
+    //==========================SERVIDOR================================
+    public Servidor saveServidor(Servidor servidor);
+    public Servidor updateServidor(Servidor servidor);
+    public void deleteServidor(Servidor servidor);
+    public List<Servidor> getAllServidor();
+    public List<Servidor> findByDescricao(String descricao);
+    public Servidor findBySiape(Long siape);
+    public Servidor findByIdServidor(Long id);
 }

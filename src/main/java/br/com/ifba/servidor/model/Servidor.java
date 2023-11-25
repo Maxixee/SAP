@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import lombok.Data;
 
 /**
@@ -23,10 +24,7 @@ import lombok.Data;
 @Table(name = "servidor")
 @Data
 public class Servidor extends Pessoa implements Serializable {
+    private String descricao;
     private String siape;
-    private boolean ativo;
-    
-    @OneToMany(mappedBy = "servidor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<FuncaoServidor> funcaoServidor;
-    
+    private boolean ativo; 
 }

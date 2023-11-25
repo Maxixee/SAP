@@ -9,6 +9,7 @@ import br.com.ifba.paciente.view.TelaExibirPacientes;
 import br.com.ifba.paciente.view.TelaPacienteSolicitacao;
 import br.com.ifba.prontuario.view.ListaProntuarios;
 import br.com.ifba.prontuario.view.ProntuarioView;
+import br.com.ifba.servidor.view.AtivaPsicologo;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
 
 
@@ -56,6 +57,9 @@ public class TelaDeTestes extends javax.swing.JFrame {
     @Autowired
     private TelaLogin telaLogin;
     
+    @Autowired
+    private AtivaPsicologo ativaPsicologo;
+    
     public TelaDeTestes() {
         initComponents();
         super.setLocationRelativeTo(null);
@@ -79,6 +83,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
         btn01 = new javax.swing.JButton();
         btn10 = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
+        btn12 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -201,6 +206,16 @@ public class TelaDeTestes extends javax.swing.JFrame {
             }
         });
 
+        btn12.setBackground(new java.awt.Color(0, 0, 0));
+        btn12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn12.setForeground(new java.awt.Color(255, 255, 255));
+        btn12.setText("ATVA/DESTVA.PSICO");
+        btn12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn12ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlContainerLayout = new javax.swing.GroupLayout(pnlContainer);
         pnlContainer.setLayout(pnlContainerLayout);
         pnlContainerLayout.setHorizontalGroup(
@@ -218,14 +233,16 @@ public class TelaDeTestes extends javax.swing.JFrame {
                             .addComponent(btn09, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn03, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(pnlContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContainerLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(btn02, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlContainerLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(pnlContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn08, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btn05, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContainerLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(btn02, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(pnlContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btn08, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn05, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btn12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(31, 31, 31)
                         .addGroup(pnlContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btn10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -257,7 +274,8 @@ public class TelaDeTestes extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(pnlContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(139, Short.MAX_VALUE))
         );
 
@@ -320,6 +338,10 @@ public class TelaDeTestes extends javax.swing.JFrame {
         this.telaCadastrarAluno.setVisible(true);
     }//GEN-LAST:event_btn4ActionPerformed
 
+    private void btn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn12ActionPerformed
+        this.ativaPsicologo.setVisible(true);
+    }//GEN-LAST:event_btn12ActionPerformed
+
     public static void main(String args[]) {
        
         try {
@@ -357,6 +379,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
     private javax.swing.JButton btn08;
     private javax.swing.JButton btn09;
     private javax.swing.JButton btn10;
+    private javax.swing.JButton btn12;
     private javax.swing.JButton btn4;
     private javax.swing.JLabel lblAlerta;
     private javax.swing.JPanel pnlContainer;

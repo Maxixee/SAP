@@ -16,6 +16,8 @@ import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.paciente.service.IServicePaciente;
 import br.com.ifba.prontuario.model.Prontuario;
 import br.com.ifba.prontuario.service.IServiceProntuario;
+import br.com.ifba.servidor.model.Servidor;
+import br.com.ifba.servidor.service.IServiceServidor;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.solicitacao.service.IServiceSolicitacao;
 import br.com.ifba.teste.model.Teste;
@@ -30,6 +32,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class Facade implements IFacade {
+    
     @Autowired
     private IServiceTeste serviceTeste;
     @Autowired
@@ -44,6 +47,8 @@ public class Facade implements IFacade {
     private IServiceLogin serviceLogin;
     @Autowired
     private IServiceListaDeEspera serviceListaDeEspera;
+    @Autowired
+    private IServiceServidor serviceServidor;
     
     
     //=====================================================//
@@ -248,5 +253,40 @@ public class Facade implements IFacade {
          // metodo save sem retorno
         serviceListaDeEspera.salvarNaListaEspera(agendamento);
         return null;
+    }
+    
+    //==========================SERVIDOR================================
+    @Override
+    public Servidor saveServidor(Servidor servidor){
+        return serviceServidor.saveServidor(servidor);
+    }
+    
+    @Override
+    public Servidor updateServidor(Servidor servidor){
+        return serviceServidor.updateServidor(servidor);
+    }
+    
+    @Override
+    public void deleteServidor(Servidor servidor){
+        serviceServidor.deleteServidor(servidor);
+    }
+    
+    @Override
+    public List<Servidor> getAllServidor(){
+        return serviceServidor.getAllServidor();
+    }
+    
+    @Override
+    public List<Servidor> findByDescricao(String descricao){
+        return serviceServidor.findByDescricao(descricao);
+    }
+    
+    @Override
+    public Servidor findBySiape(Long siape){
+        return serviceServidor.findBySiape(siape);
+    }
+    
+    public Servidor findByIdServidor(Long id){
+        return serviceServidor.findByIdServidor(id);
     }
 }
