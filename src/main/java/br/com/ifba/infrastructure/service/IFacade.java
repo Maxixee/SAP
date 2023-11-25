@@ -79,6 +79,7 @@ public interface IFacade {
     public abstract void deleteAgendamento(Agendamento agendamento);
     public Agendamento findAgendamentoById(Long id);
     public List<Agendamento>getAllAgendamentoDisponivel();
+    public List<Agendamento>getAllAgendamentoSolicitado();
     
     
     //==========================LOGIN================================

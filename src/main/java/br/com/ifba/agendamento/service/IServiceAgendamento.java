@@ -17,6 +17,7 @@ public interface IServiceAgendamento {
     public Agendamento saveDataAgendamento(Agendamento agendamento);
     public abstract List<Agendamento>getAllAgendamento();
     public abstract List<Agendamento>getAllAgendamentoDisponivel();
+    public abstract List<Agendamento>getAllAgendamentoSolicitado();
     public abstract boolean deleteAgendamento(Agendamento agendamento);
     public Agendamento updateAgendamento(Agendamento agendamento);
     public Agendamento findById(Long id);

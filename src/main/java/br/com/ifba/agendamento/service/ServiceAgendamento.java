@@ -70,6 +70,11 @@ public class ServiceAgendamento implements IServiceAgendamento{
     }
     
     @Override
+    public List<Agendamento> getAllAgendamentoSolicitado() {
+        return daoAgendamento.getAllAgendamentoSolicitado();
+    }
+    
+    @Override
     public boolean deleteAgendamento(Agendamento agendamento) {
         if(agendamento == null){
             throw new BusinessException(AGENDAMENTO_NULL);

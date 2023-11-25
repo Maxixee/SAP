@@ -24,5 +24,9 @@ public interface IDaoAgendamento extends JpaRepository<Agendamento, Long>{
     // Seleciona apenas os agendamentos disponiveis
     @Query("SELECT a FROM Agendamento a WHERE a.statusAgendamento IS 'AGENDAMENTO_DISPONIVEL'")
     public List<Agendamento> getAllAgendamentoDisponivel();
+    
+    // Seleciona apenas os agendamentos solicitados
+    @Query("SELECT a FROM Agendamento a WHERE a.statusAgendamento IS 'AGENDAMENTO_SOLICITADO'")
+    public List<Agendamento> getAllAgendamentoSolicitado();
 
 }
