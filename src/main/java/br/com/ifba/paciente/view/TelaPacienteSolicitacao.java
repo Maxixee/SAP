@@ -213,8 +213,8 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarActionPerformed
-        this.telaExibirSolicitacoes.inserirDadosTela();
         this.telaExibirSolicitacoes.setVisible(true);
+        this.telaExibirSolicitacoes.inserirDadosTela();
         this.dispose();
     }//GEN-LAST:event_btnGerenciarActionPerformed
 
@@ -251,7 +251,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, error, "O campo nome está vazio!", JOptionPane.ERROR_MESSAGE);
         }
         
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void cbxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeActionPerformed
