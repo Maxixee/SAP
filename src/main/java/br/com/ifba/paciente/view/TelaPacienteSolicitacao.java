@@ -214,7 +214,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
 
     private void btnGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarActionPerformed
         this.telaExibirSolicitacoes.setVisible(true);
-        this.telaExibirSolicitacoes.inserirDadosTela();
+        this.telaExibirSolicitacoes.atualizarTabela();
         this.dispose();
     }//GEN-LAST:event_btnGerenciarActionPerformed
 

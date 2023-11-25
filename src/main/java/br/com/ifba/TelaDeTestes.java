@@ -322,7 +322,7 @@ public class TelaDeTestes extends javax.swing.JFrame {
     }//GEN-LAST:event_btn02ActionPerformed
 
     private void btn04ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn04ActionPerformed
-        this.telaExibirSolicitacoes.inserirDadosTela();
+        this.telaExibirSolicitacoes.atualizarTabela();
         this.telaExibirSolicitacoes.setVisible(true);
     }//GEN-LAST:event_btn04ActionPerformed
 
