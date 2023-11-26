@@ -5,6 +5,7 @@
 package br.com.ifba.paciente.view;
 
 import br.com.ifba.agendamento.model.Agendamento;
+import br.com.ifba.agendamento.model.EnumAgendamentoStatus;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.solicitacao.model.Solicitacao;
@@ -61,16 +62,17 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     }
     
     public void preencheComboBoxData() {
-        agendamentos = facade.getAllAgendamento();
+        // Seleciona apenas os agendamentos com status disponivel
+        agendamentos = facade.getAllAgendamentoDisponivel();
         DefaultComboBoxModel<String> comboModel = (DefaultComboBoxModel<String>) cbxData.getModel();
         comboModel.removeAllElements();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm"); // Formato desejado para a hora
 
-        for(Agendamento agendamento : agendamentos) {
-            String dataAgendamentoString = dateFormat.format(agendamento.getDataAgendamento().getTime());
-            String horaAgendamentoString = agendamento.getHoraAgendamento().format(timeFormat);
+        for(Agendamento a : agendamentos) {
+            String dataAgendamentoString = dateFormat.format(a.getDataAgendamento().getTime());
+            String horaAgendamentoString = a.getHoraAgendamento().format(timeFormat);
 
             String displayText = dataAgendamentoString + " - " + horaAgendamentoString;
             comboModel.addElement(displayText);
@@ -211,14 +213,14 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarActionPerformed
-        this.telaExibirSolicitacoes.inserirDadosTela();
         this.telaExibirSolicitacoes.setVisible(true);
+        this.telaExibirSolicitacoes.atualizarTabela();
         this.dispose();
     }//GEN-LAST:event_btnGerenciarActionPerformed
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         
-        solicitacao = new Solicitacao();
+//        solicitacao = new Solicitacao();
         
         Object selectedNome = cbxNome.getSelectedItem();
         
@@ -228,13 +230,18 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             pacientes = facade.findByMatriculaPaciente(matricula);
             if (!pacientes.isEmpty()) {
                 Paciente pacienteSelecionado = pacientes.get(0);
+                Agendamento agendamentoSelecionado = agendamentos.get(0);
                 try {
-                    solicitacao.setNomePaciente(pacienteSelecionado.getNome());
-                    solicitacao.setMatriculaPaciente(pacienteSelecionado.getMatricula());
-                    solicitacao.setDataHorario(cbxData.getSelectedItem().toString());
-                    this.facade.saveSolicitacao(solicitacao);
-                    pacienteSelecionado.setSolicitacao(solicitacao);
+//                    agendamento = facade.
+                    agendamentoSelecionado.setNomePaciente(pacienteSelecionado.getNome());
+                    agendamentoSelecionado.setMatriculaPaciente(pacienteSelecionado.getMatricula());
+//                    solicitacao.setDataHorario(cbxData.getSelectedItem().toString());
+//                    this.facade.saveSolicitacao(solicitacao);
+                    agendamentoSelecionado.setStatusAgendamento(EnumAgendamentoStatus.AGENDAMENTO_SOLICITADO);
+                    pacienteSelecionado.setAgendamento(agendamento);
                     facade.updatePaciente(pacienteSelecionado);
+                    facade.updateAgendamento(agendamentoSelecionado);
+                    
                 } catch (Exception error) {
                     JOptionPane.showMessageDialog(null, error, "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
                 }
@@ -244,7 +251,7 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, error, "O campo nome está vazio!", JOptionPane.ERROR_MESSAGE);
         }
         
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void cbxNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNomeActionPerformed

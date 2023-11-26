@@ -181,7 +181,7 @@ public class TelaCadastrarPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarActionPerformed
-        this.telaExibirSolicitacoes.inserirDadosTela();
+        this.telaExibirSolicitacoes.atualizarTabela();
         this.telaExibirSolicitacoes.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGerenciarActionPerformed

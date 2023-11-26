@@ -62,7 +62,17 @@ public class ServiceAgendamento implements IServiceAgendamento{
     @Override
     public List<Agendamento> getAllAgendamento() {
         return daoAgendamento.findAll();
-        }
+    }
+    
+    @Override
+    public List<Agendamento> getAllAgendamentoDisponivel() {
+        return daoAgendamento.getAllAgendamentoDisponivel();
+    }
+    
+    @Override
+    public List<Agendamento> getAllAgendamentoSolicitado() {
+        return daoAgendamento.getAllAgendamentoSolicitado();
+    }
     
     @Override
     public boolean deleteAgendamento(Agendamento agendamento) {

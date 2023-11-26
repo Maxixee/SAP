@@ -10,6 +10,7 @@ import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.listadeespera.model.ListaDeEspera;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.prontuario.model.Prontuario;
+import br.com.ifba.servidor.model.Servidor;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.teste.model.Teste;
 import java.util.List;
@@ -36,10 +37,13 @@ public interface IFacade {
     public List <Aluno> findByMatricula(String nome);
     
     //=====================SOLICITACAO=====================
+    
     public void saveSolicitacao(Solicitacao solicitacao); 
     public List<Solicitacao> getAllSolicitacao(); 
     public void removeSolicitacao(Long value);
-    //=====================TESTE=====================
+    
+    //=====================TESTE===========================
+    
     public abstract void saveTeste(Teste teste);
     public List<Teste> findAll();
     
@@ -56,6 +60,7 @@ public interface IFacade {
     
     
     //=====================PRONTUARIO=====================
+    
     public void saveProntuario(Prontuario prontuario);
     public List<Prontuario> getAllProntuarios();
     public List<Prontuario> getAllProntuariosArquivados();
@@ -63,13 +68,18 @@ public interface IFacade {
     public Prontuario findProntuarioById(Long id);
     public void arquivarProntuario(Prontuario prontuario);
     public void newProntuario(String desc, Paciente paciente);
+    
+    
     //=====================AGENDAMENTO=====================
+    
     public Agendamento saveSolicitacaoAgendamento(Agendamento agendamento);
     public Agendamento saveDataAgendamento(Agendamento agendamento);
     public List<Agendamento>getAllAgendamento();
     public Agendamento updateAgendamento(Agendamento agendamento);
     public abstract void deleteAgendamento(Agendamento agendamento);
     public Agendamento findAgendamentoById(Long id);
+    public List<Agendamento>getAllAgendamentoDisponivel();
+    public List<Agendamento>getAllAgendamentoSolicitado();
     
     
     //==========================LOGIN================================
@@ -78,4 +88,14 @@ public interface IFacade {
         
     //=====================LISTA DE ESPERA=====================
     public ListaDeEspera salvarNaListaEspera(Agendamento agendamento);
+    
+    
+    //==========================SERVIDOR================================
+    public Servidor saveServidor(Servidor servidor);
+    public Servidor updateServidor(Servidor servidor);
+    public void deleteServidor(Servidor servidor);
+    public List<Servidor> getAllServidor();
+    public List<Servidor> findByDescricao(String descricao);
+    public Servidor findBySiape(Long siape);
+    public Servidor findByIdServidor(Long id);
 }

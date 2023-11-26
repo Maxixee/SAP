@@ -24,8 +24,8 @@ public abstract class FuncaoServidor extends PersistenceEntity implements Serial
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Servidor servidor;
-    private String nome;
     private String descricao;
+    private String nome;
     
     
 }

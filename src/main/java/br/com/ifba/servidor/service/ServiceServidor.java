@@ -2,21 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.ifba.funcaoservidor.service;
+package br.com.ifba.servidor.service;
 
 import br.com.ifba.funcaoservidor.dao.IDaoFuncaoServidor;
 import br.com.ifba.funcaoservidor.model.FuncaoServidor;
 import br.com.ifba.infrastructure.exception.BusinessException;
+import br.com.ifba.servidor.dao.IDaoServidor;
 import br.com.ifba.servidor.model.Servidor;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
- * @author msmmendes
+ * @author davia
  */
-/*public class ServiceFuncaoServidor implements IServiceFuncaoServidor{
 
+@Service
+public class ServiceServidor implements IServiceServidor{
+    
     //================= CONSTANTES =============================================
     
     // Mensagem de erro se Servidor for null.
@@ -31,50 +35,54 @@ import org.springframework.beans.factory.annotation.Autowired;
     private final static String NOME_VAZIO = "O Campo Nome esta vazio";
     // Mensagem de erro caso o nome seja null.
     private final static String NOME_NULL = "Dados do nome nao preenchidos";
+    // Mensagem de erro caso a descricao seja vazio
+    private final static String DESCRICAO_VAZIO = "O Campo a descricao esta vazio";
+    // Mensagem de erro caso a descricao seja null.
+    private final static String DESCRICAO_NULL = "Dados do a descricao nao preenchidos";
     
      //================= OBJETO =================================================
     
     @Autowired
-    private IDaoFuncaoServidor daoFuncaoServidor;
+    private IDaoServidor daoServidor;
 
      //================= MÉTODOS ================================================
     
     @Override
-    public FuncaoServidor saveServidor(FuncaoServidor funcaoServidor) {
-       if(funcaoServidor == null) {
+    public Servidor saveServidor(Servidor servidor) {
+       if(servidor == null) {
             throw new BusinessException(FUNCAO_SERVIDOR_NULL);
         }
-       if(daoFuncaoServidor.existsByNome(funcaoServidor.getNome()) == true) {
+       if(daoServidor.existsByNome(servidor.getNome()) == true) {
             throw new BusinessException(FUNCAO_SERVIDOR_EXISTE);
         }
-       return daoFuncaoServidor.save(funcaoServidor);
+       return daoServidor.save(servidor);
     }
 
     @Override
-    public FuncaoServidor updateServidor(FuncaoServidor funcaoServidor) {
-        if(funcaoServidor == null) {
+    public Servidor updateServidor(Servidor servidor) {
+        if(servidor == null) {
             throw new BusinessException(FUNCAO_SERVIDOR_NULL);
         } 
-        if(daoFuncaoServidor.existsById(funcaoServidor.getId()) == false) {
+        if(daoServidor.existsById(servidor.getId()) == false) {
             throw new BusinessException(FUNCAO_SERVIDOR_EXISTE);
         }
-        return daoFuncaoServidor.save(funcaoServidor);
+        return daoServidor.save(servidor);
     }
 
     @Override
-    public void deleteServidor(FuncaoServidor funcaoServidor) {
-        if(funcaoServidor == null) {
+    public void deleteServidor(Servidor servidor) {
+        if(servidor == null) {
             throw new BusinessException(FUNCAO_SERVIDOR_NULL);
         } 
-        if(daoFuncaoServidor.existsById(funcaoServidor.getId()) == false) {
+        if(daoServidor.existsById(servidor.getId()) == false) {
             throw new BusinessException(FUNCAO_SERVIDOR_NAO_EXISTE);
         }
-        daoFuncaoServidor.delete(funcaoServidor);
+        daoServidor.delete(servidor);
     }
 
     @Override
-    public List<Servidor> getAllservidor() {
-        return this.daoFuncaoServidor.findAll();
+    public List<Servidor> getAllServidor() {
+        return this.daoServidor.findAll();
     }
     
     @Override
@@ -85,22 +93,26 @@ import org.springframework.beans.factory.annotation.Autowired;
         if(nome.isEmpty()) {
             throw new BusinessException(NOME_VAZIO);
         }
-        return daoFuncaoServidor.findByNome(nome); 
+        return daoServidor.findByNome(nome); 
     }
     
      @Override
-     public Servidor findById(Long id) {
-          return daoFuncaoServidor.getReferenceById(id);
+     public Servidor findBySiape(Long siape) {
+          return daoServidor.findBySiape(siape);
+     }
+     
+     public Servidor findByIdServidor(Long id) {
+          return daoServidor.getReferenceById(id);
      }
      
      @Override
      public List<Servidor> findByDescricao(String descricao){
-         if(descricao == null) {
-            throw new BusinessException(NOME_NULL);
+        if(descricao == null) {
+            throw new BusinessException(DESCRICAO_NULL);
         } 
         if(descricao.isEmpty()) {
-            throw new BusinessException(NOME_VAZIO);
+            throw new BusinessException(DESCRICAO_VAZIO);
         }
-        return daoFuncaoServidor.findByNome(descricao); 
+        return daoServidor.findByDescricao(descricao); 
      }
-}*/
+}
