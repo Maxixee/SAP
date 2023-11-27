@@ -20,5 +20,8 @@ public interface IServiceListaDeEspera {
    
 
     // Método para salvar um Agendamento na lista de espera
-    public ListaDeEspera salvarNaListaEspera(Agendamento agendamento);    
+    public ListaDeEspera salvarNaListaEspera(Agendamento agendamento);   
+    public ListaDeEspera deleteListaDeEspera(Agendamento agendamento);
+    public ListaDeEspera updateListaDeEspera(Agendamento agendamento);
+    public ListaDeEspera  getAllListaDeEspera();
 }

@@ -63,8 +63,8 @@ public class ServiceListaDeEspera implements IServiceListaDeEspera {
         } else{
              daoListaDeEspera.delete(agendamento);
         }
+        
         return (ListaDeEspera) daoListaDeEspera;
-    }
-    
-
+    }   
+}
 
