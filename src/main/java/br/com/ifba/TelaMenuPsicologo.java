@@ -4,6 +4,11 @@
  */
 package br.com.ifba;
 
+import br.com.ifba.agendamento.view.TelaDisponibilidadePsicologo;
+import br.com.ifba.paciente.view.TelaExibirPacientes;
+import br.com.ifba.prontuario.view.ListaProntuarios;
+import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +17,15 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
     /**
      * Creates new form TelaMenuPsicologo
      */
+    @Autowired
+    private ListaProntuarios telaListaProntuarios;
+    @Autowired
+    private TelaExibirPacientes telaExibirPacientes;
+    @Autowired
+    private TelaDisponibilidadePsicologo telaAgendamento;
+    @Autowired
+    private TelaExibirSolicitacoes telaExibirSolicitacoes;
+    
     public TelaMenuPsicologo() {
         initComponents();
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -32,11 +46,12 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
 
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnListProntuarios = new javax.swing.JButton();
+        btnDisponAtendimento = new javax.swing.JButton();
+        btnListPacientes = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         lblUserPsicologo = new javax.swing.JLabel();
+        btnListSolicita = new javax.swing.JButton();
 
         jButton3.setText("jButton3");
 
@@ -44,21 +59,28 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
 
         jLabel1.setText("AÇÔES DISPONIVEIS PARA PSICOLOGO");
 
-        jButton1.setText("1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnListProntuarios.setText("Listar Prontuarios");
+        btnListProntuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnListProntuariosActionPerformed(evt);
             }
         });
 
-        jButton2.setText("2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDisponAtendimento.setText("Disponibilizar Horario");
+        btnDisponAtendimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDisponAtendimentoActionPerformed(evt);
             }
         });
 
-        jButton4.setText("3");
+        btnListPacientes.setText("Listar Pacientes");
+        btnListPacientes.setMaximumSize(new java.awt.Dimension(152, 23));
+        btnListPacientes.setMinimumSize(new java.awt.Dimension(152, 23));
+        btnListPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListPacientesActionPerformed(evt);
+            }
+        });
 
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -69,62 +91,80 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
 
         lblUserPsicologo.setText("...");
 
+        btnListSolicita.setText("Exibir Solicitações");
+        btnListSolicita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListSolicitaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(82, 82, 82))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(166, 166, 166))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogout)
-                    .addComponent(lblUserPsicologo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLogout)
+                            .addComponent(lblUserPsicologo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 110, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnDisponAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnListSolicita, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                        .addComponent(btnListProntuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnListPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(150, 150, 150))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
-                .addComponent(jButton1)
-                .addGap(33, 33, 33)
-                .addComponent(jButton2)
-                .addGap(42, 42, 42)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDisponAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(btnListPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnListProntuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(btnListSolicita, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addComponent(lblUserPsicologo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnLogout)
-                .addGap(15, 15, 15))
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         this.dispose(); // fecha o menu atual de psicologo
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnListProntuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListProntuariosActionPerformed
+         this.telaListaProntuarios.setVisible(true);
+    }//GEN-LAST:event_btnListProntuariosActionPerformed
+
+    private void btnDisponAtendimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisponAtendimentoActionPerformed
+        this.telaAgendamento.setVisible(true);
+    }//GEN-LAST:event_btnDisponAtendimentoActionPerformed
+
+    private void btnListSolicitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListSolicitaActionPerformed
+  this.telaExibirSolicitacoes.atualizarTabela();
+        this.telaExibirSolicitacoes.setVisible(true);    }//GEN-LAST:event_btnListSolicitaActionPerformed
+
+    private void btnListPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListPacientesActionPerformed
+this.telaExibirPacientes.setVisible(true);this.telaExibirPacientes.setVisible(true);    }//GEN-LAST:event_btnListPacientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,11 +202,12 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDisponAtendimento;
+    private javax.swing.JButton btnListPacientes;
+    private javax.swing.JButton btnListProntuarios;
+    private javax.swing.JButton btnListSolicita;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblUserPsicologo;
     // End of variables declaration//GEN-END:variables
