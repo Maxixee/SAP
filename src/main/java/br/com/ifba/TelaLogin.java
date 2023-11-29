@@ -5,6 +5,8 @@
 package br.com.ifba;
 
 import br.com.ifba.infrastructure.service.IFacade;
+import br.com.ifba.paciente.view.TelaCadastrarAluno;
+import br.com.ifba.paciente.view.TelaCadastrarPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +16,22 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TelaLogin extends javax.swing.JFrame {
+
     @Autowired
     IFacade facade;
+
     @Autowired
     TelaMenuPaciente menuPaciente;
-    @Autowired 
+
+    @Autowired
     TelaMenuPsicologo menuPsicologo;
+
+    @Autowired
+    private TelaCadastrarAluno telaCadastrarAluno;
+
+    @Autowired
+    private TelaCadastrarPaciente telaCadastrarPaciente;
+
     /**
      * Creates new form TelaLogin
      */
@@ -41,12 +53,17 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnLogar = new javax.swing.JButton();
         lblFlag = new javax.swing.JLabel();
+        btnAluno = new javax.swing.JButton();
+        btnPaciente = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Login:");
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        jLabel1.setText("Matricula/Siape:");
 
-        btnLogar.setText("logar");
+        btnLogar.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        btnLogar.setText("LOGIN");
         btnLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogarActionPerformed(evt);
@@ -56,58 +73,96 @@ public class TelaLogin extends javax.swing.JFrame {
         lblFlag.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         lblFlag.setForeground(new java.awt.Color(204, 0, 51));
 
+        btnAluno.setText("CADASTRAR ALUNO");
+        btnAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlunoActionPerformed(evt);
+            }
+        });
+
+        btnPaciente.setText("CADASTRAR PACIENTE");
+        btnPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPacienteActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("ou");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(txtCredential, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(139, 139, 139))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(186, 186, 186)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAluno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(140, 140, 140)
-                                .addComponent(btnLogar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(81, 81, 81)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCredential, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 142, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblFlag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(212, 212, 212))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(165, 165, 165))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblFlag, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(106, 106, 106))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCredential, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(btnLogar)
                 .addGap(29, 29, 29)
-                .addComponent(lblFlag, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(lblFlag, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCredential, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAluno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPaciente)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-       String credencial = txtCredential.getText();
-       String user = facade.findUser(credencial);
-       if(user.equals("paciente")){
-           this.menuPaciente.setVisible(true); //temporario(subistituir por acesso aos metodos de paciente)
-       }else if(user.equals("tecnico")){
-          this.menuPsicologo.setVisible(true);
-          this.menuPsicologo.atualizarLabel(user);
-       }else{
-           lblFlag.setText("LOGIN INVALIDO");
-       }
-       //falta implementar a ação caso seja tecnico e caso seja nulo
+        String credencial = txtCredential.getText();
+        String user = facade.findUser(credencial);
+        if (user.equals("paciente")) {
+            this.menuPaciente.setVisible(true); 
+        } else if (user.equals("tecnico")) {
+            this.menuPsicologo.setVisible(true);
+            this.menuPsicologo.atualizarLabel(user);
+        } else {
+            lblFlag.setText("LOGIN INVALIDO");
+        }
+        //falta implementar a ação caso seja tecnico e caso seja nulo
     }//GEN-LAST:event_btnLogarActionPerformed
+
+    private void btnAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlunoActionPerformed
+        this.telaCadastrarAluno.setVisible(true);
+    }//GEN-LAST:event_btnAlunoActionPerformed
+
+    private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
+        this.telaCadastrarPaciente.setVisible(true);
+        this.telaCadastrarPaciente.preencheComboBoxNome();
+    }//GEN-LAST:event_btnPacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,8 +200,11 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAluno;
     private javax.swing.JButton btnLogar;
+    private javax.swing.JButton btnPaciente;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblFlag;
     private javax.swing.JTextField txtCredential;
     // End of variables declaration//GEN-END:variables
