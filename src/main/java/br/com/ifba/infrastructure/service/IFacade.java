@@ -97,5 +97,6 @@ public interface IFacade {
     public List<Servidor> getAllServidor();
     public List<Servidor> findByDescricao(String descricao);
     public Servidor findBySiape(Long siape);
+    public Servidor findByAdministradorIsTrueAndSiape(String siape);
     public Servidor findByIdServidor(Long id);
 }

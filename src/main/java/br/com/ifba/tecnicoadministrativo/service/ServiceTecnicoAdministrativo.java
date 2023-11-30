@@ -23,4 +23,9 @@ public class ServiceTecnicoAdministrativo implements IServiceTecnicoAdministrati
         return daoTecnico.findBySiape(siape);
     }
     
+    @Override
+    public TecnicoAdministrativo findByAdiministradoIsTrueAndSiape(String siape) {
+        return daoTecnico.findByAdministradorIsTrueAndSiape(siape);
+    }
+    
 }

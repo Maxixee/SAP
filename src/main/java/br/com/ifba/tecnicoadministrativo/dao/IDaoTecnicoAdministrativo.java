@@ -15,4 +15,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IDaoTecnicoAdministrativo extends JpaRepository<TecnicoAdministrativo, Long>{
     public TecnicoAdministrativo findBySiape(String siape);
+    public TecnicoAdministrativo findByAdministradorIsTrueAndSiape(String siape);
 }

@@ -249,6 +249,7 @@ public class Facade implements IFacade {
     }   
    
 //=====================LOGIN============================
+    @Override
     public String findUser(String Credential){
         return serviceLogin.findUser(Credential);
     }
@@ -291,6 +292,12 @@ public class Facade implements IFacade {
         return serviceServidor.findBySiape(siape);
     }
     
+    @Override
+     public Servidor findByAdministradorIsTrueAndSiape(String siape) {
+          return serviceServidor.findByAdiministradoIsTrueAndSiape(siape);
+    }
+    
+    @Override
     public Servidor findByIdServidor(Long id){
         return serviceServidor.findByIdServidor(id);
     }

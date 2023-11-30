@@ -9,6 +9,7 @@ import br.com.ifba.funcaoservidor.model.FuncaoServidor;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.servidor.dao.IDaoServidor;
 import br.com.ifba.servidor.model.Servidor;
+import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,6 +102,12 @@ public class ServiceServidor implements IServiceServidor{
           return daoServidor.findBySiape(siape);
      }
      
+    @Override
+    public Servidor findByAdiministradoIsTrueAndSiape(String siape) {
+          return daoServidor.findByAdministradorIsTrueAndSiape(siape);
+    }
+     
+     @Override
      public Servidor findByIdServidor(Long id) {
           return daoServidor.getReferenceById(id);
      }

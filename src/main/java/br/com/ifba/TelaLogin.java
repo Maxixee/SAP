@@ -9,7 +9,7 @@ import br.com.ifba.paciente.view.TelaCadastrarAluno;
 import br.com.ifba.paciente.view.TelaCadastrarPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+ 
 /**
  *
  * @author lara
@@ -25,13 +25,18 @@ public class TelaLogin extends javax.swing.JFrame {
 
     @Autowired
     TelaMenuPsicologo menuPsicologo;
+    
+    @Autowired
+    TelaMenuAdiministrador  menuAdministrador;
 
     @Autowired
     private TelaCadastrarAluno telaCadastrarAluno;
 
     @Autowired
     private TelaCadastrarPaciente telaCadastrarPaciente;
-
+    
+    
+    
     /**
      * Creates new form TelaLogin
      */
@@ -143,12 +148,16 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
         String credencial = txtCredential.getText();
+        
         String user = facade.findUser(credencial);
+        
         if (user.equals("paciente")) {
             this.menuPaciente.setVisible(true); 
         } else if (user.equals("tecnico")) {
             this.menuPsicologo.setVisible(true);
             this.menuPsicologo.atualizarLabel(user);
+        } else if (user.equals("adm")) {
+            this.menuAdministrador.setVisible(true); 
         } else {
             lblFlag.setText("LOGIN INVALIDO");
         }

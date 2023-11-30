@@ -12,4 +12,5 @@ import br.com.ifba.tecnicoadministrativo.model.TecnicoAdministrativo;
  */
 public interface IServiceTecnicoAdministrativo {
     public TecnicoAdministrativo findBySiape(String siape);
+    public TecnicoAdministrativo findByAdiministradoIsTrueAndSiape(String siape);
 }

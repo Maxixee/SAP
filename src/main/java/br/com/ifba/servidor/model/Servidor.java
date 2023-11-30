@@ -26,5 +26,7 @@ import lombok.Data;
 public class Servidor extends Pessoa implements Serializable {
     private String descricao;
     private String siape;
-    private boolean ativo; 
+    private boolean ativo;
+    private boolean administrador;
 }
+

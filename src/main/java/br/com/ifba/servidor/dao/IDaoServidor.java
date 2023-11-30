@@ -20,4 +20,5 @@ public interface IDaoServidor  extends JpaRepository<Servidor, Long>{
     public boolean existsByNome(String nome);
     public List<Servidor> findByDescricao(String descricao);
     public Servidor findBySiape(Long siape);
+    public Servidor findByAdministradorIsTrueAndSiape(String siape);
 }
