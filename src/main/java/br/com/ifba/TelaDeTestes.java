@@ -7,6 +7,7 @@ import br.com.ifba.paciente.view.TelaCadastrarAluno;
 import br.com.ifba.paciente.view.TelaCadastrarPaciente;
 import br.com.ifba.paciente.view.TelaExibirPacientes;
 import br.com.ifba.paciente.view.TelaPacienteSolicitacao;
+import br.com.ifba.perfilusuario.view.TelaCadastroPerfilUsuario;
 import br.com.ifba.prontuario.view.ListaProntuarios;
 import br.com.ifba.prontuario.view.ProntuarioView;
 import br.com.ifba.servidor.view.AtivaPsicologo;
@@ -14,6 +15,7 @@ import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
 
 
 import br.com.ifba.teste.view.TesteView;
+import br.com.ifba.usuario.view.TelaCadastroUsuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -60,6 +62,12 @@ public class TelaDeTestes extends javax.swing.JFrame {
     @Autowired
     private AtivaPsicologo ativaPsicologo;
     
+    @Autowired
+    private TelaCadastroPerfilUsuario telaPerfilUsuario;
+    
+    @Autowired
+    private TelaCadastroUsuario telaUsuario;
+    
     public TelaDeTestes() {
         initComponents();
         super.setLocationRelativeTo(null);
@@ -84,6 +92,8 @@ public class TelaDeTestes extends javax.swing.JFrame {
         btn10 = new javax.swing.JButton();
         btn4 = new javax.swing.JButton();
         btn12 = new javax.swing.JButton();
+        btnPerfilUsuario = new javax.swing.JButton();
+        btnUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -216,6 +226,26 @@ public class TelaDeTestes extends javax.swing.JFrame {
             }
         });
 
+        btnPerfilUsuario.setBackground(new java.awt.Color(0, 0, 0));
+        btnPerfilUsuario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPerfilUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnPerfilUsuario.setText("PERFIL USUARIO");
+        btnPerfilUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPerfilUsuarioActionPerformed(evt);
+            }
+        });
+
+        btnUsuario.setBackground(new java.awt.Color(0, 0, 0));
+        btnUsuario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnUsuario.setText("USUARIO");
+        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlContainerLayout = new javax.swing.GroupLayout(pnlContainer);
         pnlContainer.setLayout(pnlContainerLayout);
         pnlContainerLayout.setHorizontalGroup(
@@ -248,7 +278,9 @@ public class TelaDeTestes extends javax.swing.JFrame {
                             .addComponent(btn10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn01, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn04, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(btn07, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))))
+                            .addComponent(btn07, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                            .addComponent(btnPerfilUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         pnlContainerLayout.setVerticalGroup(
@@ -276,6 +308,10 @@ public class TelaDeTestes extends javax.swing.JFrame {
                     .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn12, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(btnPerfilUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(139, Short.MAX_VALUE))
         );
 
@@ -342,6 +378,17 @@ public class TelaDeTestes extends javax.swing.JFrame {
         this.ativaPsicologo.setVisible(true);
     }//GEN-LAST:event_btn12ActionPerformed
 
+    private void btnPerfilUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilUsuarioActionPerformed
+        // TODO add your handling code here:
+        this.telaPerfilUsuario.setVisible(true);
+    }//GEN-LAST:event_btnPerfilUsuarioActionPerformed
+
+    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
+        // TODO add your handling code here:
+        this.telaUsuario.setVisible(true);
+        this.telaUsuario.preencheComboBox();
+    }//GEN-LAST:event_btnUsuarioActionPerformed
+
     public static void main(String args[]) {
        
         try {
@@ -381,6 +428,8 @@ public class TelaDeTestes extends javax.swing.JFrame {
     private javax.swing.JButton btn10;
     private javax.swing.JButton btn12;
     private javax.swing.JButton btn4;
+    private javax.swing.JButton btnPerfilUsuario;
+    private javax.swing.JButton btnUsuario;
     private javax.swing.JLabel lblAlerta;
     private javax.swing.JPanel pnlContainer;
     // End of variables declaration//GEN-END:variables

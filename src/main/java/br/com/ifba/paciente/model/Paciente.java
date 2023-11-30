@@ -6,6 +6,7 @@ package br.com.ifba.paciente.model;
 
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.aluno.model.Aluno;
+import br.com.ifba.perfilusuario.model.PerfilUsuario;
 import br.com.ifba.pessoa.model.Pessoa;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import com.sun.istack.NotNull;
@@ -45,4 +46,12 @@ public class Paciente extends Aluno implements Serializable{
     @OneToOne(mappedBy = "paciente", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     private Aluno aluno;
     
+    private PerfilUsuario perfilUsuario;
+
+    public Paciente() {
+    }
+
+    public Paciente(PerfilUsuario perfilUsuario) {
+        this.perfilUsuario = perfilUsuario; // Inicializa o tipo de usuario "paciente"
+    }
 }

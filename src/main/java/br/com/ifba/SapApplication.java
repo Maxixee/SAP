@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * 
  * @author Jonas Dias
  */
+
 @SpringBootApplication
 @ComponentScan(basePackages = "br.com.ifba")
 @EntityScan(basePackages = {"br.com.ifba"})

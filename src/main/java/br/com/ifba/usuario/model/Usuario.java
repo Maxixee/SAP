@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -24,6 +25,7 @@ import lombok.Data;
 @Entity
 @Table(name = "usuario")
 @Data
+@Component
 public class Usuario extends PersistenceEntity implements Serializable {
     private String login;
     private String senha;

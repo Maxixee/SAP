@@ -8,6 +8,8 @@ import br.com.ifba.agendamento.view.TelaDisponibilidadePsicologo;
 import br.com.ifba.paciente.view.TelaExibirPacientes;
 import br.com.ifba.prontuario.view.ListaProntuarios;
 import br.com.ifba.solicitacao.view.TelaExibirSolicitacoes;
+import br.com.ifba.usuario.model.Usuario;
+import br.com.ifba.usuario.service.IServiceUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,14 +27,20 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
     private TelaDisponibilidadePsicologo telaAgendamento;
     @Autowired
     private TelaExibirSolicitacoes telaExibirSolicitacoes;
+    @Autowired
+    IServiceUsuario serviceUsuario;
     
     public TelaMenuPsicologo() {
         initComponents();
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
+    public TelaMenuPsicologo(String user) {
+        
+    }
+    
     public void atualizarLabel(String login) {
-        lblUserPsicologo.setText("Bem-vindo, " + login);
+        lblUserPsicologo.setText(login);
     }
 
     /**
@@ -50,8 +58,9 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
         btnDisponAtendimento = new javax.swing.JButton();
         btnListPacientes = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
-        lblUserPsicologo = new javax.swing.JLabel();
+        lblBemVindo = new javax.swing.JLabel();
         btnListSolicita = new javax.swing.JButton();
+        lblUserPsicologo = new javax.swing.JLabel();
 
         jButton3.setText("jButton3");
 
@@ -89,7 +98,7 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
             }
         });
 
-        lblUserPsicologo.setText("...");
+        lblBemVindo.setText("Bem-vindo,");
 
         btnListSolicita.setText("Exibir Solicitações");
         btnListSolicita.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +106,8 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
                 btnListSolicitaActionPerformed(evt);
             }
         });
+
+        lblUserPsicologo.setText("...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,18 +120,19 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLogout)
-                            .addComponent(lblUserPsicologo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 110, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBemVindo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblUserPsicologo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(110, 110, 110))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnDisponAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnListSolicita, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                        .addComponent(btnListProntuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnListPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnListSolicita, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                    .addComponent(btnListProntuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnListPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(150, 150, 150))
         );
         layout.setVerticalGroup(
@@ -137,7 +149,9 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(btnListSolicita, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(lblUserPsicologo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBemVindo)
+                    .addComponent(lblUserPsicologo))
                 .addGap(6, 6, 6)
                 .addComponent(btnLogout)
                 .addGap(29, 29, 29))
@@ -148,6 +162,14 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
+        String login = lblUserPsicologo.getText();
+        Usuario usuario = serviceUsuario.findByLogin(login);
+
+        if(usuario != null) {
+            usuario.setPerfilUsuario(null); // limpando a associação com o perfilUsuario
+        } else 
+            System.out.println("Usuário não encontrado para o login: " + login);
+
         this.dispose(); // fecha o menu atual de psicologo
     }//GEN-LAST:event_btnLogoutActionPerformed
 
@@ -160,11 +182,11 @@ public class TelaMenuPsicologo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDisponAtendimentoActionPerformed
 
     private void btnListSolicitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListSolicitaActionPerformed
-  this.telaExibirSolicitacoes.atualizarTabela();
+        this.telaExibirSolicitacoes.atualizarTabela();
         this.telaExibirSolicitacoes.setVisible(true);    }//GEN-LAST:event_btnListSolicitaActionPerformed
 
     private void btnListPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListPacientesActionPerformed
-this.telaExibirPacientes.setVisible(true);this.telaExibirPacientes.setVisible(true);    }//GEN-LAST:event_btnListPacientesActionPerformed
+        this.telaExibirPacientes.setVisible(true);this.telaExibirPacientes.setVisible(true);    }//GEN-LAST:event_btnListPacientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,6 +231,7 @@ this.telaExibirPacientes.setVisible(true);this.telaExibirPacientes.setVisible(tr
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblBemVindo;
     private javax.swing.JLabel lblUserPsicologo;
     // End of variables declaration//GEN-END:variables
 }
