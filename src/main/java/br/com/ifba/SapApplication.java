@@ -21,7 +21,7 @@ public class SapApplication {
                 new SpringApplicationBuilder(SapApplication.class).headless(false).run(args);
         
         TelaDeTestes telaDeTestes =  context.getBean(TelaDeTestes.class);
-        telaDeTestes.setVisible(true);       
+        telaDeTestes.setVisible(true);    
     }
 }
 

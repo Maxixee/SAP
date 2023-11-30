@@ -4,11 +4,19 @@
  */
 package br.com.ifba;
 
+import br.com.ifba.agendamento.view.TelaMinhaConsulta;
+import br.com.ifba.paciente.view.TelaPacienteSolicitacao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TelaMenuPaciente extends javax.swing.JFrame {
-
+    
+    @Autowired
+    private TelaPacienteSolicitacao solicitacao;
+    @Autowired
+    private TelaMinhaConsulta consulta;
+    
     /**
      * Creates new form TelaMenuPaciente
      */
@@ -28,44 +36,43 @@ public class TelaMenuPaciente extends javax.swing.JFrame {
 
         btn1 = new javax.swing.JButton();
         btn2 = new javax.swing.JButton();
-        btn3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(387, 277));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn1.setText("1");
+        btn1.setText("Solicitar atendimento");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 85, 100, -1));
+        getContentPane().add(btn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 160, -1));
 
-        btn2.setText("2");
-        getContentPane().add(btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(152, 144, 90, -1));
-
-        btn3.setText("3");
-        btn3.addActionListener(new java.awt.event.ActionListener() {
+        btn2.setText("Minhas consultas");
+        btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn3ActionPerformed(evt);
+                btn2ActionPerformed(evt);
             }
         });
-        getContentPane().add(btn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 205, 80, -1));
+        getContentPane().add(btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 160, -1));
 
-        jLabel1.setText("AÇÔES DISPONIVEIS PARA PACIENTE:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 42, -1, -1));
+        jLabel1.setText("MENU DO PACIENTE:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn3ActionPerformed
-
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
         // TODO add your handling code here:
+        this.solicitacao.setVisible(true);
     }//GEN-LAST:event_btn1ActionPerformed
+
+    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
+        // TODO add your handling code here:
+        this.consulta.setVisible(true);
+    }//GEN-LAST:event_btn2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,7 +112,6 @@ public class TelaMenuPaciente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
-    private javax.swing.JButton btn3;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
