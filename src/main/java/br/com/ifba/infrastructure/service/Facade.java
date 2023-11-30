@@ -14,8 +14,6 @@ import br.com.ifba.listadeespera.service.IServiceListaDeEspera;
 import br.com.ifba.login.service.IServiceLogin;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.paciente.service.IServicePaciente;
-import br.com.ifba.perfilusuario.model.PerfilUsuario;
-import br.com.ifba.perfilusuario.service.IServicePerfilUsuario;
 import br.com.ifba.prontuario.model.Prontuario;
 import br.com.ifba.prontuario.service.IServiceProntuario;
 import br.com.ifba.servidor.model.Servidor;
@@ -24,8 +22,6 @@ import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.solicitacao.service.IServiceSolicitacao;
 import br.com.ifba.teste.model.Teste;
 import br.com.ifba.teste.service.IServiceTeste;
-import br.com.ifba.usuario.model.Usuario;
-import br.com.ifba.usuario.service.IServiceUsuario;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,79 +50,6 @@ public class Facade implements IFacade {
     @Autowired
     private IServiceServidor serviceServidor;
     
-    //=====================PERFIL USUARIO=====================
-    @Autowired
-    private IServicePerfilUsuario servicePerfilUsuario;
-
-    @Override
-    public PerfilUsuario savePerfilUsuario(PerfilUsuario perfilUsuario) {
-        return servicePerfilUsuario.savePerfilUsuario(perfilUsuario);
-    }
-
-    @Override
-    public PerfilUsuario updatePerfilUsuario(PerfilUsuario perfilUsuario) {
-        return servicePerfilUsuario.updatePerfilUsuario(perfilUsuario);
-    }
-
-    @Override
-    public void deletePerfilUsuario(PerfilUsuario perfilUsuario) {
-        servicePerfilUsuario.deletePerfilUsuario(perfilUsuario);
-    }
-
-    @Override
-    public List<PerfilUsuario> getAllPerfilUsuario() {
-        return servicePerfilUsuario.getAllPerfilUsuario();
-    }
-
-    @Override
-    public PerfilUsuario findByIdPerfilUsuario(Long id) {
-        return servicePerfilUsuario.findById(id);
-    }
-
-    @Override
-    public List<PerfilUsuario> findByNomePerfilUsuario(String nome) {
-        return servicePerfilUsuario.findByNome(nome);
-    }
-    
-    //=====================USUARIO=====================
-    @Autowired
-    private IServiceUsuario serviceUsuario;
-
-    @Override
-    public Usuario saveUsuario(Usuario usuario) {
-        return serviceUsuario.saveUsuario(usuario);
-    }
-
-    @Override
-    public Usuario updateUsuario(Usuario usuario) {
-        return serviceUsuario.updateUsuario(usuario);
-    }
-
-    @Override
-    public void deleteUsuario(Usuario usuario) {
-        serviceUsuario.deleteUsuario(usuario);
-    }
-
-    @Override
-    public List<Usuario> getAllUsuario() {
-        return serviceUsuario.getAllUsuario();
-    }
-
-    /*
-    @Override
-    public List<Usuario> findByNomeUsuario(String nome) {
-        return serviceUsuario.findByNome(nome);
-    }
-     */
-    @Override
-    public List<Usuario> findByLoginUsuario(String login) {
-        return serviceUsuario.findByLoginUsuario(login);
-    }
-    
-    @Override
-    public Usuario findByLogin(String login) {
-        return serviceUsuario.findByLogin(login);
-    }
     
     //=====================================================//
     //=========================ALUNO=======================//
@@ -328,10 +251,6 @@ public class Facade implements IFacade {
 //=====================LOGIN============================
     public String findUser(String Credential){
         return serviceLogin.findUser(Credential);
-    }
-    
-    public String findUser2(String Credential, String senha){
-        return serviceLogin.findUser2(Credential, senha);
     }
          //=====================LISTA DE ESPERA=====================
     @Override

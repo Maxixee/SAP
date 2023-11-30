@@ -7,15 +7,12 @@ package br.com.ifba.usuario.service;
 import br.com.ifba.infrastructure.exception.BusinessException;
 import br.com.ifba.usuario.dao.IDaoUsuario;
 import br.com.ifba.usuario.model.Usuario;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  *
  * @author msmmendes
  */
-@Service
 public class ServiceUsuario implements IServiceUsuario{
     
     // Mensagem de erro se o Usuario for null.
@@ -71,19 +68,4 @@ public class ServiceUsuario implements IServiceUsuario{
         daoUsuario.delete(usuario);
     }
     
-    @Override
-    public List<Usuario> getAllUsuario() {
-        return daoUsuario.findAll();
-    }
-    
-    @Override
-    public List<Usuario> findByLoginUsuario(String login) {
-        return daoUsuario.findByLogin(login);
-    }
-    
-    @Override
-    public Usuario findByLogin(String login) {
-        List<Usuario> usuarios = this.findByLoginUsuario(login);
-        return usuarios.isEmpty() ? null : usuarios.get(0);
-    }  
 }

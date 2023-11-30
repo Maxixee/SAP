@@ -9,12 +9,10 @@ import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.listadeespera.model.ListaDeEspera;
 import br.com.ifba.paciente.model.Paciente;
-import br.com.ifba.perfilusuario.model.PerfilUsuario;
 import br.com.ifba.prontuario.model.Prontuario;
 import br.com.ifba.servidor.model.Servidor;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.teste.model.Teste;
-import br.com.ifba.usuario.model.Usuario;
 import java.util.List;
 
 
@@ -23,21 +21,7 @@ import java.util.List;
  * @author clebinho
  */
 public interface IFacade {
-    //=====================PERFIL USUARIO====================
-    public abstract PerfilUsuario savePerfilUsuario(PerfilUsuario perfilUsuario);
-    public abstract PerfilUsuario updatePerfilUsuario(PerfilUsuario perfilUsuario);
-    public abstract void deletePerfilUsuario(PerfilUsuario perfilUsuario);
-    public List<PerfilUsuario> getAllPerfilUsuario();
-    public PerfilUsuario findByIdPerfilUsuario(Long id);
-    public List<PerfilUsuario> findByNomePerfilUsuario(String nome);
-    //=====================USUARIO====================//
-    public abstract Usuario saveUsuario(Usuario usuario);
-    public abstract Usuario updateUsuario(Usuario usuario);
-    public abstract void deleteUsuario(Usuario usuario);
-    public List<Usuario> getAllUsuario();
-    //public List<Usuario> findByNomeUsuario(String nome);
-    public List<Usuario> findByLoginUsuario(String login);
-    public Usuario findByLogin(String login);
+    
     //==============================================//
     //=====================ALUNO====================//
     //==============================================//
@@ -100,7 +84,7 @@ public interface IFacade {
     
     //==========================LOGIN================================
     public String findUser(String Credential);
-    public String findUser2(String Credential, String senha);
+    
         
     //=====================LISTA DE ESPERA=====================
     public ListaDeEspera salvarNaListaEspera(Agendamento agendamento);
