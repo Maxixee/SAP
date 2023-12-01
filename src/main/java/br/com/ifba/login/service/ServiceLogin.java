@@ -10,6 +10,8 @@ import br.com.ifba.tecnicoadministrativo.service.IServiceTecnicoAdministrativo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import br.com.ifba.servidor.model.Servidor;
+import br.com.ifba.servidor.service.IServiceServidor;
 /**
  *
  * @author lara
@@ -20,14 +22,17 @@ public class ServiceLogin implements IServiceLogin{
     IServicePaciente servicePaciente;
     @Autowired
     IServiceTecnicoAdministrativo serviceTecnico;
+    @Autowired
+    IServiceServidor serviceServidor; 
     
     @Override
     public String findUser(String Credential) {
         List<Paciente> paciente;
         TecnicoAdministrativo tecnico;
-        
+        Servidor adm;
         tecnico = serviceTecnico.findBySiape(Credential);
         paciente = servicePaciente.findByMatriculaPaciente(Credential);
+        adm = serviceServidor.findByAdiministradoIsTrueAndSiape(Credential);
         
         if(paciente.isEmpty() == false){
             return "paciente";
@@ -35,6 +40,10 @@ public class ServiceLogin implements IServiceLogin{
         
         if(tecnico != null){
             return "tecnico";
+        }
+        
+        if(adm != null){
+            return "adm";
         }
         return "";
     }

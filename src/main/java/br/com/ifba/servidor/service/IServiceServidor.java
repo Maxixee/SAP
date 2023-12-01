@@ -27,6 +27,8 @@ public interface IServiceServidor {
     public List<Servidor> findByDescricao(String descricao);
     // Método que retorna o servidor com o siape informado.
     public Servidor findBySiape(Long siape);
+    //Método que retorna se o servidor tem o administrador ativo ou não
+    public Servidor findByAdiministradoIsTrueAndSiape(String siape);
     // Método que retorna o servidor com o id informado.
     public Servidor findByIdServidor(Long siape);
 }
