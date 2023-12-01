@@ -32,5 +32,4 @@ public interface IServiceAluno {
     
     public List <Aluno> findByMatricula(String nome);
     
-    
 }

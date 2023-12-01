@@ -11,11 +11,13 @@ import br.com.ifba.infrastructure.service.IFacade;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.swing.DefaultComboBoxModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,8 +32,12 @@ public class TelaRemarcar extends javax.swing.JFrame {
     private IFacade facade;
     int i;
     Agendamento ag = new Agendamento();
-    
-    
+    private List<Agendamento> agendamentos;
+    Agendamento agendamento;
+    @PostConstruct
+    public void init() {
+        preencheComboBoxData();
+    }
     public TelaRemarcar() {
         initComponents();
         
@@ -39,11 +45,7 @@ public class TelaRemarcar extends javax.swing.JFrame {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
  
     }
-
-    private TelaRemarcar(ServiceAgendamento service) {
-        }
-    
-    private void listarData(){      
+    /*private void listarData(){      
       DefaultComboBoxModel<String> comboModel = (DefaultComboBoxModel<String>) cbxData.getModel();
       comboModel.removeAllElements();
          
@@ -82,7 +84,25 @@ public class TelaRemarcar extends javax.swing.JFrame {
               comboModel.addElement(displayText);
               
        }
-     }
+     }*/
+    
+    public void preencheComboBoxData() {
+        // Seleciona apenas os agendamentos com status disponivel
+        agendamentos = facade.getAllAgendamentoDisponivel();
+        DefaultComboBoxModel<String> comboModel = (DefaultComboBoxModel<String>) cbxData.getModel();
+        comboModel.removeAllElements();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm"); 
+
+        for(Agendamento ag : agendamentos) {
+            String dataAgendamentoString = dateFormat.format(ag.getDataAgendamento().getTime());
+            String horaAgendamentoString = ag.getHoraAgendamento().format(timeFormat);
+
+            String displayText = dataAgendamentoString + " - " + horaAgendamentoString;
+            comboModel.addElement(displayText);
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,12 +117,11 @@ public class TelaRemarcar extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnSup = new javax.swing.JButton();
         cbxData = new javax.swing.JComboBox<>();
-        cbxHora = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        btnMostraData = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel3.setText("Data do atendimento : ");
+        jLabel3.setText("Nova data disponivel");
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -125,47 +144,50 @@ public class TelaRemarcar extends javax.swing.JFrame {
             }
         });
 
-        cbxHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel1.setText("Hora do atendimento:");
+        btnMostraData.setText("Disponiveis");
+        btnMostraData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostraDataActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalvar)
-                        .addGap(147, 147, 147)
-                        .addComponent(btnSup))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbxData, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSalvar)
+                                .addGap(147, 147, 147)
+                                .addComponent(btnSup))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxHora, 0, 158, Short.MAX_VALUE)
-                            .addComponent(cbxData, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(117, 117, 117)
+                        .addComponent(btnMostraData)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnMostraData)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSup)
                     .addComponent(btnSalvar))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -205,7 +227,7 @@ public class TelaRemarcar extends javax.swing.JFrame {
         //ag.setId_paciente(i);
         System.out.println("valor de  i = "+i);*/
         ag.setDataAgendamento((Calendar) cbxData.getSelectedItem());
-        ag.setHoraAgendamento((LocalTime) cbxHora.getSelectedItem());
+        ag.setHoraAgendamento((LocalTime) cbxData.getSelectedItem());
         
         facade.updateAgendamento(ag);
 
@@ -218,8 +240,12 @@ public class TelaRemarcar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSupActionPerformed
 
     private void cbxDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxDataActionPerformed
-
+    
     }//GEN-LAST:event_cbxDataActionPerformed
+
+    private void btnMostraDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostraDataActionPerformed
+        preencheComboBoxData();
+    }//GEN-LAST:event_btnMostraDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,19 +280,16 @@ public class TelaRemarcar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {            
-                ServiceAgendamento service = new ServiceAgendamento(); // ou qualquer outra forma de criar um objeto ServiceAgendamento
-                TelaRemarcar tela = new TelaRemarcar(service);
-                tela.setVisible(true);
+               
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMostraData;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSup;
     private javax.swing.JComboBox<String> cbxData;
-    private javax.swing.JComboBox<String> cbxHora;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 

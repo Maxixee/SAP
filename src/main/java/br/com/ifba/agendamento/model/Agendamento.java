@@ -46,6 +46,7 @@ public class Agendamento extends PersistenceEntity implements Serializable{
     @OneToOne(mappedBy = "agendamento")
     Paciente paciente;
     
+    private long id_paciente;
     private String NomePaciente;
     private String MatriculaPaciente;
     

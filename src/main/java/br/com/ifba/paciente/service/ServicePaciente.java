@@ -47,6 +47,12 @@ public class ServicePaciente implements IServicePaciente {
     // Mensagem de erro caso o campo matricula esteja vazio.
     private final static String CPF_CADASTRADO = "Esse CPF ja esta cadastrado";
     
+    // Mensagem de erro caso a chave de acesso esteja vazio.
+    private final static String CHAVEACESSO_VAZIO = "O Campo Chave de acesso esta vazio";
+    
+    // Mensagem de erro caso ochave de acesso seja null.
+    private final static String CHAVEACESSO_NULL = "Dados do Chave de acesso nao preenchidos";
+    
     @Autowired
     private IDaoPaciente daoPaciente;
     
@@ -124,5 +130,16 @@ public class ServicePaciente implements IServicePaciente {
         }
 
     }
+    
+    @Override
+    public List<Paciente> findByChaveAcesso(String chaveAcesso) {
+        if(chaveAcesso == null) {
+            throw new BusinessException(CHAVEACESSO_VAZIO);
+        } if(chaveAcesso.isEmpty()) {
+            throw new BusinessException(CHAVEACESSO_NULL );
+        } else{
+            return daoPaciente.findByChaveAcesso(chaveAcesso);
+        }
 
+    }
 }

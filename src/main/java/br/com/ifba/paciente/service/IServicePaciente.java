@@ -29,5 +29,5 @@ public interface IServicePaciente {
     
     public List <Paciente> findByMatriculaPaciente(String nome);
     
-    
+    public List<Paciente> findByChaveAcesso(String chaveAcesso);
 }

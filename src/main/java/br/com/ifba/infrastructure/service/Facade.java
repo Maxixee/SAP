@@ -9,6 +9,8 @@ import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.agendamento.service.IServiceAgendamento;
 import br.com.ifba.aluno.model.Aluno;
 import br.com.ifba.aluno.service.IServiceAluno;
+import br.com.ifba.email.model.EmailDto;
+import br.com.ifba.email.service.EmailService;
 import br.com.ifba.listadeespera.model.ListaDeEspera;
 import br.com.ifba.listadeespera.service.IServiceListaDeEspera;
 import br.com.ifba.login.service.IServiceLogin;
@@ -24,7 +26,11 @@ import br.com.ifba.teste.model.Teste;
 import br.com.ifba.teste.service.IServiceTeste;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -49,7 +55,8 @@ public class Facade implements IFacade {
     private IServiceListaDeEspera serviceListaDeEspera;
     @Autowired
     private IServiceServidor serviceServidor;
-    
+    @Autowired
+    private  EmailService emailService;
     
     //=====================================================//
     //=========================ALUNO=======================//
@@ -102,8 +109,7 @@ public class Facade implements IFacade {
     public List <Aluno> findByMatricula(String matricula) {
        return  serviceAluno.findByMatricula(matricula);
     }
-    
-    
+
     //=====================SOLICITACAO=====================
     @Override
     public void saveSolicitacao(Solicitacao solicitacao) {
@@ -205,6 +211,10 @@ public class Facade implements IFacade {
     public List<Paciente> findByMatriculaPaciente(String matricula) {
        return  servicePaciente.findByMatriculaPaciente(matricula);
     }
+    @Override
+    public List<Paciente> findByChaveAcesso(String chaveAcesso) {
+        return servicePaciente.findByChaveAcesso(chaveAcesso);
+    }
     
     //=====================AGENDAMENTO=====================
     
@@ -294,4 +304,15 @@ public class Facade implements IFacade {
     public Servidor findByIdServidor(Long id){
         return serviceServidor.findByIdServidor(id);
     }
+    
+    //=====================EmailDto===================== 
+        @PostMapping(value = "/enviaremial")
+    public ResponseEntity<?> confirmmarEmail(@RequestBody EmailDto emailDto){
+        try {
+		emailService.sendEmail(emailDto);
+		return ResponseEntity.status(HttpStatus.OK).body("deu bom");
+	 } catch (Exception e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("deu ruim");
+		}
+	} 
 }

@@ -212,7 +212,7 @@ public class TelaCadastrarPaciente extends javax.swing.JFrame {
                 paciente.setNomeResponsavel(alunoSelecionado.getNomeResponsavel());
                 this.facade.savePaciente(paciente);
                 alunoSelecionado.setPaciente(paciente);
-                facade.updateAluno(alunoSelecionado);
+                //facade.updateAluno(alunoSelecionado);
             } catch (Exception error) {
                 JOptionPane.showMessageDialog(null, error, "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);
             }

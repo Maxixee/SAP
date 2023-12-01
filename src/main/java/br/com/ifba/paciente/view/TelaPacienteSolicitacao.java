@@ -235,12 +235,15 @@ public class TelaPacienteSolicitacao extends javax.swing.JFrame {
 //                    agendamento = facade.
                     agendamentoSelecionado.setNomePaciente(pacienteSelecionado.getNome());
                     agendamentoSelecionado.setMatriculaPaciente(pacienteSelecionado.getMatricula());
+                    agendamentoSelecionado.setId_paciente(pacienteSelecionado.getId());
 //                    solicitacao.setDataHorario(cbxData.getSelectedItem().toString());
 //                    this.facade.saveSolicitacao(solicitacao);
                     agendamentoSelecionado.setStatusAgendamento(EnumAgendamentoStatus.AGENDAMENTO_SOLICITADO);
                     pacienteSelecionado.setAgendamento(agendamento);
                     facade.updatePaciente(pacienteSelecionado);
                     facade.updateAgendamento(agendamentoSelecionado);
+                    
+                    telaExibirSolicitacoes.exportarDados(pacienteSelecionado);
                     
                 } catch (Exception error) {
                     JOptionPane.showMessageDialog(null, error, "Erro ao cadastrar!", JOptionPane.ERROR_MESSAGE);

@@ -6,9 +6,12 @@ package br.com.ifba.solicitacao.view;
 
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.agendamento.model.EnumAgendamentoStatus;
+import br.com.ifba.email.model.EmailDto;
 import br.com.ifba.infrastructure.service.IFacade;
-import br.com.ifba.solicitacao.model.Solicitacao;
+import br.com.ifba.paciente.model.Paciente;
+import static java.lang.constant.ConstantDescs.NULL;
 import java.util.List;
+import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -25,7 +28,10 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
     @Autowired
     private IFacade facade;
     
+    EmailDto email = new EmailDto();
     private List<Agendamento> agendamentos;
+    
+    Paciente p = new Paciente();
 
     /**
      * Creates new form TelaExibirSolicitacoes
@@ -161,8 +167,22 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
             // muda o status do agendamento para confirmado
             agendamentoSelecionado.setStatusAgendamento(EnumAgendamentoStatus.AGENDAMENTO_CONFIRMADOw);
             facade.updateAgendamento(agendamentoSelecionado);
+            //verficar se o paciente já existe na base de dados
+            List<Paciente> Paciente = facade.getAllPaciente();
+            agendamentoSelecionado.setPaciente(p);
+            for(Paciente paciente: Paciente){
+                if(facade.getAllPaciente().equals(agendamentoSelecionado.getPaciente())){
+               
+               }//Verifica se o paciente ja tem uma chave de acesso 
+                else if (agendamentoSelecionado.getPaciente().getChaveAcesso() == null ){
+                   mandarEmail(agendamentoSelecionado); 
+                 }
+            }
+           
+
+            
         }
-        atualizarTabela();
+        atualizarTabela();        
     }//GEN-LAST:event_btnAceitarActionPerformed
 
     private void btnRecusarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecusarActionPerformed
@@ -235,4 +255,38 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblSolicitacoes;
     // End of variables declaration//GEN-END:variables
+
+public void mandarEmail(Agendamento ag){
+    do{  
+     //gera numero aleatorio para chave de acesso entre 0 e 99 
+     Random random = new Random();
+     int num = random.nextInt(100);
+     //verifica se a chave de acesso já existe no banco de dados
+     List<Paciente> Paciente = facade.getAllPaciente();
+        
+     for(Paciente paciente: Paciente){
+         //if(facade.findByChaveAcesso(String.valueOf(num))== null)
+         if(ag.getPaciente().getChaveAcesso()==null){
+            System.out.println(""+facade.findByChaveAcesso(String.valueOf(num)));
+            ag.getPaciente().setChaveAcesso(String.valueOf(num));
+            facade.updatePaciente( ag.getPaciente());
+            System.out.println(""+ag.getPaciente().getChaveAcesso());
+         }
+     }
+    }while(ag.getPaciente().getChaveAcesso()==null);      
+     //mandar email para usuario com a chave de acesso
+     email.setTitle("Chave de acesso do sistema SAP");
+     email.setText("Esse é numero da sua chave de acesso: "+ag.getPaciente().getChaveAcesso());
+     email.setTo(ag.getPaciente().getEmail());
+     email.setFrom("sapifba@gmail.com");
+     facade.confirmmarEmail(email);            
+}
+
+public Paciente exportarDados(Paciente paciente){
+       
+       p =  paciente;
+       return p;
+       
+   }
+
 }

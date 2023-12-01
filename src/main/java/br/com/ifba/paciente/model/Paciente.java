@@ -45,4 +45,6 @@ public class Paciente extends Aluno implements Serializable{
     @OneToOne(mappedBy = "paciente", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     private Aluno aluno;
     
+    private String chaveAcesso;
+    
 }

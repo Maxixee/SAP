@@ -7,6 +7,7 @@ package br.com.ifba.infrastructure.service;
 
 import br.com.ifba.agendamento.model.Agendamento;
 import br.com.ifba.aluno.model.Aluno;
+import br.com.ifba.email.model.EmailDto;
 import br.com.ifba.listadeespera.model.ListaDeEspera;
 import br.com.ifba.paciente.model.Paciente;
 import br.com.ifba.prontuario.model.Prontuario;
@@ -14,6 +15,8 @@ import br.com.ifba.servidor.model.Servidor;
 import br.com.ifba.solicitacao.model.Solicitacao;
 import br.com.ifba.teste.model.Teste;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 /**
@@ -56,6 +59,7 @@ public interface IFacade {
     public List <Paciente> findByNomePacienteLike(String nome);
     public List <Paciente> findByNomePaciente(String nome);
     public List <Paciente> findByMatriculaPaciente(String matricula);
+    public List<Paciente> findByChaveAcesso(String chaveAcesso);
 
     
     
@@ -98,4 +102,7 @@ public interface IFacade {
     public List<Servidor> findByDescricao(String descricao);
     public Servidor findBySiape(Long siape);
     public Servidor findByIdServidor(Long id);
+    
+    //=====================EmailDto===================== 
+    public ResponseEntity<?> confirmmarEmail(@RequestBody EmailDto emailDto);
 }

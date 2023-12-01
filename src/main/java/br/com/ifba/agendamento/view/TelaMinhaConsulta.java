@@ -97,13 +97,13 @@ public class TelaMinhaConsulta extends javax.swing.JFrame {
         List<Paciente> Paciente = facade.getAllPaciente();
         
         for(Paciente paciente: Paciente){
-            if(txtEmail.getText().equals(paciente.getEmail())  && txtSenha.getText().equals(paciente.getMatricula())){
+            if(txtEmail.getText().equals(paciente.getEmail())  && txtSenha.getText().equals(paciente.getChaveAcesso())){
                 telaExibirAgendamento.exportarDados(paciente);
                 this.dispose();
                 telaExibirAgendamento.setVisible(true);
                 
             }
-            /*else{
+            /*else if(){
                 JOptionPane.showMessageDialog(null,"Paciente não encontrado");
             }*/
         }

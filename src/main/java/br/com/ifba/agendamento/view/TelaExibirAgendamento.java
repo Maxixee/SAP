@@ -248,11 +248,11 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
          SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
          SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
          
-         //System.out.println("ID do paciente que logou:"+ paci.getId()+ "\nID do agendamento do paciente logado: "+ agendamento.getPaciente().getId());
+        //System.out.println("ID do paciente que logou:"+ paci.getId()+ "\nID do agendamento do paciente logado: "+ agendamento.getPaciente().getId());
        //mostrar todos os agendamentos 
-        for(Agendamento agendamento : agendamentos) {
+        for(Agendamento agendamento : agendamentos) {            
             //verifica se o agendamento mostrado é o do paciente logado
-            if(paci.getId() == agendamento.getPaciente().getId()){
+            if(paci.getId() == agendamento.getId_paciente()){
               Calendar data = agendamento.getDataAgendamento();
               LocalTime hora = agendamento.getHoraAgendamento();
               String Time = agendamento.getHoraAgendamento().toString();

@@ -24,6 +24,8 @@ public interface IDaoPaciente extends JpaRepository<Paciente, Long>{
 
     public List<Paciente> findByMatricula(String matricula);
     
+    public List<Paciente>findByChaveAcesso(String chaveAcesso);
+    
     public boolean existsByMatricula(String matricula);
     
     public boolean existsByCpf(String cpf);
