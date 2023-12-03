@@ -38,7 +38,7 @@ public class ServiceAluno implements IServiceAluno {
     // Mensagem de erro caso o campo matricula esteja vazio.
     private final static String MATRICULA_VAZIA = "O Campo matricula esta vazio";
     
-    // Mensagem de erro caso o campo matricula esteja vazio.
+    // Mensagem de erro caso ja exista um aluno cadastrado com essa matricula
     private final static String MATRICULA_EXISTE = "Ja existe um aluno cadastrado com essa matricula";
     
     // Mensagem de erro caso o matricula seja null.
@@ -48,13 +48,17 @@ public class ServiceAluno implements IServiceAluno {
     private final static String CPF_VAZIO = "O Campo CPF esta vazio";
     
     // Mensagem de erro caso ja exista um aluno cadastrado com esse CPF
-    private final static String CPF_CADASTRADO = "Esse CPF ja esta cadastrado";
+    private final static String CPF_EXISTE = "Esse CPF ja esta cadastrado";
     
     // Mensagem de erro caso a exista um aluno cadastrado com esse numero de telefone
-    private final static String TELEFONE_CADASTRADO = "Ja existe um aluno cadastrado com esse numero";
+    private final static String TELEFONE_EXISTE = "Ja existe um aluno cadastrado com esse numero";
    
     // Mensagem de erro caso o campo cpf esteja vazio.
     private final static String EMAIL_VAZIO = "O Campo e-mail esta vazio";
+    
+    // Mensagem de erro caso ja exista um aluno cadastrado com esse e-mail
+    private final static String EMAIL_EXISTE = "Ja existe um aluno cadastrado com esse e-mail";
+    
     
     @Autowired
     private IDaoAluno daoAluno;
@@ -68,9 +72,11 @@ public class ServiceAluno implements IServiceAluno {
         } else if(daoAluno.existsByMatricula(aluno.getMatricula()) == true) {
             throw new BusinessException(MATRICULA_EXISTE);
         } else if(daoAluno.existsByCpf(aluno.getCpf()) == true) {
-            throw new BusinessException(CPF_CADASTRADO);
+            throw new BusinessException(CPF_EXISTE);
         } else if(daoAluno.existsByTelefone(aluno.getTelefone()) == true) {
-            throw new BusinessException(TELEFONE_CADASTRADO);
+            throw new BusinessException(TELEFONE_EXISTE);
+        } else if(daoAluno.existsByTelefone(aluno.getTelefone()) == true) {
+            throw new BusinessException(EMAIL_EXISTE);
         } else if(aluno.getNome().isEmpty()) {
             throw new BusinessException(NOME_VAZIO);
         } else if(aluno.getMatricula().isEmpty()) {
