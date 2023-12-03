@@ -37,6 +37,7 @@ public class TelaMenuPaciente extends javax.swing.JFrame {
         btn1 = new javax.swing.JButton();
         btn2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(387, 277));
@@ -61,6 +62,14 @@ public class TelaMenuPaciente extends javax.swing.JFrame {
         jLabel1.setText("MENU DO PACIENTE:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -73,6 +82,11 @@ public class TelaMenuPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.consulta.setVisible(true);
     }//GEN-LAST:event_btn2ActionPerformed
+
+    
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,6 +126,7 @@ public class TelaMenuPaciente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
     private javax.swing.JButton btn2;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
