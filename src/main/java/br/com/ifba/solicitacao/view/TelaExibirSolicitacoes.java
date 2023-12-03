@@ -10,6 +10,8 @@ import br.com.ifba.email.model.EmailDto;
 import br.com.ifba.infrastructure.service.IFacade;
 import br.com.ifba.paciente.model.Paciente;
 import static java.lang.constant.ConstantDescs.NULL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.PostConstruct;
@@ -56,13 +58,18 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
 
         DefaultTableModel tabelaDados = (DefaultTableModel) tblSolicitacoes.getModel();
         tabelaDados.setNumRows(0);
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         // Adiciona à tabela todos os agendamentos solicitados
         for (Agendamento a : agendamentos) {
+            Calendar data = a.getDataAgendamento();
             tabelaDados.addRow(new Object[]{
                 a.getId(),
                 a.getNomePaciente(),
                 a.getMatriculaPaciente(),
+                dateFormat.format(data.getTime()),
+                a.getHoraAgendamento(),
             });
         }
     }
@@ -86,13 +93,13 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
 
         tblSolicitacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Matricula"
+                "ID", "Nome", "Matricula", "Data", "Hora"
             }
         ));
         tblSolicitacoes.addMouseListener(new java.awt.event.MouseAdapter() {
