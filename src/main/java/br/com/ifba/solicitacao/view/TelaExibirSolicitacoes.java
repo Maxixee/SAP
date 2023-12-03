@@ -172,10 +172,10 @@ public class TelaExibirSolicitacoes extends javax.swing.JFrame {
             agendamentoSelecionado.setPaciente(p);
             for(Paciente paciente: Paciente){
                 if(facade.getAllPaciente().equals(agendamentoSelecionado.getPaciente())){
-               
+   
                }//Verifica se o paciente ja tem uma chave de acesso 
                 else if (agendamentoSelecionado.getPaciente().getChaveAcesso() == null ){
-                   mandarEmail(agendamentoSelecionado); 
+                    mandarEmail(agendamentoSelecionado); 
                  }
             }
            

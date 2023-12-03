@@ -38,8 +38,7 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
      
     @PostConstruct
     public void init() {
-        //listarDados();
-        nomeTela(paci);
+        
     }
     
     /**
@@ -47,7 +46,6 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
      */
     public TelaExibirAgendamento() {
         initComponents();
-     
          // Fecha a tela sem encerrar todo o sistema
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -76,11 +74,11 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Data", "Hora"
+                "ID", "Data", "Hora", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -93,6 +91,11 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTAgenda);
+        if (jTAgenda.getColumnModel().getColumnCount() > 0) {
+            jTAgenda.getColumnModel().getColumn(0).setPreferredWidth(2);
+            jTAgenda.getColumnModel().getColumn(1).setPreferredWidth(3);
+            jTAgenda.getColumnModel().getColumn(2).setPreferredWidth(3);
+        }
 
         btnRemarcar.setText("Remarcar");
         btnRemarcar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,19 +125,13 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(580, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnRemarcar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRemarcar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -143,7 +140,10 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -235,9 +235,11 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
     //metodo para listar todos os agendamentos do paciente
     private void listarDados(){      
       DefaultTableModel dtmAgendamento =(DefaultTableModel) jTAgenda.getModel();
+      dtmAgendamento.setRowCount(0);
+      jTAgenda.repaint();
       //verificar se banco está vazio 
       if(facade.getAllAgendamento().isEmpty()){
-          Object[] dados = {String.valueOf("sem informacoes"), String.valueOf("sem informacoes")};
+          Object[] dados = {String.valueOf("sem informacoes"), String.valueOf("sem informacoes"),String.valueOf("sem informacoes")};
           dtmAgendamento.addRow(dados);
           
       }
@@ -259,7 +261,7 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
             
 
               // Adiciona as datas e horas à tabela
-              dtmAgendamento.addRow(new Object[]{String.valueOf(agendamento.getId()),dateFormat.format(data.getTime()), Time});
+              dtmAgendamento.addRow(new Object[]{String.valueOf(agendamento.getId()),dateFormat.format(data.getTime()), Time,agendamento.getStatusAgendamento()});
             }
        }
      }
@@ -313,9 +315,10 @@ public class TelaExibirAgendamento extends javax.swing.JFrame {
           // Obtém o Agendamento correspondente à linha selecionada        
           //Agendamento agendamento = facade.getAllAgendamento().get(selectedRow);   
           agendamento = facade.findAgendamentoById(Long.parseLong((String) dtmAgendamento.getValueAt(jTAgenda.getSelectedRow(), 0)));
+          agendamento.setPaciente(paci);
           telaRemarcar.exportarDados(agendamento);
           this.telaRemarcar.setVisible(true);
-          this.dispose();   
+          //this.dispose();   
        }
     
  }
